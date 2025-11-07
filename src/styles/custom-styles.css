@@ -1,0 +1,11 @@
+table tr th,
+table tr td {
+  padding: 0.5rem 1rem;
+  --tw-border-opacity: 1;
+  border-color: rgb(233 213 255 / var(--tw-border-opacity));
+  border-width: 1px;
+}
+
+table tr th {
+  font-weight: 500;
+}
