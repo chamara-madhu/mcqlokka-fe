@@ -32,7 +32,7 @@ const ManageQuestionMain = () => {
         const res = await getAllPapers();
         const mapped = res?.data?.map((paper) => ({
           value: paper._id,
-          label: `${paper?.subject?.exam} ${paper?.subject?.medium} ${paper.year} (${paper?.subject?.type})`,
+          label: `${paper?.subject?.name} ${paper?.subject?.exam} ${paper?.subject?.medium} ${paper.year} (${paper?.subject?.type})`,
         }));
         setPapers(mapped);
       } catch (error) {

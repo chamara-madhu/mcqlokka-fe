@@ -24,8 +24,8 @@ const updateApprovalStatus = async (id, status) => {
   return await axios.put(`/papers/${id}/approval`, { isApproved: status });
 };
 
-const markPaper = async (id, answers, timeSpent) => {
-  return await axios.post(`/papers/marks/${id}`, { answers, timeSpent });
+const markPaper = async (id, answers, timeSpent, mode) => {
+  return await axios.post(`/papers/marks/${id}`, { answers, timeSpent, mode });
 };
 
 const checkEligibility = async (id) => {

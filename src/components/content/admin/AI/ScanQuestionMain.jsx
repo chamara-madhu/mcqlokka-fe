@@ -88,7 +88,7 @@ const ScanQuestionMain = () => {
         const res = await getAllPapers();
         const mapped = res?.data?.map((paper) => ({
           value: paper._id,
-          label: `${paper.exam} ${paper.medium} ${paper.year} (${paper.type})`,
+          label: `${paper?.subject?.exam} ${paper?.subject?.medium} ${paper?.year} (${paper?.subject?.type})`,
         }));
         setPapers(mapped);
       } catch (error) {

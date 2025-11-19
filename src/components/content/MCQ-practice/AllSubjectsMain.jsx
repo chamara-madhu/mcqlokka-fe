@@ -3,20 +3,16 @@ import subjectService from "../../../services/subject.service";
 import CheckedIcon from "../../../assets/icons/check.svg";
 import UnCheckedIcon from "../../../assets/icons/un-check.svg";
 import {
-  EXAM_OPTIONS,
-  FEE_OPTIONS,
   MEDIUM_OPTIONS,
   SUBJECT_OPTIONS,
-  TYPE_OPTIONS,
 } from "../../../constants/base";
-import PaperCard from "../../shared/cards/PaperCard";
 import SubjectCard from "../../shared/cards/SubjectCard";
+import PageLoader from "../../shared/loading/PageLoader";
 
 const initialFilters = {
   subject: [],
   exam: [],
   medium: [],
-  fee: [],
   type: [],
 };
 
@@ -24,7 +20,7 @@ const AllSubjectsMain = () => {
   const [filters, setFilters] = useState(initialFilters);
   const [subjects, setPapers] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [sortOrder, setSortOrder] = useState("desc");
+  const [preLoading, setPreLoading] = useState(true);
   const { getAllSubjects } = subjectService();
 
   // Handle checkbox change for multiple selection
@@ -50,31 +46,21 @@ const AllSubjectsMain = () => {
     setFilters(initialFilters);
   };
 
-  const handleSortOrderChange = () => {
-    setSortOrder((prevOrder) => (prevOrder === "desc" ? "asc" : "desc"));
-  };
-
   useEffect(() => {
-    const fetchQuestions = async () => {
+    const fetch = async () => {
+      setPreLoading(true);
       const res = await getAllSubjects({ isApproved: "Yes" });
       setPapers(res?.data || []);
+
+      setPreLoading(false);
     };
 
-    fetchQuestions();
+    fetch();
   }, []);
 
-  useEffect(() => {
-    // Sort subjects whenever sortOrder changes
-    setPapers((prevPapers) => {
-      return [...prevPapers].sort((a, b) => {
-        if (sortOrder === "desc") {
-          return b.year - a.year; // High to Low
-        } else {
-          return a.year - b.year; // Low to High
-        }
-      });
-    });
-  }, [sortOrder]);
+  if (preLoading) {
+    return <PageLoader />;
+  }
 
   // Apply filters
   const filteredPapers = subjects.filter((subject) => {
@@ -84,19 +70,16 @@ const AllSubjectsMain = () => {
       filters.exam.length === 0 || filters.exam.includes(subject.exam);
     const matchesMedium =
       filters.medium.length === 0 || filters.medium.includes(subject.medium);
-    const matchesFee =
-      filters.fee.length === 0 || filters.fee.includes(subject.fee);
     const matchesType =
       filters.type.length === 0 || filters.type.includes(subject.type);
     const matchesSearch =
       searchText === "" ||
-      subject.longName.toLowerCase().includes(searchText.toLowerCase()); // Search by name
+      subject.name.toLowerCase().includes(searchText.toLowerCase()); // Search by name
 
     return (
       matchesSubject &&
       matchesExam &&
       matchesMedium &&
-      matchesFee &&
       matchesType &&
       matchesSearch
     );

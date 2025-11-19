@@ -7,7 +7,7 @@ const paperService = () => ({
   updatePaper: (id, data) => ApiIndex.PaperApi.updatePaper(id, data),
   deletePaper: (id) => ApiIndex.PaperApi.deletePaper(id),
   updateApprovalStatus: (id, status) => ApiIndex.PaperApi.updateApprovalStatus(id, status),
-  markPaper: (id, answers, timeSpent) => ApiIndex.PaperApi.markPaper(id, answers, timeSpent),
+  markPaper: (id, answers, timeSpent, mode) => ApiIndex.PaperApi.markPaper(id, answers, timeSpent, mode),
   checkEligibility: (id) => ApiIndex.PaperApi.checkEligibility(id),
 });
 

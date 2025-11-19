@@ -7,6 +7,7 @@ import paperService from "../../../services/paper.service";
 import { EXAMS, FEES } from "../../../constants/base";
 import { Bar, Pie } from "react-chartjs-2";
 import markService from "../../../services/mark.service";
+import { ShoppingCart, CheckCircle, Unlock } from "feather-icons-react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -16,6 +17,9 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import PageLoader from "../../shared/loading/PageLoader";
+import { addToCart } from "../../../redux/features/cartSlice";
+import { useDispatch } from "react-redux";
 
 ChartJS.register(
   CategoryScale,
@@ -30,6 +34,9 @@ const MCQStartMain = () => {
   const [paper, setPaper] = useState([]);
   const [highestMarkStudents, setHighestMarkStudents] = useState([]);
   const [eligibility, setEligibility] = useState(null);
+  const [preLoading, setPreLoading] = useState(true);
+  const [addedToCart, setAddedToCart] = useState(false);
+  const dispatch = useDispatch();
 
   const user = JSON.parse(localStorage.getItem("user_data") || "{}");
 
@@ -40,8 +47,11 @@ const MCQStartMain = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setPreLoading(true);
       const res = await getPaperById(paperId);
       setPaper(res.data);
+
+      setPreLoading(false);
     };
 
     fetchData();
@@ -68,6 +78,16 @@ const MCQStartMain = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleAddToCart = (subject) => {
+    setAddedToCart(true);
+    dispatch(addToCart(subject));
+    setTimeout(() => setAddedToCart(false), 2000);
+  };
+
+  if (preLoading) {
+    return <PageLoader />;
+  }
+
   return (
     <div className="flex gap-10">
       <div className="flex flex-col w-[40%] gap-7 h-fit">
@@ -76,11 +96,11 @@ const MCQStartMain = () => {
           <div className="flex flex-col gap-4">
             <h1 className="text-3xl font-semibold">Welcome to</h1>
             <h1 className="text-3xl font-semibold">
-              G.C.E {" "}
+              G.C.E{" "}
               {paper?.subject?.exam === EXAMS.AL
                 ? "Advanced Level"
                 : "Ordinary Level"}{" "}
-              - {paper?.year}
+              - {paper?.subject?.name} - {paper?.year}
             </h1>
           </div>
 
@@ -91,12 +111,12 @@ const MCQStartMain = () => {
 
           <div className="flex flex-col gap-2">
             <p className="text-sm font-medium">Time duration</p>
-            <p>2 hours</p>
+            <p>{paper?.time} hours</p>
           </div>
 
           <div className="flex flex-col gap-2">
             <p className="text-sm font-medium">No. of questions</p>
-            <p>50 questions</p>
+            <p>{paper?.noOfQuestions} questions</p>
           </div>
         </div>
         {highestMarkStudents?.length > 0 && (
@@ -134,59 +154,104 @@ const MCQStartMain = () => {
           </li>
         </ol>
         {!user?.name && paper?.fee === FEES.FREE && (
-          <Link
-            to={`${MCQ_ALL_PATH}/exam/${paper?._id}`}
-            className="flex items-center justify-center h-12 px-10 text-white bg-purple-500 rounded-full w-fit hover:bg-purple-700"
-          >
-            Start Now
-          </Link>
+          <div className="flex gap-3">
+            <Link
+              to={`${MCQ_ALL_PATH}/exam/${paper?._id}`}
+              className="flex items-center justify-center h-12 px-10 text-white bg-purple-500 rounded-full w-fit hover:bg-purple-700"
+            >
+              Exam Mode
+            </Link>
+            <Link
+              to={`${MCQ_ALL_PATH}/exam/learning/${paper?._id}`}
+              className="flex items-center justify-center h-12 px-10 text-white bg-purple-500 rounded-full w-fit hover:bg-purple-700"
+            >
+              Learning Mode
+            </Link>
+          </div>
         )}
         {!user?.name && paper?.fee === FEES.PAID && (
-          <Link
-            to={`${MCQ_BUY_PAPER_PATH.replace(":paperId", "")}${paper?._id}`}
-            className="flex items-center justify-center h-12 px-10 text-white bg-purple-500 rounded-full w-fit hover:bg-purple-700"
+          <button
+            onClick={() => handleAddToCart(paper?.subject)}
+            className={`flex items-center space-x-2 px-4 sm:px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 ${
+              addedToCart
+                ? "bg-green-600 text-white"
+                : "bg-purple-600 hover:bg-purple-700 text-white"
+            }`}
           >
-            Buy Now
-          </Link>
+            {addedToCart ? (
+              <>
+                <CheckCircle className="w-5 h-5" />
+                <span className="hidden sm:inline">Added!</span>
+              </>
+            ) : (
+              <>
+                <ShoppingCart className="w-5 h-5" />
+                <span className="hidden sm:inline">Add to Cart</span>
+              </>
+            )}
+          </button>
         )}
         {(paper?.fee === FEES.FREE && eligibility?.attemptsRemaining > 0) ||
         (paper?.fee === FEES.PAID && eligibility?.attemptsRemaining > 0) ? (
-          <Link
-            to={`${MCQ_ALL_PATH}/exam/${paper?._id}`}
-            className="flex items-center justify-center h-12 px-10 text-white bg-purple-500 rounded-full w-fit hover:bg-purple-700"
-          >
-            Start Now
-          </Link>
+          <div className="flex gap-3">
+            <Link
+              to={`${MCQ_ALL_PATH}/exam/${paper?._id}`}
+              className="flex items-center justify-center h-12 px-10 text-white bg-purple-500 rounded-full w-fit hover:bg-purple-700"
+            >
+              Exam Mode
+            </Link>
+            <Link
+              to={`${MCQ_ALL_PATH}/exam/learning/${paper?._id}`}
+              className="flex items-center justify-center h-12 px-10 text-white bg-purple-500 rounded-full w-fit hover:bg-purple-700"
+            >
+              Learning Mode
+            </Link>
+          </div>
         ) : null}{" "}
         {paper?.fee === FEES.PAID && eligibility?.isNeedToBuy && (
-          <Link
-            to={`${MCQ_BUY_PAPER_PATH.replace(":paperId", "")}${paper?._id}`}
-            className="flex items-center justify-center h-12 px-10 text-white bg-purple-500 rounded-full w-fit hover:bg-purple-700"
+          <button
+            onClick={() => handleAddToCart(paper?.subject)}
+            className={`flex items-center space-x-2 px-4 sm:px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 ${
+              addedToCart
+                ? "bg-green-600 text-white"
+                : "bg-purple-600 hover:bg-purple-700 text-white"
+            }`}
           >
-            Buy Now
-          </Link>
+            {addedToCart ? (
+              <>
+                <CheckCircle className="w-5 h-5" />
+                <span className="hidden sm:inline">Added!</span>
+              </>
+            ) : (
+              <>
+                <ShoppingCart className="w-5 h-5" />
+                <span className="hidden sm:inline">Add to Cart</span>
+              </>
+            )}
+          </button>
         )}
-        {eligibility?.attemptsRemaining ? (
+       {/* Attempts Remaining */}
+        {eligibility?.attemptsRemaining != null && (
           <p className="text-sm font-medium text-purple-500">
-            {eligibility?.attemptsRemaining > 0
+            {eligibility.attemptsRemaining > 0
               ? `${eligibility?.attemptsRemaining} attempt(s) remaining`
-              : "All attempts has been used."}
+              : "All attempts have been used."}
           </p>
-        ) : null}
+        )}
         <hr />
-        <div className="flex flex-col w-full bg-white border border-purple-200 rounded-xl p-8">
-          <h2 className="text-lg mb-5 font-semibold text-purple-700">
-            Student Performance Statistics
-          </h2>
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-xl font-bold text-purple-900">
-              {paper?.stats?.noOfStuds.toLocaleString()}
-            </span>
-            <span className="text-md text-gray-600">
-              students faced the exam.
-            </span>
-          </div>
-          {paper?.stats ? (
+        {paper?.stats?.noOfStuds ? (
+          <div className="flex flex-col w-full bg-white border border-purple-200 rounded-xl p-8">
+            <h2 className="text-lg mb-5 font-semibold text-purple-700">
+              Student Performance Statistics
+            </h2>
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-xl font-bold text-purple-900">
+                {paper?.stats?.noOfStuds?.toLocaleString()}
+              </span>
+              <span className="text-md text-gray-600">
+                students faced the exam.
+              </span>
+            </div>
             <div className="flex gap-4">
               <div className="w-[40%">
                 {/* Grade Distribution Table */}
@@ -347,16 +412,18 @@ const MCQStartMain = () => {
                 />
               </div> */}
             </div>
-          ) : null}
-          <div className="mt-10 text-sm text-gray-500 text-center">
-            This summary reflects the actual performance distribution for{" "}
-            <b>
-              G.C.E {" "}
-              {paper?.subject?.exam === EXAMS.AL ? "Advanced Level" : "Ordinary Level"} -{" "}
-              {paper?.year}.
-            </b>
+            <div className="mt-10 text-sm text-gray-500 text-center">
+              This summary reflects the actual performance distribution for{" "}
+              <b>
+                G.C.E{" "}
+                {paper?.subject?.exam === EXAMS.AL
+                  ? "Advanced Level"
+                  : "Ordinary Level"}{" "}
+                - {paper?.year}.
+              </b>
+            </div>
           </div>
-        </div>
+        ) : null}
         {/* <div className="flex flex-col gap-7">
           {paper?.stats?.noOfStuds && (
             <>

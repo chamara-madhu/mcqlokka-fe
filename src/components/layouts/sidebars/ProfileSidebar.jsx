@@ -1,10 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import classNames from "classnames";
-import { PieChart, DollarSign } from "feather-icons-react";
+import { PieChart, DollarSign, User, Book } from "feather-icons-react";
 import {
+  MY_PROFILE_PATH,
   // MY_PROFILE_PATH,
   MY_PURCHASING_HISTORY_PATH,
   MY_RESULTS_PATH,
+  MY_SUBJECTS_PATH,
 } from "../../../constants/routes";
 
 // Define menu items dynamically
@@ -16,8 +18,14 @@ const menuItems = [
   //   isParent: true,
   // },
   {
+    path: MY_SUBJECTS_PATH,
+    label: "My Subjects",
+    icon: Book,
+    isParent: true,
+  },
+  {
     path: MY_RESULTS_PATH,
-    label: "Results",
+    label: "My Results",
     icon: PieChart,
     isParent: true,
   },
@@ -25,6 +33,12 @@ const menuItems = [
     path: MY_PURCHASING_HISTORY_PATH,
     label: "Purchasing History",
     icon: DollarSign,
+    isParent: true,
+  },
+  {
+    path: MY_PROFILE_PATH,
+    label: "Profile Details",
+    icon: User,
     isParent: true,
   },
 ];
@@ -35,8 +49,8 @@ const ProfileSidebar = () => {
 
   return (
     <div
-      className="flex sticky top-[72px] flex-col w-[300px] h-full bg-purple-50 border-r border-purple-100 pb-4"
-      style={{ height: "calc(100vh - 60px)" }}
+      className="flex sticky top-[72px] flex-col w-[300px] h-full bg-purple-50 border-r border-purple-100 pb-4 overflow-auto"
+      style={{ height: "calc(100vh - 75px)" }}
     >
       {menuItems.map((item, index) => {
         const isActive = item.path && pathname === item.path;

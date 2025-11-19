@@ -6,18 +6,22 @@ import authService from "../../../services/auth.service";
 import FormInput from "../../shared/fields/FormInput";
 import { ADMIN_DASHBOARD_PATH } from "../../../constants/routes";
 import Logo from "../../../assets/images/logo.png";
+import { ArrowLeft, AlertCircle } from "feather-icons-react";
+
+const initialState = {
+  name: "",
+  email: "",
+  password: "",
+  nameErr: "",
+  emailErr: "",
+  passwordErr: "",
+};
 
 const SignUpLoginMain = ({ isSignUp }) => {
   const [showSignUpView, setShowSignUpView] = useState(isSignUp);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-    nameErr: "",
-    emailErr: "",
-    passwordErr: "",
-  });
+  const [form, setForm] = useState(initialState);
   const [error, setError] = useState("");
+  const [veryfyEmailMsg, setVeryfyEmailMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const emailRef = useRef(null);
@@ -159,19 +163,15 @@ const SignUpLoginMain = ({ isSignUp }) => {
         name: form.name,
         email: form.email,
         password: form.password,
+        avatar: form.avatar,
       };
 
       try {
         const res = await signUp(data);
 
-        localStorage.setItem("auth_token", res.data.token);
-        localStorage.setItem("user_data", JSON.stringify(res.data.user));
+        setVeryfyEmailMsg(res.data.message);
         setLoading(false);
-        if (res.data.user.role === 0) {
-          navigate(ADMIN_DASHBOARD_PATH);
-        } else {
-          navigate(-1);
-        }
+        setForm(initialState);
       } catch (err) {
         setForm((prev) => ({
           ...prev,
@@ -193,17 +193,23 @@ const SignUpLoginMain = ({ isSignUp }) => {
         <div className="flex flex-col gap-3">
           <Link
             to="/"
-            className="text-xs cursor-pointer hover:font-medium w-fit"
+            className="flex items-center gap-1 text-xs cursor-pointer hover:text-purple-600 w-fit"
           >
-            Go back
+            <ArrowLeft size="16" /> Go back
           </Link>
           <img src={Logo} alt="main bg" className="w-[200px]" />
         </div>
       </div>
       <div className="flex w-full sm:w-2/3 md:w-1/2 h-[100vh] items-center justify-center">
         <div className="flex flex-col w-full sm:w-[320] max-w-[320px]">
-          {showSignUpView && <p className="text-2xl">Student Registration</p>}
-          <p className="mt-2 mb-10 text-4xl font-bold">Online ICT</p>
+          <p className="mt-2 mb-10 text-4xl font-bold">
+            {showSignUpView ? "Sign Up" : "Login"}
+          </p>
+          {veryfyEmailMsg ? (
+            <p className="text-purple-600 mb-3">
+              <AlertCircle className="inline" /> {veryfyEmailMsg}
+            </p>
+          ) : null}
 
           <form
             className="flex flex-col gap-6"
@@ -211,12 +217,12 @@ const SignUpLoginMain = ({ isSignUp }) => {
           >
             {showSignUpView && (
               <FormInput
-                label="Full name"
+                label="Name"
                 name="name"
                 value={form.name}
                 onChange={handleChange}
                 error={form.nameErr}
-                info="* This name will apply your certificate."
+                // info="* This name will apply your certificate."
               />
             )}
             <FormInput

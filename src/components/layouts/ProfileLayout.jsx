@@ -18,7 +18,7 @@ const ProfileLayout = ({ children }) => {
         <ProfileSidebar />
         <div
           className="w-full h-full p-8 overflow-y-auto bg-white"
-          style={{ height: "calc(100vh - 60px)" }}
+          style={{ height: "calc(100vh - 75px)" }}
         >
           {children}
         </div>

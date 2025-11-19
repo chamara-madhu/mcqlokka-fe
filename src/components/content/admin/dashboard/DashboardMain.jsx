@@ -35,7 +35,7 @@ const DashboardMain = () => {
               {paperStats?.map((paper, i) => (
                 <div className="p-4 border rounded-lg bg-purple-50" key={i}>
                   <h2 className="mb-4 text-lg font-semibold">
-                    {paper?._id?.exam === EXAMS.AL ? "A/L" : "O/L"}
+                    {paper?._id?.exam}
                   </h2>
                   <p className={`text-6xl font-semibold text-purple-500`}>
                     {paper.count}

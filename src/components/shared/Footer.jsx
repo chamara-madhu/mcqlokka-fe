@@ -60,16 +60,16 @@ function Footer() {
 
   const emailLinks = [
     {
-      text: "info@onlineict.ai",
+      text: "info@mcqlokka.com",
       delay: 0,
       label: "General Enquiries : ",
     },
     {
-      text: "support@onlineict.ai",
+      text: "support@mcqlokka.com",
       delay: 0.2,
       label: "Support/Billing : ",
     },
-    { text: "sam@onlineict.ai", delay: 0.4, label: "Sales : " },
+    { text: "sam@mcqlokka.com", delay: 0.4, label: "Sales : " },
   ];
 
   const socialIcons = [
@@ -80,23 +80,23 @@ function Footer() {
     //   delay: 0.7,
     // },
     {
-      href: "https://www.linkedin.com/company/adxlai/",
+      href: "https://www.linkedin.com/company/mcqlokka/",
       src: LinkedinIcon,
       alt: "LinkedIn",
       delay: 0.9,
     },
     {
-      href: "https://www.facebook.com/adxlpro/",
+      href: "https://www.facebook.com/mcqlokka/",
       src: FacebookIcon,
       alt: "Facebook",
       delay: 1.1,
     },
-    {
-      href: "https://www.instagram.com/adxlai/",
-      src: InstagramIcon,
-      alt: "Instagram",
-      delay: 1.3,
-    },
+    // {
+    //   href: "https://www.instagram.com/adxlai/",
+    //   src: InstagramIcon,
+    //   alt: "Instagram",
+    //   delay: 1.3,
+    // },
     {
       href: "https://www.youtube.com/channel/UCMZ9laPB9j55TF9V_95nEDw",
       src: YouTubeIcon,

@@ -4,9 +4,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import classNames from "classnames";
 import Button from "../../../shared/buttons/Button";
 import paperService from "../../../../services/paper.service";
-import { QUESTION_DIFFICULTY_TYPES } from "../../../../constants/base";
+import { PAPER_MODES, QUESTION_DIFFICULTY_TYPES } from "../../../../constants/base";
 import { MCQ_EXAM_MARK_PATH } from "../../../../constants/routes";
 import config from "../../../../config/aws";
+import PageLoader from "../../../shared/loading/PageLoader";
 
 const PaperMain = () => {
   const [activeQuestion, setActiveQuestion] = useState({});
@@ -15,23 +16,23 @@ const PaperMain = () => {
   const [answers, setAnswers] = useState([]);
   const [timeLeft, setTimeLeft] = useState(2 * 60 * 60); // 2 hours in seconds
   const [timeSpent, setTimeSpent] = useState(0);
+  const [preLoading, setPreLoading] = useState(true);
   const { paperId } = useParams();
   const navigate = useNavigate();
 
   const { markPaper } = paperService();
   const { getAllQuestionsByPaperId } = questionService();
 
-  console.log("activeQuestion", activeQuestion);
-
   useEffect(() => {
     const fetchQuestions = async () => {
+      setPreLoading(true);
       const res = await getAllQuestionsByPaperId(paperId);
-      console.log({ res });
       setPaper(res?.data?.paper || null);
       setQuestions(res?.data?.questions || []);
       setActiveQuestion(res?.data?.questions?.[0] || {});
       setAnswers(new Array(res?.data?.questions?.length).fill([])); // Initialize answers array
-      setTimeLeft(res?.data?.questions?.length * 144)
+      setTimeLeft(res?.data?.questions?.length * 144);
+      setPreLoading(false);
     };
 
     if (paperId) {
@@ -99,7 +100,7 @@ const PaperMain = () => {
     e.preventDefault();
 
     try {
-      const res = await markPaper(paperId, answers, timeSpent);
+      const res = await markPaper(paperId, answers, timeSpent, PAPER_MODES.EXAM);
 
       if (res?.data?.id) {
         navigate(MCQ_EXAM_MARK_PATH.replace(":markId", res.data.id));
@@ -109,14 +110,19 @@ const PaperMain = () => {
     }
   };
 
+  if (preLoading) {
+    return <PageLoader />;
+  }
+
   return (
     <div className="flex px-20 pt-10 pb-20">
       <div className="flex flex-col w-full max-w-screen-xl gap-10 mx-auto">
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 pb-4 border-b border-b-gray-200">
           {/* Timer Header */}
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-semibold">
-              G.C.E {paper?.exam} - {paper?.year} - {paper?.medium}
+              G.C.E {paper?.subject?.exam} - {paper?.subject?.name} - {paper?.year} -{" "}
+              {paper?.subject?.medium}
             </h1>
             <div
               className={classNames(
@@ -133,7 +139,7 @@ const PaperMain = () => {
                 className={classNames(
                   "flex items-center justify-center w-8 h-8 text-[10px] rounded-full",
                   answer?.length > 0
-                    ? "bg-purple-500 text-white"
+                    ? "bg-purple-100 border border-purple-500"
                     : "bg-gray-200",
                   activeQuestion?.no === i + 1
                     ? "border-2 border-purple-700"
@@ -185,12 +191,12 @@ const PaperMain = () => {
                   <div
                     key={index}
                     className={classNames(
-                      "flex p-3  rounded-lg cursor-pointer hover:bg-purple-400",
+                      "flex p-3 rounded-lg cursor-pointer border",
                       answers[activeQuestion.no - 1]?.filter(
                         (answer) => answer === index + 1
                       )?.length
-                        ? "bg-purple-400"
-                        : "bg-purple-100"
+                        ? "bg-purple-100 border-purple-500"
+                        : "border-purple-200 hover:bg-purple-50 hover:border-purple-500"
                     )}
                     onClick={() => handleSelectAnswer(index)}
                   >

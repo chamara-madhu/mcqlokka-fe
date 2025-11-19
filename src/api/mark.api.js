@@ -12,8 +12,13 @@ const getAllMyResults = async () => {
   return await axios.get("/marks/my/results");
 };
 
+const getAllMySubjects = async () => {
+  return await axios.get("/marks/my/subjects");
+};
+
 export default {
   getMarksByMarkId,
   getHighestMarkStudentsByPaperId,
   getAllMyResults,
+  getAllMySubjects
 };

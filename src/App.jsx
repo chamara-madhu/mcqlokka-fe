@@ -41,6 +41,10 @@ import {
   ADMIN_SUBJECT_CREATE_PATH,
   ADMIN_SUBJECT_EDIT_PATH,
   ADMIN_SUBJECT_MANAGE_PATH,
+  VERIFY_ACCOUNT_PATH,
+  MY_SUBJECTS_PATH,
+  CONTACT_PATH,
+  MCQ_EXAM_LEARNING_PATH,
 } from "./constants/routes";
 import Paper from "./pages/students/Paper";
 import CreatePaper from "./pages/admin/paper/CreatePaper";
@@ -76,6 +80,10 @@ import Checkout from "./pages/Checkout";
 import About from "./pages/About";
 import CreateSubject from "./pages/admin/subject/CreateSubject";
 import ManageSubject from "./pages/admin/subject/ManageSubject";
+import VerifyAccount from "./pages/VerifyAccount";
+import MySubjects from "./pages/students/MySubjects";
+import Contact from "./pages/Contact";
+import PaperLearning from "./pages/students/PaperLearning";
 
 function App() {
   // Create a private route for passengers
@@ -118,9 +126,14 @@ function App() {
           <Route exact path={REGISTER_PATH} element={<SignUp />} />
         </Route>
 
+        <Route exact path={VERIFY_ACCOUNT_PATH} element={<LoginRoute />}>
+          <Route path={VERIFY_ACCOUNT_PATH} element={<VerifyAccount />} />
+        </Route>
+
         <Route path={MCQS_BY_LESSON_PATH} exact element={<MCQsByLesson />} />
 
         <Route path={ABOUT_PATH} exact element={<About />} />
+        <Route path={CONTACT_PATH} exact element={<Contact />} />
         <Route path={HOME_PATH} exact element={<AllSubjects />} />
         <Route
           path={PAPERS_BY_SUBJECTS_PATH}
@@ -137,6 +150,10 @@ function App() {
 
         <Route exact path={MCQ_EXAM_PATH} element={<StudentRoute />}>
           <Route path={MCQ_EXAM_PATH} exact element={<Paper />} />
+        </Route>
+
+        <Route exact path={MCQ_EXAM_LEARNING_PATH} element={<StudentRoute />}>
+          <Route path={MCQ_EXAM_LEARNING_PATH} exact element={<PaperLearning />} />
         </Route>
 
         <Route exact path={MCQ_EXAM_MARK_PATH} element={<StudentRoute />}>
@@ -289,6 +306,10 @@ function App() {
             exact
             element={<PurchasingHistory />}
           />
+        </Route>
+
+        <Route exact path={MY_SUBJECTS_PATH} element={<StudentRoute />}>
+          <Route path={MY_SUBJECTS_PATH} exact element={<MySubjects />} />
         </Route>
 
         <Route exact path={MY_RESULTS_PATH} element={<StudentRoute />}>

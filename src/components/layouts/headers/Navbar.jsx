@@ -6,22 +6,24 @@ import {
   REGISTER_PATH,
   ADMIN_DASHBOARD_PATH,
   MY_RESULTS_PATH,
-  MCQS_BY_LESSON_PATH,
   PRICING_PATH,
   CART_PATH,
   ABOUT_PATH,
+  CONTACT_PATH,
 } from "../../../constants/routes";
 import Cta from "../../shared/buttons/Cta";
 import Logo from "../../../assets/images/logo.png";
 import { USER_ROLES } from "../../../constants/base";
 import { useSelector } from "react-redux";
 import { calculateTotalAmount } from "../../../utils/general";
+import config from "../../../config/aws";
 
 const navLinks = [
   // { href: HOME_PATH, label: "Home" },
   // { href: MCQS_BY_LESSON_PATH, label: "MCQs by Lesson" },
   { href: ABOUT_PATH, label: "About" },
   { href: PRICING_PATH, label: "Pricing" },
+  { href: CONTACT_PATH, label: "Contact" },
 ];
 
 const Navbar = () => {
@@ -34,7 +36,7 @@ const Navbar = () => {
   // Get cart items from localStorage or state management
   // const cartItems = JSON.parse(localStorage.getItem("cart_items") || "[]");
   const cartCount = cartItems.length;
-  const cartTotal = calculateTotalAmount(cartCount)
+  const cartTotal = calculateTotalAmount(cartCount);
 
   const handleLogout = () => {
     localStorage.removeItem("auth_token");
@@ -105,9 +107,16 @@ const Navbar = () => {
                 }
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center justify-center w-10 h-10 bg-purple-200 rounded-full cursor-pointer hover:bg-purple-400">
-                    {user.name[0]}
-                  </div>
+                  {user?.avatar ? (
+                    <img
+                      className="w-10 h-10 object-cover rounded-full"
+                      src={`${config.S3_PUBLIC_URL}/${user.avatar}`}
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center w-10 h-10 bg-purple-200 rounded-full cursor-pointer hover:bg-purple-400">
+                      {user.name[0]}
+                    </div>
+                  )}
                   <div className="flex flex-col">
                     <p className="text-xs">{user?.name}</p>
                     <p className="text-sm font-medium">

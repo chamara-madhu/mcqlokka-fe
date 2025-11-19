@@ -14,6 +14,8 @@ const initialState = {
   subjectId: "",
   fee: "",
   year: "",
+  noOfQuestions: "",
+  time: "",
   longName: "",
   stats: {
     noOfStuds: "",
@@ -68,6 +70,8 @@ const CreatePaperMain = () => {
           subjectId: res.data.subject,
           fee: res.data.fee,
           year: res.data.year,
+          noOfQuestions: res.data.noOfQuestions,
+          time: res.data.time,
           longName: res.data.longName,
           stats: {
             noOfStuds: res.data.stats.noOfStuds,
@@ -121,6 +125,8 @@ const CreatePaperMain = () => {
     let subjectId = "";
     let fee = "";
     let year = "";
+    let noOfQuestions = "";
+    let time = "";
     let longName = "";
 
     // Validate Exam
@@ -131,6 +137,16 @@ const CreatePaperMain = () => {
     // Validate Fee
     if (!form.fee) {
       fee = "Fee is required";
+    }
+
+    // Validate time
+    if (!form.time) {
+      time = "Time is required";
+    }
+
+    // Validate noOfQuestions
+    if (!form.noOfQuestions) {
+      noOfQuestions = "No of questions is required";
     }
 
     // Validate Year
@@ -149,7 +165,7 @@ const CreatePaperMain = () => {
     }
 
     // Check if any error exists
-    if (subjectId || fee || year || longName) {
+    if (subjectId || fee || year || noOfQuestions || time || longName) {
       setErrors((prev) => ({
         ...prev,
         subjectId,
@@ -158,6 +174,8 @@ const CreatePaperMain = () => {
         type,
         fee,
         year,
+        noOfQuestions,
+        time,
         longName,
       }));
 
@@ -240,6 +258,26 @@ const CreatePaperMain = () => {
             placeholder="Eg. 2024"
             isRequired
             error={errors.year}
+          />
+          <FormInput
+            type="number"
+            name="noOfQuestions"
+            label="No of questions"
+            value={form.noOfQuestions}
+            onChange={handleChange}
+            placeholder="Eg. 50"
+            isRequired
+            error={errors.noOfQuestions}
+          />
+          <FormInput
+            type="number"
+            name="time"
+            label="Time"
+            value={form.time}
+            onChange={handleChange}
+            placeholder="Eg. 50"
+            isRequired
+            error={errors.time}
           />
           <FormInput
             name="longName"

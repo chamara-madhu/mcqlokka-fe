@@ -1,5 +1,7 @@
 import { Check } from "feather-icons-react";
 import { useState } from "react";
+import { HOME_PATH } from "../../../constants/routes";
+import { Link } from "react-router-dom";
 
 export default function PricingMain() {
   const [selectedSubjects, setSelectedSubjects] = useState(1);
@@ -324,9 +326,11 @@ export default function PricingMain() {
               Join thousands of students who trust our platform for their exam
               preparation
             </p>
-            <button className="bg-purple-600 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold text-sm sm:text-base hover:bg-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl">
-              Start Learning Today
-            </button>
+            <Link to={HOME_PATH}>
+              <button className="bg-purple-600 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold text-sm sm:text-base hover:bg-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl">
+                Start Learning Today
+              </button>
+            </Link>
           </div>
           <p className="text-xs sm:text-sm text-purple-600">
             Need help choosing? Contact our support team for personalized

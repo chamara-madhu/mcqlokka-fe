@@ -32,6 +32,10 @@ const updateApprovalStatus = async (id, status) => {
   return await axios.put(`/subjects/${id}/approval`, { isApproved: status });
 };
 
+const checkEligibility = async (id) => {
+  return await axios.get(`/subjects/eligibility/${id}`);
+};
+
 export default {
   createSubject,
   getAllSubjects,
@@ -39,4 +43,5 @@ export default {
   updateSubject,
   deleteSubject,
   updateApprovalStatus,
+  checkEligibility
 };

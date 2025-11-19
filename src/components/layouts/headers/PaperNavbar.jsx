@@ -9,6 +9,7 @@ import {
 import Cta from "../../shared/buttons/Cta";
 import Logo from "../../../assets/images/logo.png";
 import { USER_ROLES } from "../../../constants/base";
+import config from "../../../config/aws";
 
 const PaperNavbar = () => {
   const navigate = useNavigate();
@@ -46,9 +47,16 @@ const PaperNavbar = () => {
                 }
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center justify-center w-10 h-10 bg-purple-200 rounded-full cursor-pointer hover:bg-purple-400">
-                    {user.name[0]}
-                  </div>
+                  {user?.avatar ? (
+                    <img
+                      className="w-10 h-10 object-cover rounded-full"
+                      src={`${config.S3_PUBLIC_URL}/${user.avatar}`}
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center w-10 h-10 bg-purple-200 rounded-full cursor-pointer hover:bg-purple-400">
+                      {user.name[0]}
+                    </div>
+                  )}
                   <div className="flex flex-col">
                     <p className="text-xs">{user?.name}</p>
                     <p className="text-sm font-medium">

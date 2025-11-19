@@ -8,6 +8,7 @@ const subjectService = () => ({
   deleteSubject: (id) => ApiIndex.SubjectApi.deleteSubject(id),
   updateApprovalStatus: (id, status) => ApiIndex.SubjectApi.updateApprovalStatus(id, status),
   getAllPappersBySubject: (id) => ApiIndex.SubjectApi.getAllPappersBySubject(id),
+  checkEligibility: (id) => ApiIndex.SubjectApi.checkEligibility(id),
 });
 
 export default subjectService;

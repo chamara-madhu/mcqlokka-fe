@@ -19,6 +19,7 @@ import {
 import { Bar, Line } from "react-chartjs-2";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/features/cartSlice";
+import PageLoader from "../../shared/loading/PageLoader";
 
 ChartJS.register(
   CategoryScale,
@@ -35,27 +36,34 @@ function AllPapersBySubjectMain() {
   const [subject, setSubject] = useState(null);
   const [addedToCart, setAddedToCart] = useState(false);
   const [papers, setPapers] = useState([]);
+  const [hasPurchased, setHasPurchased] = useState(true);
+  const [preLoading, setPreLoading] = useState(true);
   const { getAllPapers } = paperService();
-  const { getSubjectById } = subjectService();
+  const { getSubjectById, checkEligibility } = subjectService();
   const { subjectId } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchSubject = async () => {
+      setPreLoading(true);
       const res = await getSubjectById(subjectId);
       setSubject(res?.data);
+
+      const res2 = await checkEligibility(res?.data?._id);
+      setHasPurchased(res2?.data?.hasPurchased);
+      setPreLoading(false);
     };
 
     fetchSubject();
   }, []);
 
   useEffect(() => {
-    const fetchQuestions = async () => {
+    const fetch = async () => {
       const res = await getAllPapers({ subject: subjectId, isApproved: "Yes" });
       setPapers(res?.data || []);
     };
 
-    fetchQuestions();
+    fetch();
   }, []);
 
   const handleAddToCart = () => {
@@ -85,6 +93,10 @@ function AllPapersBySubjectMain() {
     ][i],
   }));
 
+  if (preLoading) {
+    return <PageLoader />;
+  }
+
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -113,55 +125,61 @@ function AllPapersBySubjectMain() {
                 </span>
               </div>
             </div>
-            <button
-              onClick={handleAddToCart}
-              className={`flex items-center space-x-2 px-4 sm:px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 ${
-                addedToCart
-                  ? "bg-green-600 text-white"
-                  : "bg-purple-600 hover:bg-purple-700 text-white"
-              }`}
-            >
-              {addedToCart ? (
-                <>
-                  <CheckCircle className="w-5 h-5" />
-                  <span className="hidden sm:inline">Added!</span>
-                </>
-              ) : (
-                <>
-                  <ShoppingCart className="w-5 h-5" />
-                  <span className="hidden sm:inline">Add to Cart</span>
-                </>
-              )}
-            </button>
+            {!hasPurchased && (
+              <button
+                onClick={handleAddToCart}
+                className={`flex items-center space-x-2 px-4 sm:px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 ${
+                  addedToCart
+                    ? "bg-green-600 text-white"
+                    : "bg-purple-600 hover:bg-purple-700 text-white"
+                }`}
+              >
+                {addedToCart ? (
+                  <>
+                    <CheckCircle className="w-5 h-5" />
+                    <span className="hidden sm:inline">Added!</span>
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart className="w-5 h-5" />
+                    <span className="hidden sm:inline">Add to Cart</span>
+                  </>
+                )}
+              </button>
+            )}
           </div>
         </div>
 
         {/* Free Sample Banner */}
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-6 mb-8">
-          <div className="flex items-start space-x-4">
-            <div className="flex-shrink-0">
-              <Unlock className="w-8 h-8 text-green-600" />
-            </div>
-            <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                Try Before You Buy! 🎉
-              </h3>
-              <p className="text-gray-700">
-                Try the{" "}
-                <span className="font-semibold text-green-600">
-                  2017 past paper for free
-                </span>{" "}
-                to experience the quality of our content. Purchase the full
-                package to unlock all papers from 2018-2025.
-              </p>
+        {!hasPurchased && (
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-6 mb-8">
+            <div className="flex items-start space-x-4">
+              <div className="flex-shrink-0">
+                <Unlock className="w-8 h-8 text-green-600" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  Try Before You Buy! 🎉
+                </h3>
+                <p className="text-gray-700">
+                  Try the{" "}
+                  <span className="font-semibold text-green-600">
+                    2017 past paper for free
+                  </span>{" "}
+                  to experience the quality of our content. Purchase the full
+                  package to unlock all papers from 2018-2025.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Papers Grid */}
         <div className="grid w-full grid-cols-1 gap-4 mt-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {papers?.length > 0 &&
-            papers?.map((paper, index) => <PaperCard key={index} {...paper} />)}
+            papers?.map((paper, index) => (
+              <PaperCard key={index} {...paper} hasPurchased={hasPurchased} />
+            ))}
         </div>
 
         {allStats?.length > 0 ? (
@@ -307,22 +325,24 @@ function AllPapersBySubjectMain() {
         )}
 
         {/* Bottom CTA */}
-        <div className="mt-12 bg-gradient-to-r from-purple-600 to-purple-800 rounded-3xl p-8 sm:p-10 text-center shadow-2xl">
-          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-            Get Complete Access to All Papers
-          </h3>
-          <p className="text-purple-100 mb-6 text-lg max-w-2xl mx-auto">
-            Unlock all past papers from 2018 to 2025 with detailed solutions and
-            explanations
-          </p>
-          <button
-            onClick={handleAddToCart}
-            className="bg-white text-purple-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-purple-50 transition-all duration-300 shadow-lg inline-flex items-center space-x-2"
-          >
-            <ShoppingCart className="w-6 h-6" />
-            <span>Add Complete Package</span>
-          </button>
-        </div>
+        {!hasPurchased && (
+          <div className="mt-12 bg-gradient-to-r from-purple-600 to-purple-800 rounded-3xl p-8 sm:p-10 text-center shadow-2xl">
+            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+              Get Complete Access to All Papers
+            </h3>
+            <p className="text-purple-100 mb-6 text-lg max-w-2xl mx-auto">
+              Unlock all past papers from 2018 to 2025 with detailed solutions
+              and explanations
+            </p>
+            <button
+              onClick={handleAddToCart}
+              className="bg-white text-purple-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-purple-50 transition-all duration-300 shadow-lg inline-flex items-center space-x-2"
+            >
+              <ShoppingCart className="w-6 h-6" />
+              <span>Add Complete Package</span>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

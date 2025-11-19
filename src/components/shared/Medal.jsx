@@ -1,30 +1,26 @@
-import PropTypes from "prop-types";
-import Gold from "../../assets/icons/medals/gold.png";
-import Silver from "../../assets/icons/medals/silver.png";
-import Bronze from "../../assets/icons/medals/bronze.png";
-import { MEDALS } from "../../constants/base";
-
-const Medal = ({ medal, className }) => {
-  const getMedalImage = (medalType) => {
-    switch (medalType) {
-      case MEDALS.GOLD:
-        return Gold;
-      case MEDALS.SILVER:
-        return Silver;
-      case MEDALS.BRONZE:
-      default:
-        return Bronze;
-    }
+const Medal = ({ medal }) => {
+  const getMedalInfo = (medal) => {
+    if (medal === 1)
+      return { name: "Gold", color: "text-yellow-600", icon: "🥇" };
+    if (medal === 2)
+      return { name: "Silver", color: "text-gray-500", icon: "🥈" };
+    if (medal === 3)
+      return { name: "Bronze", color: "text-orange-700", icon: "🥉" };
+    return null;
   };
 
-  return <img className={className} src={getMedalImage(medal)} alt="medal" />;
-};
+  const medalInfo = getMedalInfo(medal);
 
-// PropTypes validation
-Medal.propTypes = {
-  medal: PropTypes.oneOf([MEDALS.GOLD, MEDALS.SILVER, MEDALS.BRONZE])
-    .isRequired,
-  className: PropTypes.string,
+  return (
+    medalInfo && (
+      <div className="text-center">
+        <div className="text-3xl mb-1">{medalInfo.icon}</div>
+        <p className={`text-xs font-semibold ${medalInfo.color}`}>
+          {medalInfo.name}
+        </p>
+      </div>
+    )
+  );
 };
 
 export default Medal;

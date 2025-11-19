@@ -56,10 +56,16 @@ export const MEDALS = {
   BRONZE: 3,
 };
 
-// medals
+// is Approved
 export const IS_APPROVED_TYPES = {
   YES: "Yes",
   NO: "No"
+};
+
+// paper modes
+export const PAPER_MODES = {
+  EXAM: "Exam",
+  LEARNING: "Learning",
 };
 
 // paper price

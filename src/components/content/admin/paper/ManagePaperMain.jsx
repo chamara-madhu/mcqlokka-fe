@@ -79,6 +79,8 @@ const ManagePaperMain = () => {
               <th className="w-[100px]">Medium</th>
               <th className="w-[100px]">type</th>
               <th className="w-[100px]">Year</th>
+              <th className="w-[100px]">No of Questions</th>
+              <th className="w-[100px]">Time</th>
               <th className="w-[200px]">Long name</th>
               <th className="w-[100px]">Fee</th>
               <th>Statistics</th>
@@ -101,6 +103,8 @@ const ManagePaperMain = () => {
                   <td>{paper?.subject?.medium}</td>
                   <td>{paper?.subject?.type}</td>
                   <td>{paper.year}</td>
+                  <td>{paper.noOfQuestions}</td>
+                  <td>{paper.time}</td>
                   <td>{paper?.longName}</td>
                   <td>{paper.fee}</td>
                   <td>
