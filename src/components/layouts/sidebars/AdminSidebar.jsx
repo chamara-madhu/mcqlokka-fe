@@ -26,6 +26,7 @@ import {
   ADMIN_GENERATE_MODEL_QUESTION_PATH,
   ADMIN_SUBJECT_CREATE_PATH,
   ADMIN_SUBJECT_MANAGE_PATH,
+  ADMIN_BULK_LESSON_CREATE_PATH,
 } from "../../../constants/routes";
 
 // Define menu items dynamically
@@ -78,6 +79,12 @@ const menuItems = [
   {
     path: ADMIN_LESSON_CREATE_PATH,
     label: "Create lesson",
+    icon: Plus,
+    isParent: false,
+  },
+  {
+    path: ADMIN_BULK_LESSON_CREATE_PATH,
+    label: "Create bulk lesson",
     icon: Plus,
     isParent: false,
   },

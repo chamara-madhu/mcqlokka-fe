@@ -126,7 +126,7 @@ const ManageQuestionMain = () => {
   return (
     <>
       <PageHeader title="Manage Question" />
-      <div className="flex w-[300px] mb-7">
+      <div className="flex w-[500px] mb-7">
         <TypeOrSelect
           isClearable
           label="Filter by Paper"

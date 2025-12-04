@@ -126,7 +126,7 @@ const CreateQuestionMain = () => {
         const res = await getAllPapers();
         const mapped = res?.data?.map((paper) => ({
           value: paper._id,
-          label: `${paper?.subject?.exam} ${paper?.subject?.medium} ${paper?.year} (${paper?.subject?.type})`,
+          label: `${paper?.subject?.exam} ${paper?.subject?.name} - ${paper?.subject?.medium} ${paper?.year} (${paper?.subject?.type})`,
         }));
         setPapers(mapped);
       } catch (error) {
@@ -270,7 +270,7 @@ const CreateQuestionMain = () => {
     formData.set("type", form.type);
     formData.set("no", form.no);
     formData.set("paperId", form.paperId);
-    // formData.set("lessonId", form.lessonId);
+    formData.set("lessonId", form.lessonId);
     formData.set("question", form.question);
     formData.set("restOfQuestion", form.restOfQuestion);
     formData.set("options", JSON.stringify(form.options));
@@ -364,7 +364,7 @@ const CreateQuestionMain = () => {
             label="Image URL"
             name="image"
             value={files.image}
-            existingValue={typeof files?.image === "string" && files?.image?.includes("image") ? files.image : "" }
+            existingValue={typeof files?.image === "string" && files?.image?.includes("subjects") ? files.image : "" }
             handleFile={handleFile}
             error={files.imageErr}
             removeImage={removeImage}

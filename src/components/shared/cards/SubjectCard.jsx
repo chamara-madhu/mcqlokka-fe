@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import classNames from "classnames";
 import { EXAMS, MEDIUMS } from "../../../constants/base";
 import config from "../../../config/aws";
 import { useDispatch } from "react-redux";
@@ -26,13 +25,8 @@ const SubjectCard = ({ subject }) => {
         </div>
         <div className="p-4">
           <h3 className="text-black text-lg font-semibold">{subject?.name}</h3>
-          <p className="text-sm text-purple-800 mb-1">8 papers (2017 - 2025)</p>
-          <p className={classNames(
-                "text-sm rounded-lg mb-1",
-                subject?.medium === MEDIUMS.ENGLISH
-                  ? "text-blue-600"
-                  : "text-orange-600"
-              )}>{subject?.medium}</p>
+          <p className="text-sm text-purple-800 mb-1">{subject?.medium === MEDIUMS.ENGLISH ? "8 papers" : "ප්‍රශ්න පත්‍ර 8 යි"} (2017 - 2025)</p>
+          <p className="text-sm rounded-lg mb-1">{subject?.medium === MEDIUMS.ENGLISH ? "English medium" : "සිංහල මාධ්‍යය"}</p>
           <div className="flex justify-end">
             <button
               type="button"

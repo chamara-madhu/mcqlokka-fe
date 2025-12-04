@@ -5,9 +5,26 @@ export const USER_ROLES = {
 };
 
 export const SUBJECTS = {
-  ICT: "ICT",
   ACCOUNTING: "Accounting",
+  BUSINESS_STUDIES: "Business Studies",
+  ECONOMICS: "Economics",
+  STATISTICS: "Statistics",
+  ICT: "ICT",
+
   BIOLOGY: "Biology",
+  CHEMISTRY: "Chemistry",
+  PHYSICS: "Physics",
+  AGRICULTURE: "Agriculture",
+
+  LOGIC: "Logic",
+  MEDIA_STUDIES: "Media Studies",
+  POLITICAL_SCIENCE: "Political Science",
+  BUDDHIST_CIVILIZATION: "Buddhist Civilization",
+  ART: "Art",
+
+  BST: "Biosystems Technology",
+  BRT: "BioResource Technology",
+  SFT: "Science for Technology"
 };
 
 export const EXAMS = {

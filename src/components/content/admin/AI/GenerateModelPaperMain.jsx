@@ -1,19 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import FeatherIcon from "feather-icons-react";
-import {
-  QUESTION_TYPES_OPTIONS,
-  QUESTION_DIFFICULTY_TYPES_OPTIONS,
-} from "../../../../constants/base";
-import FormTextarea from "../../../shared/fields/FormTextarea";
-import FormInput from "../../../shared/fields/FormInput";
 import questionService from "../../../../services/question.service";
 import paperService from "../../../../services/paper.service";
-import lessonService from "../../../../services/lesson.service";
 import TypeOrSelect from "../../../shared/fields/TypeOrSelect";
 import Button from "../../../shared/buttons/Button";
-import { ADMIN_QUESTION_MANAGE_PATH } from "../../../../constants/routes";
 import PageHeader from "../../../shared/headers/PageHeader";
 
 const initialState = {
@@ -25,8 +15,6 @@ const GenerateModelPaperMain = () => {
   const [form, setForm] = useState(initialState);
   const [errors, setErrors] = useState(initialState);
   const [loading, setLoading] = useState(false);
-
-  const navigate = useNavigate();
 
   const { getAllPapers } = paperService();
   const { generateModelPaper } = questionService();
@@ -51,7 +39,7 @@ const GenerateModelPaperMain = () => {
         const res = await getAllPapers();
         const mapped = res?.data?.map((paper) => ({
           value: paper._id,
-          label: `${paper.exam} ${paper.medium} ${paper.year} (${paper.type})`,
+          label: `${paper?.subject?.exam} ${paper?.subject?.medium} ${paper.year} (${paper?.subject?.type})`,
         }));
         setPapers(mapped);
       } catch (error) {

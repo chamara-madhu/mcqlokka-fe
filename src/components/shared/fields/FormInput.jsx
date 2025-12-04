@@ -24,6 +24,7 @@ const FormInput = ({
         className={`w-full h-10 px-4 text-sm border rounded-md focus:outline-none focus:ring-1 focus:ring-purple-300 ${
           error ? "border-red-500" : "border-gray-300"
         }`}
+        onWheel={(e) => e.target.blur()}
         {...rest}
       />
       {error && <p className="text-sm text-red-500">{error}</p>}

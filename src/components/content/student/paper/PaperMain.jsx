@@ -2,9 +2,13 @@ import { useEffect, useState } from "react";
 import questionService from "../../../../services/question.service";
 import { useNavigate, useParams } from "react-router-dom";
 import classNames from "classnames";
+import ReactMarkdown from "react-markdown";
 import Button from "../../../shared/buttons/Button";
 import paperService from "../../../../services/paper.service";
-import { PAPER_MODES, QUESTION_DIFFICULTY_TYPES } from "../../../../constants/base";
+import {
+  PAPER_MODES,
+  QUESTION_DIFFICULTY_TYPES,
+} from "../../../../constants/base";
 import { MCQ_EXAM_MARK_PATH } from "../../../../constants/routes";
 import config from "../../../../config/aws";
 import PageLoader from "../../../shared/loading/PageLoader";
@@ -74,6 +78,7 @@ const PaperMain = () => {
 
   const handlePreviousQuestion = () => {
     if (activeQuestion.no === 1) return;
+    window.scrollTo(0, 0);
 
     const nextQ = questions.filter(
       (question) => question.no === activeQuestion.no - 1
@@ -86,9 +91,22 @@ const PaperMain = () => {
 
   const handleNextQuestion = () => {
     if (questions?.length === activeQuestion.no) return;
+    window.scrollTo(0, 0);
 
     const nextQ = questions.filter(
       (question) => question.no === activeQuestion.no + 1
+    );
+
+    if (nextQ?.length) {
+      setActiveQuestion(nextQ[0]);
+    }
+  };
+
+  const handleSelectQuestion = (no) => {
+    window.scrollTo(0, 0);
+
+    const nextQ = questions.filter(
+      (question) => question.no === no
     );
 
     if (nextQ?.length) {
@@ -100,7 +118,12 @@ const PaperMain = () => {
     e.preventDefault();
 
     try {
-      const res = await markPaper(paperId, answers, timeSpent, PAPER_MODES.EXAM);
+      const res = await markPaper(
+        paperId,
+        answers,
+        timeSpent,
+        PAPER_MODES.EXAM
+      );
 
       if (res?.data?.id) {
         navigate(MCQ_EXAM_MARK_PATH.replace(":markId", res.data.id));
@@ -121,8 +144,8 @@ const PaperMain = () => {
           {/* Timer Header */}
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-semibold">
-              G.C.E {paper?.subject?.exam} - {paper?.subject?.name} - {paper?.year} -{" "}
-              {paper?.subject?.medium}
+              G.C.E {paper?.subject?.exam} - {paper?.subject?.name} -{" "}
+              {paper?.year} - {paper?.subject?.medium}
             </h1>
             <div
               className={classNames(
@@ -137,15 +160,16 @@ const PaperMain = () => {
             {answers?.map((answer, i) => (
               <span
                 className={classNames(
-                  "flex items-center justify-center w-8 h-8 text-[10px] rounded-full",
+                  "flex items-center justify-center w-8 h-8 text-[10px] rounded-full cursor-pointer hover:bg-purple-200",
                   answer?.length > 0
-                    ? "bg-purple-100 border border-purple-500"
+                    ? "bg-purple-200 border border-purple-500"
                     : "bg-gray-200",
                   activeQuestion?.no === i + 1
                     ? "border-2 border-purple-700"
                     : ""
                 )}
                 key={i}
+                onClick={() => handleSelectQuestion(i + 1)}
               >
                 {i + 1}
               </span>
@@ -156,7 +180,7 @@ const PaperMain = () => {
           <div className="flex flex-col gap-8">
             <h5 className="text-lg mb-[-20px] font-semibold">
               Question : {activeQuestion?.no} &nbsp;
-              <span
+              {/* <span
                 className={classNames(
                   "px-3 py-1 text-sm font-medium rounded-full",
                   activeQuestion?.difficulty === QUESTION_DIFFICULTY_TYPES?.EASY
@@ -168,21 +192,23 @@ const PaperMain = () => {
                 )}
               >
                 {activeQuestion?.difficulty}
-              </span>
+              </span> */}
             </h5>
             <div className="flex flex-col gap-5">
-              <p className="whitespace-pre-wrap">{activeQuestion?.question}</p>
+              <div className="whitespace-pre-wrap">
+                <ReactMarkdown>{activeQuestion?.question}</ReactMarkdown>
+              </div>
               {activeQuestion?.image && (
                 <img
-                  className="max-w-[600px]"
+                  className="max-w-3xl"
                   src={`${config.S3_PUBLIC_URL}/${activeQuestion?.image}`}
                   alt={`MCQ ${activeQuestion?.type} ${activeQuestion?.no}`}
                 />
               )}
               {activeQuestion?.restOfQuestion && (
-                <p className="whitespace-pre-wrap">
-                  {activeQuestion.restOfQuestion}
-                </p>
+                <div className="whitespace-pre-wrap">
+                  <ReactMarkdown>{activeQuestion.restOfQuestion}</ReactMarkdown>
+                </div>
               )}
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -218,12 +244,13 @@ const PaperMain = () => {
               label="Previous"
               color="secondary"
               handleBtn={handlePreviousQuestion}
+              size="large"
             />
           )}
           {questions?.length === activeQuestion?.no ? (
-            <Button label="Submit" handleBtn={handleSubmitPaper} />
+            <Button label="Submit" handleBtn={handleSubmitPaper} size="large" />
           ) : (
-            <Button label="Next" handleBtn={handleNextQuestion} />
+            <Button label="Next" handleBtn={handleNextQuestion} size="large" />
           )}
         </div>
       </div>

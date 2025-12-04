@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import questionService from "../../../../services/question.service";
 import { useNavigate, useParams } from "react-router-dom";
 import classNames from "classnames";
+import ReactMarkdown from "react-markdown";
 import Button from "../../../shared/buttons/Button";
 import paperService from "../../../../services/paper.service";
 import {
@@ -11,7 +12,6 @@ import {
 import { MCQ_EXAM_MARK_PATH } from "../../../../constants/routes";
 import config from "../../../../config/aws";
 import PageLoader from "../../../shared/loading/PageLoader";
-import { BookOpen } from "feather-icons-react"; // ✅ FIXED IMPORT
 
 const PaperLearningMain = () => {
   const [activeQuestion, setActiveQuestion] = useState({});
@@ -102,6 +102,7 @@ const PaperLearningMain = () => {
       setError("Please check the answer first.");
       return;
     }
+    window.scrollTo(0, 0);
 
     const nextNo = activeQuestion.no + 1;
     if (nextNo > questions.length) return;
@@ -124,6 +125,7 @@ const PaperLearningMain = () => {
   const handlePreviousQuestion = () => {
     const prevNo = activeQuestion.no - 1;
     if (prevNo < 1) return;
+    window.scrollTo(0, 0);
 
     const prevQ = questions.find((q) => q.no === prevNo);
     setActiveQuestion(prevQ);
@@ -139,11 +141,11 @@ const PaperLearningMain = () => {
 
   const handleSubmitPaper = async (e) => {
     e.preventDefault();
-    
+
     try {
       const res = await markPaper(
         paperId,
-        answers.map((ans) => ([ans])),
+        answers.map((ans) => [ans]),
         timeSpent,
         PAPER_MODES.LEARNING
       );
@@ -188,7 +190,7 @@ const PaperLearningMain = () => {
                         ? isRight
                           ? "bg-green-100 border border-green-500"
                           : "bg-red-100 border border-red-500"
-                        : "bg-purple-100 "
+                        : "bg-purple-100"
                       : "bg-gray-200",
                     activeQuestion?.no === i + 1
                       ? "border-2 border-purple-700"
@@ -208,7 +210,7 @@ const PaperLearningMain = () => {
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold">
               Question {activeQuestion.no} &nbsp;
-              <span
+              {/* <span
                 className={classNames(
                   "px-3 py-1 text-sm font-medium rounded-full",
                   activeQuestion?.difficulty === QUESTION_DIFFICULTY_TYPES?.EASY
@@ -220,7 +222,7 @@ const PaperLearningMain = () => {
                 )}
               >
                 {activeQuestion?.difficulty}
-              </span>
+              </span> */}
             </h2>
 
             {isChecked && (
@@ -237,19 +239,23 @@ const PaperLearningMain = () => {
             )}
           </div>
 
-          <p className="whitespace-pre-wrap">{activeQuestion?.question}</p>
-          {activeQuestion?.image && (
-            <img
-              className="max-w-[600px]"
-              src={`${config.S3_PUBLIC_URL}/${activeQuestion?.image}`}
-              alt={`MCQ ${activeQuestion?.type} ${activeQuestion?.no}`}
-            />
-          )}
-          {activeQuestion?.restOfQuestion && (
-            <p className="whitespace-pre-wrap">
-              {activeQuestion.restOfQuestion}
-            </p>
-          )}
+          <div className="flex flex-col gap-5">
+            <div className="whitespace-pre-wrap">
+              <ReactMarkdown>{activeQuestion?.question}</ReactMarkdown>
+            </div>
+            {activeQuestion?.image && (
+              <img
+                className="max-w-[600px]"
+                src={`${config.S3_PUBLIC_URL}/${activeQuestion?.image}`}
+                alt={`MCQ ${activeQuestion?.type} ${activeQuestion?.no}`}
+              />
+            )}
+            {activeQuestion?.restOfQuestion && (
+              <div className="whitespace-pre-wrap">
+                <ReactMarkdown>{activeQuestion.restOfQuestion}</ReactMarkdown>
+              </div>
+            )}
+          </div>
 
           {/* OPTIONS */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
@@ -293,7 +299,9 @@ const PaperLearningMain = () => {
                 <h4 className="font-semibold text-blue-900 mb-2">
                   Explanation
                 </h4>
-                <p className="text-blue-800">{answerClarification}</p>
+                <div className="text-blue-800 whitespace-pre-wrap">
+                  <ReactMarkdown>{answerClarification}</ReactMarkdown>
+                </div>
               </div>
             </div>
           )}
@@ -311,16 +319,29 @@ const PaperLearningMain = () => {
               label="Previous"
               color="secondary"
               handleBtn={handlePreviousQuestion}
+              size="large"
             />
           )}
 
           <div className="flex gap-4">
             {!isChecked ? (
-              <Button label="Check Answer" handleBtn={handleCheckAnswer} />
+              <Button
+                label="Check Answer"
+                handleBtn={handleCheckAnswer}
+                size="large"
+              />
             ) : activeQuestion.no < questions.length ? (
-              <Button label="Next Question" handleBtn={handleNextQuestion} />
+              <Button
+                label="Next Question"
+                handleBtn={handleNextQuestion}
+                size="large"
+              />
             ) : (
-              <Button label="Submit" handleBtn={handleSubmitPaper} />
+              <Button
+                label="Submit"
+                handleBtn={handleSubmitPaper}
+                size="large"
+              />
             )}
           </div>
         </div>

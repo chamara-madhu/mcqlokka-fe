@@ -161,7 +161,7 @@ const ManageSubjectMain = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="9" className="py-4 text-center">
+                <td colSpan="7" className="py-4 text-center">
                   No subjects found.
                 </td>
               </tr>

@@ -16,9 +16,11 @@ import subjectService from "../../../../services/subject.service";
 
 const initialState = {
   name: "",
+  forSearch: "",
   exam: "",
   medium: "",
   type: "",
+  icon: "",
 };
 
 const initialFiles = {
@@ -45,10 +47,10 @@ const CreateSubjectMain = () => {
 
       try {
         const res = await getSubjectById(id);
-        console.log("res", res.data);
         setForm((prev) => ({
           ...prev,
           name: res.data.name,
+          forSearch: res.data.forSearch,
           exam: res.data.exam,
           medium: res.data.medium,
           type: res.data.type,
@@ -102,13 +104,20 @@ const CreateSubjectMain = () => {
 
   const isValid = () => {
     let name = "";
+    let forSearch = "";
     let exam = "";
     let medium = "";
     let type = "";
+    let icon = "";
 
-    // Validate Exam
+    // Validate name
     if (!form.name) {
       name = "Subject is required";
+    }
+
+    // Validate forSearch
+    if (!form.forSearch) {
+      forSearch = "Search name is required";
     }
 
     // Validate Exam
@@ -126,14 +135,21 @@ const CreateSubjectMain = () => {
       type = "Type is required";
     }
 
+    // Validate icon
+    if (!form.icon && !files.icon) {
+      icon = "Icon is required";
+    }
+
     // Check if any error exists
-    if (name || exam || medium || type) {
+    if (name || forSearch || exam || medium || type || icon) {
       setErrors((prev) => ({
         ...prev,
         name,
+        forSearch,
         exam,
         medium,
         type,
+        icon,
       }));
 
       return false;
@@ -151,10 +167,17 @@ const CreateSubjectMain = () => {
 
     const formData = new FormData();
     formData.set("name", form.name);
+    formData.set("forSearch", form.forSearch);
     formData.set("exam", form.exam);
     formData.set("medium", form.medium);
     formData.set("type", form.type);
-    formData.append("icon", files.icon);
+    if (form?.icon) {
+      formData.set("icon", form.icon);
+    }
+
+    if (files?.icon) {
+      formData.append("icon", files.icon);
+    }
 
     try {
       if (!id) {
@@ -197,6 +220,15 @@ const CreateSubjectMain = () => {
             isRequired
             error={errors.name}
           />
+          <FormInput
+            name="forSearch"
+            label="Search name"
+            value={form.forSearch}
+            onChange={handleChange}
+            placeholder="Eg. Accounting"
+            isRequired
+            error={errors.forSearch}
+          />
           <TypeOrSelect
             isClearable
             label="Exam"
@@ -229,18 +261,27 @@ const CreateSubjectMain = () => {
             placeholder="Eg. Past"
             error={errors.type}
             showRequiredLabel
+            />
+          <FormInput
+            name="icon"
+            label="Icon URL"
+            value={form.icon}
+            onChange={handleChange}
+            placeholder="Eg. subjects/AL/icons/Biology"
+            error={errors.icon}
           />
+          <p className="text-center text-gray-500">or</p>
           <ImageUpload
             label="Icon URL"
             name="icon"
             value={files.icon}
             existingValue={
-              typeof files?.icon === "string" && files?.icon?.includes("icon")
+              typeof files?.icon === "string" && files?.icon?.includes("icons")
                 ? files.icon
                 : ""
             }
             handleFile={handleFile}
-            error={files.iconErr}
+            error={errors.icon}
             removeImage={removeImage}
           />
           <div className="flex gap-2">

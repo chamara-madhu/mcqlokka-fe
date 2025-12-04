@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import FormInput from "../../../shared/fields/FormInput";
-import { EXAM_OPTIONS } from "../../../../constants/base";
 import lessonService from "../../../../services/lesson.service";
 import TypeOrSelect from "../../../shared/fields/TypeOrSelect";
 import Button from "../../../shared/buttons/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import { ADMIN_LESSON_MANAGE_PATH } from "../../../../constants/routes";
 import PageHeader from "../../../shared/headers/PageHeader";
+import subjectService from "../../../../services/subject.service";
 
 const initialState = {
-  exam: "",
+  subjectId: "",
   no: "",
   lesson: "",
 };
@@ -18,11 +18,31 @@ const initialState = {
 const CreateLessonMain = () => {
   const [form, setForm] = useState(initialState);
   const [errors, setErrors] = useState(initialState);
+  const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const { getAllSubjects } = subjectService();
   const { createLesson, updateLesson, getLessonById } = lessonService();
+
+  useEffect(() => {
+    const fetchAllSubjects = async () => {
+      try {
+        const res = await getAllSubjects();
+        const mapped = res?.data?.map((subject) => ({
+          value: subject._id,
+          label: `${subject.name} ${subject.exam} ${subject.medium} (${subject.type})`,
+        }));
+        setSubjects(mapped);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchAllSubjects();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const fetchLesson = async () => {
@@ -34,7 +54,7 @@ const CreateLessonMain = () => {
         const res = await getLessonById(id);
         setForm((prev) => ({
           ...prev,
-          exam: res.data.exam,
+          subjectId: res.data.subject?._id,
           no: res.data.no,
           lesson: res.data.lesson,
         }));
@@ -66,13 +86,13 @@ const CreateLessonMain = () => {
   }, []);
 
   const isValid = () => {
-    let exam = "";
+    let subjectId = "";
     let no = "";
     let lesson = "";
 
     // Validate Exam
-    if (!form.exam) {
-      exam = "Exam is required";
+    if (!form.subjectId) {
+      subjectId = "Exam is required";
     }
 
     // Validate Medium
@@ -86,10 +106,10 @@ const CreateLessonMain = () => {
     }
 
     // Check if any error exists
-    if (exam || no || lesson) {
+    if (subjectId || no || lesson) {
       setErrors((prev) => ({
         ...prev,
-        exam,
+        subjectId,
         no,
         lesson,
       }));
@@ -136,17 +156,20 @@ const CreateLessonMain = () => {
     <>
       <PageHeader title={id ? "Edit Lesson" : "Create Lesson"} />
 
-      <div>
         <form className="flex w-[50%] flex-col gap-6">
           <TypeOrSelect
             isClearable
-            label="Exam"
-            name="exam"
+            label="Subject"
+            name="subjectId"
             onChange={handleChange}
-            options={EXAM_OPTIONS}
-            value={form.exam}
-            placeholder="Eg. A/L"
-            error={errors.exam}
+            options={subjects}
+            value={
+              subjects.filter(
+                (subject) => subject.value === form.subjectId
+              )?.[0]?.label
+            }
+            placeholder="-- Select --"
+            error={errors.subjectId}
             showRequiredLabel
           />
           <FormInput
@@ -177,7 +200,6 @@ const CreateLessonMain = () => {
             <Button label="Reset" color="secondary" handleBtn={handleReset} />
           </div>
         </form>
-      </div>
     </>
   );
 };

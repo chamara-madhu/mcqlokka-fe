@@ -69,7 +69,7 @@ function Footer() {
       delay: 0.2,
       label: "Support/Billing : ",
     },
-    { text: "sam@mcqlokka.com", delay: 0.4, label: "Sales : " },
+    // { text: "sam@mcqlokka.com", delay: 0.4, label: "Sales : " },
   ];
 
   const socialIcons = [

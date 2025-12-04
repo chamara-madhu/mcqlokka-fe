@@ -10,6 +10,7 @@ import {
   CART_PATH,
   ABOUT_PATH,
   CONTACT_PATH,
+  MY_SUBJECTS_PATH,
 } from "../../../constants/routes";
 import Cta from "../../shared/buttons/Cta";
 import Logo from "../../../assets/images/logo.png";
@@ -103,7 +104,7 @@ const Navbar = () => {
                 to={
                   user.role === USER_ROLES.ADMIN
                     ? ADMIN_DASHBOARD_PATH
-                    : MY_RESULTS_PATH
+                    : MY_SUBJECTS_PATH
                 }
               >
                 <div className="flex items-center gap-3">

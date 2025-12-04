@@ -3,13 +3,12 @@ import { toast } from "react-toastify";
 import { Edit2, Trash } from "feather-icons-react";
 import PageHeader from "../../../shared/headers/PageHeader";
 import lessonService from "../../../../services/lesson.service";
-import { useNavigate } from "react-router-dom";
 import { ADMIN_LESSON_CREATE_PATH } from "../../../../constants/routes";
+import { Link } from "react-router-dom";
 
 const ManageLessonMain = () => {
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const { getAllLessons, deleteLesson } = lessonService();
 
@@ -56,7 +55,7 @@ const ManageLessonMain = () => {
         <table className="w-full border table-fixed">
           <thead className="bg-purple-100 h-14">
             <tr className="text-sm text-left">
-              <th className="w-[100px]">Exam</th>
+              <th className="w-[250px]">Subject</th>
               <th className="w-[100px]">no</th>
               <th>Lesson</th>
               <th className="w-[110px]">Action</th>
@@ -72,19 +71,21 @@ const ManageLessonMain = () => {
             ) : lessons?.length > 0 ? (
               lessons.map((lesson, index) => (
                 <tr key={index} className="text-sm">
-                  <td>{lesson.exam}</td>
+                  <td>
+                    {lesson?.subject?.exam} {lesson?.subject?.name}{" "}
+                    {lesson?.subject?.medium}
+                  </td>
                   <td>{lesson.no}</td>
                   <td>{lesson.lesson}</td>
                   <td>
                     <div className="flex gap-2">
-                      <div
+                      <Link
                         className="flex items-center justify-center w-8 h-8 text-white bg-purple-500 rounded-lg cursor-pointer hover:bg-purple-700"
-                        onClick={() =>
-                          navigate(`${ADMIN_LESSON_CREATE_PATH}/${lesson._id}`)
-                        }
+                        to={`${ADMIN_LESSON_CREATE_PATH}/${lesson._id}`}
+                        target="_blank"
                       >
                         <Edit2 size={16} />
-                      </div>
+                      </Link>
                       <div
                         className="flex items-center justify-center w-8 h-8 text-white bg-red-500 rounded-lg cursor-pointer hover:bg-red-700"
                         onClick={() => handleDeleteLesson(lesson._id)}

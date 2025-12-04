@@ -1,13 +1,20 @@
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { MCQ_ALL_PATH, MCQ_BUY_PAPER_PATH } from "../../../constants/routes";
+import { MCQ_ALL_PATH } from "../../../constants/routes";
 import StudentRankCard from "../../shared/cards/StudentRankCard";
 import { useEffect, useState } from "react";
 import paperService from "../../../services/paper.service";
 import { EXAMS, FEES } from "../../../constants/base";
-import { Bar, Pie } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import markService from "../../../services/mark.service";
-import { ShoppingCart, CheckCircle, Unlock } from "feather-icons-react";
+import {
+  ShoppingCart,
+  CheckCircle,
+  X,
+  AlertCircle,
+  Clock,
+  BookOpen,
+} from "lucide-react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -36,6 +43,8 @@ const MCQStartMain = () => {
   const [eligibility, setEligibility] = useState(null);
   const [preLoading, setPreLoading] = useState(true);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [showModeModal, setShowModeModal] = useState(false);
+  const [selectedMode, setSelectedMode] = useState(null);
   const dispatch = useDispatch();
 
   const user = JSON.parse(localStorage.getItem("user_data") || "{}");
@@ -50,10 +59,8 @@ const MCQStartMain = () => {
       setPreLoading(true);
       const res = await getPaperById(paperId);
       setPaper(res.data);
-
       setPreLoading(false);
     };
-
     fetchData();
   }, []);
 
@@ -62,7 +69,6 @@ const MCQStartMain = () => {
       const res = await checkEligibility(paperId);
       setEligibility(res.data);
     };
-
     fetchData();
   }, []);
 
@@ -71,11 +77,9 @@ const MCQStartMain = () => {
       const res = await getHighestMarkStudentsByPaperId(paperId);
       setHighestMarkStudents(res?.data || []);
     };
-
     if (paperId) {
       fetchData();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAddToCart = (subject) => {
@@ -83,6 +87,83 @@ const MCQStartMain = () => {
     dispatch(addToCart(subject));
     setTimeout(() => setAddedToCart(false), 2000);
   };
+
+  const openModeModal = (mode) => {
+    setSelectedMode(mode);
+    setShowModeModal(true);
+  };
+
+  const closeModeModal = () => {
+    setShowModeModal(false);
+    setSelectedMode(null);
+  };
+
+  // Content translations
+  const content = {
+    English: {
+      mode: "Practice Mode",
+      examMode: "Exam Mode",
+      learningMode: "Learning Mode",
+      instructions: "Instructions",
+      startExam: "Start Exam",
+      startLearning: "Start Learning",
+      cancel: "Cancel",
+      examDesc: "Simulate real exam conditions with timed assessment",
+      learningDesc: "Practice with instant feedback and explanations",
+      examInstructions: [
+        "This is a timed test. Please make sure you are not interrupted during the test, as the timer cannot be paused once started.",
+        "Once you submit an answer, you cannot go back to change it.",
+        "The exam will automatically submit when the time runs out.",
+        "Your answers will be saved automatically as you progress.",
+        "Make sure you have a stable internet connection throughout the exam.",
+      ],
+      learningInstructions: [
+        "This mode allows you to practice at your own pace without time pressure.",
+        "You will receive instant feedback for each answer you submit.",
+        "You can review and change your answers anytime before final submission.",
+        "Detailed explanations are provided for each question to help you learn.",
+        "Take your time to understand the concepts thoroughly.",
+      ],
+      importantNote: "Important",
+      examNote:
+        "Please ensure you have a stable internet connection and are in a quiet environment before starting.",
+      learningNote:
+        "Use this mode to understand concepts thoroughly. Take breaks whenever needed.",
+    },
+    Sinhala: {
+      mode: "පුහුණු ආකාරය",
+      examMode: "විභාග ආකාරය",
+      learningMode: "ඉගෙනුම් ආකාරය",
+      instructions: "උපදෙස්",
+      startExam: "විභාගය ආරම්භ කරන්න",
+      startLearning: "ඉගෙනීම ආරම්භ කරන්න",
+      cancel: "අවලංගු කරන්න",
+      examDesc:
+        "කාල සීමාව සහිත තක්සේරුව සමඟ සැබෑ විභාග තත්ත්වයන් අනුකරණය කරන්න",
+      learningDesc: "ක්ෂණික ප්‍රතිචාර සහ පැහැදිලි කිරීම් සමඟ පුහුණු වන්න",
+      examInstructions: [
+        "මෙය කාල සීමාවක් ඇති පරීක්ෂණයකි. ආරම්භ කළ පසු කාල ගණකය නැවැත්විය නොහැකි බැවින්, පරීක්ෂණය අතරතුර බාධා නොවන බව සහතික කර ගන්න.",
+        "ඔබ පිළිතුරක් ඉදිරිපත් කළ පසු, එය වෙනස් කිරීමට ආපසු යා නොහැක.",
+        "කාලය අවසන් වූ විට විභාගය ස්වයංක්‍රීයව ඉදිරිපත් වේ.",
+        "ඔබ ඉදිරියට යන විට ඔබගේ පිළිතුරු ස්වයංක්‍රීයව සුරකිනු ලැබේ.",
+        "විභාගය පුරාවටම ස්ථාවර අන්තර්ජාල සම්බන්ධතාවයක් ඇති බවට වග බලා ගන්න.",
+      ],
+      learningInstructions: [
+        "මෙම ආකාරය ඔබට කාල පීඩනයකින් තොරව ඔබේම වේගයෙන් පුහුණු වීමට ඉඩ සලසයි.",
+        "ඔබ ඉදිරිපත් කරන සෑම පිළිතුරක් සඳහාම ඔබට ක්ෂණික ප්‍රතිචාර ලැබෙනු ඇත.",
+        "අවසන් ඉදිරිපත් කිරීමට පෙර ඕනෑම වේලාවක ඔබගේ පිළිතුරු සමාලෝචනය කර වෙනස් කළ හැකිය.",
+        "ඔබට ඉගෙන ගැනීමට උපකාර කිරීම සඳහා සෑම ප්‍රශ්නයක් සඳහාම විස්තරාත්මක පැහැදිලි කිරීම් සපයනු ලැබේ.",
+        "සංකල්ප හොඳින් අවබෝධ කර ගැනීමට ඔබේ කාලය ගන්න.",
+      ],
+      importantNote: "වැදගත්",
+      examNote:
+        "ආරම්භ කිරීමට පෙර ඔබට ස්ථාවර අන්තර්ජාල සම්බන්ධතාවයක් ඇති බවත් නිහඬ පරිසරයක සිටින බවත් සහතික කර ගන්න.",
+      learningNote:
+        "සංකල්ප හොඳින් අවබෝධ කර ගැනීමට මෙම ආකාරය භාවිතා කරන්න. අවශ්‍ය විටෙක විවේකයක් ගන්න.",
+    },
+  };
+
+  const t = content[paper?.subject?.medium] || content.English;
 
   if (preLoading) {
     return <PageLoader />;
@@ -133,112 +214,117 @@ const MCQStartMain = () => {
         )}
       </div>
       <div className="flex flex-col w-[60%] gap-7">
-        <h1 className="text-2xl font-semibold">Instructions</h1>
-        <ol className="pl-5 list-decimal">
-          <li className="mb-4">
-            <p className="text-gray-700">
-              This is a timed test. Please make sure you are not interrupted
-              during the test, as the timer cannot be paused once started.
-            </p>
-          </li>
-          <li className="mb-4">
-            <p className="text-gray-700">
-              Please ensure you have a stable internet connection.
-            </p>
-          </li>
-          <li>
-            <p className="text-gray-700">
-              We recommend you to try the sample test for a couple of minutes
-              before taking the main test.
-            </p>
-          </li>
-        </ol>
-        {!user?.name && paper?.fee === FEES.FREE && (
-          <div className="flex gap-3">
-            <Link
-              to={`${MCQ_ALL_PATH}/exam/${paper?._id}`}
-              className="flex items-center justify-center h-12 px-10 text-white bg-purple-500 rounded-full w-fit hover:bg-purple-700"
-            >
-              Exam Mode
-            </Link>
-            <Link
-              to={`${MCQ_ALL_PATH}/exam/learning/${paper?._id}`}
-              className="flex items-center justify-center h-12 px-10 text-white bg-purple-500 rounded-full w-fit hover:bg-purple-700"
-            >
-              Learning Mode
-            </Link>
-          </div>
-        )}
-        {!user?.name && paper?.fee === FEES.PAID && (
-          <button
-            onClick={() => handleAddToCart(paper?.subject)}
-            className={`flex items-center space-x-2 px-4 sm:px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 ${
-              addedToCart
-                ? "bg-green-600 text-white"
-                : "bg-purple-600 hover:bg-purple-700 text-white"
-            }`}
-          >
-            {addedToCart ? (
-              <>
-                <CheckCircle className="w-5 h-5" />
-                <span className="hidden sm:inline">Added!</span>
-              </>
-            ) : (
-              <>
-                <ShoppingCart className="w-5 h-5" />
-                <span className="hidden sm:inline">Add to Cart</span>
-              </>
-            )}
-          </button>
-        )}
-        {(paper?.fee === FEES.FREE && eligibility?.attemptsRemaining > 0) ||
+        {/* Mode Selection Cards */}
+        {(!user?.name && paper?.fee === FEES.FREE) ||
+        (paper?.fee === FEES.FREE && eligibility?.attemptsRemaining > 0) ||
         (paper?.fee === FEES.PAID && eligibility?.attemptsRemaining > 0) ? (
-          <div className="flex gap-3">
-            <Link
-              to={`${MCQ_ALL_PATH}/exam/${paper?._id}`}
-              className="flex items-center justify-center h-12 px-10 text-white bg-purple-500 rounded-full w-fit hover:bg-purple-700"
+          <>
+            <h1 className="text-2xl font-semibold">{t.mode}</h1>
+            <div className="grid grid-cols-2 gap-5">
+              {/* Exam Mode Card */}
+              <button
+                onClick={() => openModeModal("exam")}
+                className="flex items-start bg-white border-2 border-purple-200 hover:border-purple-500 rounded-lg p-6 text-left transition-all duration-200"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-purple-50 rounded-lg">
+                    <Clock className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                      {t.examMode}
+                    </h3>
+                    <p className="text-sm text-gray-600">{t.examDesc}</p>
+                  </div>
+                </div>
+              </button>
+
+              {/* Learning Mode Card */}
+              <button
+                onClick={() => openModeModal("learning")}
+                className="flex items-start bg-white border-2 border-purple-200 hover:border-purple-500 rounded-lg p-6 text-left transition-all duration-200"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-purple-50 rounded-lg">
+                    <BookOpen className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                      {t.learningMode}
+                    </h3>
+                    <p className="text-sm text-gray-600">{t.learningDesc}</p>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </>
+        ) : null}
+
+        {!user?.name && paper?.fee === FEES.PAID && (
+          <div>
+            <h1 className="text-2xl mb-4 font-semibold">Buy now</h1>
+            <button
+              onClick={() => handleAddToCart(paper?.subject)}
+              className={`flex w-fit items-center justify-center space-x-2 px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                addedToCart
+                  ? "bg-green-600 text-white"
+                  : "bg-purple-600 hover:bg-purple-700 text-white"
+              }`}
             >
-              Exam Mode
-            </Link>
-            <Link
-              to={`${MCQ_ALL_PATH}/exam/learning/${paper?._id}`}
-              className="flex items-center justify-center h-12 px-10 text-white bg-purple-500 rounded-full w-fit hover:bg-purple-700"
-            >
-              Learning Mode
-            </Link>
+              {addedToCart ? (
+                <>
+                  <CheckCircle className="w-5 h-5" />
+                  <span>Added to Cart!</span>
+                </>
+              ) : (
+                <>
+                  <ShoppingCart className="w-5 h-5" />
+                  <span>Add to Cart</span>
+                </>
+              )}
+            </button>
           </div>
-        ) : null}{" "}
+        )}
+
         {paper?.fee === FEES.PAID && eligibility?.isNeedToBuy && (
-          <button
-            onClick={() => handleAddToCart(paper?.subject)}
-            className={`flex items-center space-x-2 px-4 sm:px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 ${
-              addedToCart
-                ? "bg-green-600 text-white"
-                : "bg-purple-600 hover:bg-purple-700 text-white"
-            }`}
-          >
-            {addedToCart ? (
-              <>
-                <CheckCircle className="w-5 h-5" />
-                <span className="hidden sm:inline">Added!</span>
-              </>
-            ) : (
-              <>
-                <ShoppingCart className="w-5 h-5" />
-                <span className="hidden sm:inline">Add to Cart</span>
-              </>
-            )}
-          </button>
+          <div>
+            <h1 className="text-2xl mb-4 font-semibold">Buy now</h1>
+            <button
+              onClick={() => handleAddToCart(paper?.subject)}
+              className={`flex w-fit items-center justify-center space-x-2 px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                addedToCart
+                  ? "bg-green-600 text-white"
+                  : "bg-purple-600 hover:bg-purple-700 text-white"
+              }`}
+            >
+              {addedToCart ? (
+                <>
+                  <CheckCircle className="w-5 h-5" />
+                  <span>Added to Cart!</span>
+                </>
+              ) : (
+                <>
+                  <ShoppingCart className="w-5 h-5" />
+                  <span>Add to Cart</span>
+                </>
+              )}
+            </button>
+          </div>
         )}
-       {/* Attempts Remaining */}
+
         {eligibility?.attemptsRemaining != null && (
-          <p className="text-sm font-medium text-purple-500">
-            {eligibility.attemptsRemaining > 0
-              ? `${eligibility?.attemptsRemaining} attempt(s) remaining`
-              : "All attempts have been used."}
-          </p>
+          <div className="flex items-center gap-2 px-4 py-2 bg-purple-50 border border-purple-200 rounded-lg">
+            <AlertCircle className="w-4 h-4 text-purple-600" />
+            <p className="text-sm font-medium text-purple-700">
+              {eligibility.attemptsRemaining > 0
+                ? `${eligibility?.attemptsRemaining} attempt(s) remaining`
+                : "All attempts have been used."}
+            </p>
+          </div>
         )}
+
         <hr />
+
         {paper?.stats?.noOfStuds ? (
           <div className="flex flex-col w-full bg-white border border-purple-200 rounded-xl p-8">
             <h2 className="text-lg mb-5 font-semibold text-purple-700">
@@ -253,8 +339,7 @@ const MCQStartMain = () => {
               </span>
             </div>
             <div className="flex gap-4">
-              <div className="w-[40%">
-                {/* Grade Distribution Table */}
+              <div className="w-[40%]">
                 <table className="w-full border border-gray-300 rounded overflow-hidden text-sm">
                   <thead>
                     <tr className="bg-purple-100">
@@ -294,11 +379,11 @@ const MCQStartMain = () => {
                           (g) => paper.stats[g.toLowerCase()] ?? 0
                         ),
                         backgroundColor: [
-                          "#4BC0C0", // Teal
-                          "#36A2EB", // Blue
-                          "#9966FF", // Purple
-                          "#FFCE56", // Yellow
-                          "#FF6384", // Red
+                          "#4BC0C0",
+                          "#36A2EB",
+                          "#9966FF",
+                          "#FFCE56",
+                          "#FF6384",
                         ],
                         borderColor: "#fff",
                         borderWidth: 1,
@@ -306,7 +391,7 @@ const MCQStartMain = () => {
                     ],
                   }}
                   options={{
-                    indexAxis: "y", // <-- makes the bars horizontal
+                    indexAxis: "y",
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
@@ -325,19 +410,6 @@ const MCQStartMain = () => {
                           },
                         },
                       },
-                      datalabels: {
-                        anchor: "end",
-                        align: "end",
-                        color: "#111",
-                        font: { weight: "bold", size: 12 },
-                        formatter: (value) => {
-                          const pct = (
-                            (value / paper.stats.noOfStuds) *
-                            100
-                          ).toFixed(1);
-                          return `${pct}%`;
-                        },
-                      },
                     },
                     scales: {
                       x: {
@@ -352,65 +424,6 @@ const MCQStartMain = () => {
                   height={260}
                 />
               </div>
-              {/* <div className="flex flex-col gap-4 justify-center items-center bg-purple-50 rounded-lg p-4">
-                <Pie
-                  data={{
-                    labels: Object.entries(paper.stats)
-                      .slice(1)
-                      .map(([key]) => key.toUpperCase()),
-                    datasets: [
-                      {
-                        data: Object.entries(paper.stats)
-                          .slice(1)
-                          .map(([_, value]) => value),
-                        backgroundColor: [
-                          "#4BC0C0", // Teal
-                          "#36A2EB", // Blue
-                          "#9966FF", // Purple
-                          "#FFCE56", // Yellow
-                          "#FF6384", // Red
-                        ],
-                        hoverBackgroundColor: [
-                          "#4BC0C0CC",
-                          "#36A2EBCC",
-                          "#9966FFCC",
-                          "#FFCE56CC",
-                          "#FF6384CC",
-                        ],
-                      },
-                    ],
-                  }}
-                  options={{
-                    responsive: false, // Disable responsiveness
-                    maintainAspectRatio: false, // Prevent aspect ratio from being maintained
-                    plugins: {
-                      legend: {
-                        position: "right", // Position the legend at the top of the chart
-                      },
-                      datalabels: {
-                        color: "#000",
-                        font: {
-                          weight: "bold",
-                          size: 12,
-                        },
-                        formatter: (value, ctx) => {
-                          const percentage = (
-                            (value / paper.stats.noOfStuds) *
-                            100
-                          ).toFixed(2);
-                          return `${
-                            ctx.chart.data.labels[ctx.dataIndex]
-                          }: ${percentage}%`;
-                        },
-                        align: "start",
-                        anchor: "end",
-                      },
-                    },
-                  }}
-                  height={250} // Set height directly
-                  width={300} // Set width directly
-                />
-              </div> */}
             </div>
             <div className="mt-10 text-sm text-gray-500 text-center">
               This summary reflects the actual performance distribution for{" "}
@@ -424,121 +437,87 @@ const MCQStartMain = () => {
             </div>
           </div>
         ) : null}
-        {/* <div className="flex flex-col gap-7">
-          {paper?.stats?.noOfStuds && (
-            <>
-              <div className="flex flex-col w-full p-6 border border-purple-200 rounded-lg h-fit">
-                <h2 className="mb-4 text-lg font-semibold text-purple-700">
-                  Actual Statistics
-                </h2>
-                <p className="mb-4 text-sm text-gray-700">
-                  <b>{paper?.stats?.noOfStuds?.toLocaleString()}</b> students
-                  face the exam.
-                </p>
-                <div className="flex gap-7">
-                  <div className="flex w-1/2">
-                    <table className="w-full text-sm text-gray-800 border border-collapse border-gray-300">
-                      <thead>
-                        <tr className="bg-purple-100">
-                          <th className="px-4 py-2 text-left border border-gray-300">
-                            Grade
-                          </th>
-                          <th className="px-4 py-2 text-left border border-gray-300">
-                            No. of Students
-                          </th>
-                          <th className="px-4 py-2 text-right border border-gray-300">
-                            %
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {Object.entries(paper?.stats)
-                          .slice(1)
-                          .map(([key, value]) => (
-                            <tr key={key} className="h-10">
-                              <td className="px-4 border border-gray-300">
-                                {key?.toUpperCase()}
-                              </td>
-                              <td className="px-4 border border-gray-300">
-                                {value?.toLocaleString()}
-                              </td>
-                              <td className="px-4 text-right border border-gray-300">
-                                {(
-                                  (value / paper?.stats?.noOfStuds) *
-                                  100
-                                ).toFixed(2)}{" "}
-                                %
-                              </td>
-                            </tr>
-                          ))}
-                      </tbody>
-                    </table>
+      </div>
+
+      {/* Clean Professional Modal */}
+      {showModeModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-xl">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between px-6 py-5 border-b border-gray-200">
+              <div className="flex items-center gap-3">
+                {selectedMode === "exam" ? (
+                  <div className="p-2 bg-purple-100 rounded">
+                    <Clock className="w-5 h-5 text-purple-600" />
                   </div>
-                  <div className="flex w-1/2">
-                    <Pie
-                      data={{
-                        labels: Object.entries(paper.stats)
-                          .slice(1)
-                          .map(([key]) => key.toUpperCase()),
-                        datasets: [
-                          {
-                            data: Object.entries(paper.stats)
-                              .slice(1)
-                              .map(([_, value]) => value),
-                            backgroundColor: [
-                              "#4BC0C0", // Teal
-                              "#36A2EB", // Blue
-                              "#9966FF", // Purple
-                              "#FFCE56", // Yellow
-                              "#FF6384", // Red
-                            ],
-                            hoverBackgroundColor: [
-                              "#4BC0C0CC",
-                              "#36A2EBCC",
-                              "#9966FFCC",
-                              "#FFCE56CC",
-                              "#FF6384CC",
-                            ],
-                          },
-                        ],
-                      }}
-                      options={{
-                        responsive: false, // Disable responsiveness
-                        maintainAspectRatio: false, // Prevent aspect ratio from being maintained
-                        plugins: {
-                          legend: {
-                            position: "right", // Position the legend at the top of the chart
-                          },
-                          datalabels: {
-                            color: "#000",
-                            font: {
-                              weight: "bold",
-                              size: 12,
-                            },
-                            formatter: (value, ctx) => {
-                              const percentage = (
-                                (value / paper.stats.noOfStuds) *
-                                100
-                              ).toFixed(2);
-                              return `${
-                                ctx.chart.data.labels[ctx.dataIndex]
-                              }: ${percentage}%`;
-                            },
-                            align: "start",
-                            anchor: "end",
-                          },
-                        },
-                      }}
-                      height={250} // Set height directly
-                      width={300} // Set width directly
-                    />
+                ) : (
+                  <div className="p-2 bg-purple-100 rounded">
+                    <BookOpen className="w-5 h-5 text-purple-600" />
+                  </div>
+                )}
+                <h3 className="text-xl font-semibold text-gray-900">
+                  {selectedMode === "exam" ? t.examMode : t.learningMode}
+                </h3>
+              </div>
+              <button
+                onClick={closeModeModal}
+                className="p-1.5 hover:bg-gray-100 rounded transition-colors"
+              >
+                <X className="w-5 h-5 text-gray-500" />
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="px-6 py-5 overflow-y-auto max-h-[calc(90vh-180px)]">
+              <h4 className="text-base font-semibold text-gray-900 mb-3">
+                {t.instructions}
+              </h4>
+              <ol className="space-y-3 mb-5">
+                {(selectedMode === "exam"
+                  ? t.examInstructions
+                  : t.learningInstructions
+                ).map((instruction, index) => (
+                  <li key={index} className="flex gap-3 text-sm text-gray-700">
+                    <span className="flex-shrink-0 font-semibold text-purple-600">
+                      {index + 1}.
+                    </span>
+                    <span>{instruction}</span>
+                  </li>
+                ))}
+              </ol>
+
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                <div className="flex gap-3">
+                  <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h5 className="font-semibold text-gray-900 text-sm mb-1">
+                      {t.importantNote}
+                    </h5>
+                    <p className="text-sm text-gray-700">
+                      {selectedMode === "exam" ? t.examNote : t.learningNote}
+                    </p>
                   </div>
                 </div>
               </div>
-            </>
-          )}
-        </div> */}
-      </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 flex gap-3 justify-end">
+              <button
+                onClick={closeModeModal}
+                className="px-5 py-2 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
+              >
+                {t.cancel}
+              </button>
+              <Link to={`${MCQ_ALL_PATH}/${selectedMode}/${paper?._id}`}>
+                <button className="px-5 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium hover:bg-purple-700 transition-colors">
+                  {selectedMode === "exam" ? t.startExam : t.startLearning}
+                </button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

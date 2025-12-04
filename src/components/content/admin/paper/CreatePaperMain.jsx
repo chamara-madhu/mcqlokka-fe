@@ -67,7 +67,7 @@ const CreatePaperMain = () => {
         const res = await getPaperById(id);
         setForm((prev) => ({
           ...prev,
-          subjectId: res.data.subject,
+          subjectId: res.data.subject?._id,
           fee: res.data.fee,
           year: res.data.year,
           noOfQuestions: res.data.noOfQuestions,
@@ -275,7 +275,7 @@ const CreatePaperMain = () => {
             label="Time"
             value={form.time}
             onChange={handleChange}
-            placeholder="Eg. 50"
+            placeholder="Eg. 2"
             isRequired
             error={errors.time}
           />
@@ -286,7 +286,7 @@ const CreatePaperMain = () => {
             onChange={handleChange}
             isRequired
             error={errors.longName}
-            info="Eg. G.C.E Advanced Level - 2024 (English)"
+            info="Eg. G.C.E Advanced Level - Biology - 2024 (English)"
           />
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium">Statistics</label>

@@ -45,6 +45,7 @@ import {
   MY_SUBJECTS_PATH,
   CONTACT_PATH,
   MCQ_EXAM_LEARNING_PATH,
+  ADMIN_BULK_LESSON_CREATE_PATH,
 } from "./constants/routes";
 import Paper from "./pages/students/Paper";
 import CreatePaper from "./pages/admin/paper/CreatePaper";
@@ -84,6 +85,7 @@ import VerifyAccount from "./pages/VerifyAccount";
 import MySubjects from "./pages/students/MySubjects";
 import Contact from "./pages/Contact";
 import PaperLearning from "./pages/students/PaperLearning";
+import CreateBulkLesson from "./pages/admin/lesson/CreateBulkLesson";
 
 function App() {
   // Create a private route for passengers
@@ -225,6 +227,14 @@ function App() {
             path={ADMIN_LESSON_CREATE_PATH}
             exact
             element={<CreateLesson />}
+          />
+        </Route>
+
+        <Route exact path={ADMIN_BULK_LESSON_CREATE_PATH} element={<AdminRoute />}>
+          <Route
+            path={ADMIN_BULK_LESSON_CREATE_PATH}
+            exact
+            element={<CreateBulkLesson />}
           />
         </Route>
 

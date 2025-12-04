@@ -83,7 +83,7 @@ const ManagePaperMain = () => {
               <th className="w-[100px]">Time</th>
               <th className="w-[200px]">Long name</th>
               <th className="w-[100px]">Fee</th>
-              <th>Statistics</th>
+              <th className="w-[150px]">Statistics</th>
               <th className="w-[110px]">Is Approved</th>
               <th className="w-[110px]">Action</th>
             </tr>

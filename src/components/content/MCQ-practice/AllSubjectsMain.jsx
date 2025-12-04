@@ -65,7 +65,7 @@ const AllSubjectsMain = () => {
   // Apply filters
   const filteredPapers = subjects.filter((subject) => {
     const matchesSubject =
-      filters.subject.length === 0 || filters.subject.includes(subject.name);
+      filters.subject.length === 0 || filters.subject.includes(subject?.forSearch);
     const matchesExam =
       filters.exam.length === 0 || filters.exam.includes(subject.exam);
     const matchesMedium =
@@ -74,7 +74,7 @@ const AllSubjectsMain = () => {
       filters.type.length === 0 || filters.type.includes(subject.type);
     const matchesSearch =
       searchText === "" ||
-      subject.name.toLowerCase().includes(searchText.toLowerCase()); // Search by name
+      subject?.forSearch.toLowerCase().includes(searchText.toLowerCase()); // Search by name
 
     return (
       matchesSubject &&

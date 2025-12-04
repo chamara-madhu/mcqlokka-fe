@@ -30,7 +30,7 @@ const ScanQuestionMain = () => {
 
   const navigate = useNavigate();
 
-  console.log("file", file)
+  console.log("file", file);
 
   const { getAllPapers } = paperService();
   const { scanQuestion } = questionService();
@@ -88,7 +88,7 @@ const ScanQuestionMain = () => {
         const res = await getAllPapers();
         const mapped = res?.data?.map((paper) => ({
           value: paper._id,
-          label: `${paper?.subject?.exam} ${paper?.subject?.medium} ${paper?.year} (${paper?.subject?.type})`,
+          label: `${paper?.subject?.exam} ${paper?.subject?.name} - ${paper?.subject?.medium} ${paper?.year} (${paper?.subject?.type})`,
         }));
         setPapers(mapped);
       } catch (error) {
@@ -161,10 +161,9 @@ const ScanQuestionMain = () => {
       // try {
       // 	const result = await businessCardScan(formData);
 
-
-        await scanQuestion(formData);
-        toast.success("Question successfully created");
-        handleReset();
+      await scanQuestion(formData);
+      toast.success("Question successfully created");
+      handleReset();
     } catch (error) {
       toast.error(
         error?.response?.data?.message ||
@@ -227,11 +226,12 @@ const ScanQuestionMain = () => {
               </p>
               <input
                 type="file"
-                accept="image/*,application/pdf"
+                accept="image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 onChange={handleFileChange}
                 className="hidden"
                 id="file-upload"
               />
+
               <label
                 htmlFor="file-upload"
                 className="inline-block px-4 py-2 mt-4 text-sm font-medium text-purple-600 border border-purple-600 rounded-md cursor-pointer hover:bg-purple-100"

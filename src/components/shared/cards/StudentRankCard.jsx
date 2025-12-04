@@ -2,7 +2,7 @@ import Medal from "../Medal";
 
 const StudentRankCard = ({ no, user, marks, medal }) => {
   return (
-    <div className="relative flex items-center gap-4 p-3 bg-white rounded-lg shadow-md">
+    <div className="relative flex items-center gap-4 p-3 bg-white rounded-lg border border-purple-200">
       <div className="flex items-center justify-center w-8 h-8 text-sm text-gray-500 border border-gray-300 rounded-full">
         {no}
       </div>
