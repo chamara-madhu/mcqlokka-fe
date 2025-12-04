@@ -49,7 +49,7 @@ const AllSubjectsMain = () => {
   useEffect(() => {
     const fetch = async () => {
       setPreLoading(true);
-      const res = await getAllSubjects({ isApproved: "Yes" });
+      const res = await getAllSubjects();
       setPapers(res?.data || []);
 
       setPreLoading(false);
