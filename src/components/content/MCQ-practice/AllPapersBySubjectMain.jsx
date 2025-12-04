@@ -20,7 +20,7 @@ import { Bar } from "react-chartjs-2";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/features/cartSlice";
 import PageLoader from "../../shared/loading/PageLoader";
-import { Award, TrendingUp, Users } from "lucide-react";
+import { Award, TrendingDown, TrendingUp, Users } from "lucide-react";
 import SyllabusContent from "./SyllabusContent";
 
 ChartJS.register(
@@ -43,8 +43,9 @@ const gradeColors = {
 };
 
 const tabs = [
-  { id: "papers", label: "Past Papers & Statistics" },
+  { id: "papers", label: "Past Papers" },
   { id: "syllabus", label: "Syllabus" },
+  { id: "statistics", label: "Statistics" },
   { id: "syllabus_wise_questions", label: "Syllabus wise Questions" },
 ];
 
@@ -140,7 +141,7 @@ function AllPapersBySubjectMain() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Subject Info Section */}
         <div className="mb-12">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="mb-6 lg:mb-0">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-purple-900 mb-3">
                 {subject?.name}
@@ -171,7 +172,7 @@ function AllPapersBySubjectMain() {
             {!hasPurchased && (
               <button
                 onClick={handleAddToCart}
-                className={`flex items-center space-x-2 px-4 sm:px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 ${
+                className={`flex items-center w-fit space-x-2 px-4 sm:px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
                   addedToCart
                     ? "bg-green-600 text-white"
                     : "bg-purple-600 hover:bg-purple-700 text-white"
@@ -180,12 +181,12 @@ function AllPapersBySubjectMain() {
                 {addedToCart ? (
                   <>
                     <CheckCircle className="w-5 h-5" />
-                    <span className="hidden sm:inline">Added!</span>
+                    <span>Added!</span>
                   </>
                 ) : (
                   <>
                     <ShoppingCart className="w-5 h-5" />
-                    <span className="hidden sm:inline">Add to Cart</span>
+                    <span>Add to Cart</span>
                   </>
                 )}
               </button>
@@ -198,7 +199,7 @@ function AllPapersBySubjectMain() {
         </h1>
 
         {/* Stats Overview Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <div className="bg-white rounded-lg border border-purple-200 p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm text-gray-600">
@@ -218,6 +219,16 @@ function AllPapersBySubjectMain() {
             </div>
             <p className="text-2xl font-bold text-gray-900">
               {avgStats.passRate}%
+            </p>
+          </div>
+
+          <div className="bg-white rounded-lg border border-purple-200 p-4">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm text-gray-600">Average Fail Rate</span>
+              <TrendingDown className="w-5 h-5 text-red-600" />
+            </div>
+            <p className="text-2xl font-bold text-gray-900">
+              {100 - avgStats.passRate}%
             </p>
           </div>
 
@@ -271,7 +282,7 @@ function AllPapersBySubjectMain() {
 
             {/* Free Sample Banner */}
             {!hasPurchased && (
-              <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-6 mb-8">
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl mt-5 p-6 mb-8">
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
                     <Unlock className="w-8 h-8 text-green-600" />
@@ -304,7 +315,11 @@ function AllPapersBySubjectMain() {
                   />
                 ))}
             </div>
+          </div>
+        )}
 
+        {activeTab === "statistics" && (
+          <div>
             {allStats?.length > 0 ? (
               <div className="mt-10">
                 <h1 className="text-2xl mt-8 font-bold text-purple-900">
@@ -499,7 +514,7 @@ function AllPapersBySubjectMain() {
               </div>
 
               <div className="flex flex-wrap gap-4 mt-6 pt-5 border-t border-gray-200">
-                {grades.map((grade, idx) => (
+                {grades.map((grade) => (
                   <div key={grade} className="flex items-center space-x-2">
                     <div
                       className={`w-3 h-3 rounded ${gradeColors[grade]}`}
