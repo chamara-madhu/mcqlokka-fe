@@ -210,7 +210,7 @@ const CreateSubjectMain = () => {
     <>
       <PageHeader title={id ? "Edit Subject" : "Create Subject"} />
       <div>
-        <form className="flex w-[50%] flex-col gap-6">
+        <form className="flex w-full md:w-[50%] flex-col gap-6">
           <FormInput
             name="name"
             label="Subject name"

@@ -15,11 +15,9 @@ import {
   ADMIN_QUESTION_MANAGE_PATH,
   HOME_PATH,
   LOGIN_PATH,
-  MCQ_BUY_PAPER_PATH,
-  MCQ_EXAM_MARK_PATH,
-  MCQ_EXAM_PATH,
-  MCQ_PAPER_PATH,
-  PAYMENT_SUCCESS_PATH,
+  MCQ_EXAM_RESULTS_PATH,
+  MCQ_EXAM_MODE_PATH,
+  MCQ_SECTION_PATH,
   MY_PROFILE_PATH,
   MY_PURCHASING_HISTORY_PATH,
   REGISTER_PATH,
@@ -32,9 +30,8 @@ import {
   ADMIN_EXTRACT_QUESTION_PATH,
   ADMIN_GENERATE_MODEL_QUESTION_PATH,
   MCQS_BY_LESSON_PATH,
-  MCQ_ALL_PATH,
   PRICING_PATH,
-  PAPERS_BY_SUBJECTS_PATH,
+  SUBJECT_PAPERS_PATH,
   CART_PATH,
   CHECKOUT_PATH,
   ABOUT_PATH,
@@ -44,7 +41,7 @@ import {
   VERIFY_ACCOUNT_PATH,
   MY_SUBJECTS_PATH,
   CONTACT_PATH,
-  MCQ_EXAM_LEARNING_PATH,
+  MCQ_LEARNING_MODE_PATH,
   ADMIN_BULK_LESSON_CREATE_PATH,
 } from "./constants/routes";
 import Paper from "./pages/students/Paper";
@@ -53,7 +50,6 @@ import ManagePaper from "./pages/admin/paper/ManagePaper";
 import CreateLesson from "./pages/admin/lesson/CreateLesson";
 import ManageLesson from "./pages/admin/lesson/ManageLesson";
 import CreateQuestion from "./pages/admin/question/CreateQuestion";
-import MCQAll from "./pages/MCQAll";
 import MCQStart from "./pages/MCQStart";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -62,8 +58,6 @@ import "./styles/custom-styles.css";
 import ManageQuestion from "./pages/admin/question/ManageQuestion";
 import Dashboard from "./pages/admin/Dashboard";
 import Mark from "./pages/students/Mark";
-// import BuyPaper from "./pages/students/BuyPaper";
-import PaymentSuccess from "./pages/students/PaymentSuccess";
 import Profile from "./pages/students/Profile";
 import PurchasingHistory from "./pages/students/PurchasingHistory";
 import MyResults from "./pages/students/MyResults";
@@ -138,40 +132,27 @@ function App() {
         <Route path={CONTACT_PATH} exact element={<Contact />} />
         <Route path={HOME_PATH} exact element={<AllSubjects />} />
         <Route
-          path={PAPERS_BY_SUBJECTS_PATH}
+          path={SUBJECT_PAPERS_PATH}
           exact
           element={<AllPapersBySubject />}
         />
         <Route path={CART_PATH} exact element={<Cart />} />
         <Route path={CHECKOUT_PATH} exact element={<Checkout />} />
 
-        <Route path={MCQ_ALL_PATH} exact element={<MCQAll />} />
-        <Route path={MCQ_PAPER_PATH} exact element={<MCQStart />} />
+        <Route path={MCQ_SECTION_PATH} exact element={<MCQStart />} />
 
         <Route path={PRICING_PATH} exact element={<Pricing />} />
 
-        <Route exact path={MCQ_EXAM_PATH} element={<StudentRoute />}>
-          <Route path={MCQ_EXAM_PATH} exact element={<Paper />} />
+        <Route exact path={MCQ_EXAM_MODE_PATH} element={<StudentRoute />}>
+          <Route path={MCQ_EXAM_MODE_PATH} exact element={<Paper />} />
         </Route>
 
-        <Route exact path={MCQ_EXAM_LEARNING_PATH} element={<StudentRoute />}>
-          <Route path={MCQ_EXAM_LEARNING_PATH} exact element={<PaperLearning />} />
+        <Route exact path={MCQ_LEARNING_MODE_PATH} element={<StudentRoute />}>
+          <Route path={MCQ_LEARNING_MODE_PATH} exact element={<PaperLearning />} />
         </Route>
 
-        <Route exact path={MCQ_EXAM_MARK_PATH} element={<StudentRoute />}>
-          <Route path={MCQ_EXAM_MARK_PATH} exact element={<Mark />} />
-        </Route>
-
-        {/* <Route exact path={MCQ_BUY_PAPER_PATH} element={<StudentRoute />}>
-          <Route path={MCQ_BUY_PAPER_PATH} exact element={<BuyPaper />} />
-        </Route> */}
-
-        <Route exact path={PAYMENT_SUCCESS_PATH} element={<StudentRoute />}>
-          <Route
-            path={PAYMENT_SUCCESS_PATH}
-            exact
-            element={<PaymentSuccess />}
-          />
+        <Route exact path={MCQ_EXAM_RESULTS_PATH} element={<StudentRoute />}>
+          <Route path={MCQ_EXAM_RESULTS_PATH} exact element={<Mark />} />
         </Route>
 
         <Route exact path={ADMIN_DASHBOARD_PATH} element={<AdminRoute />}>

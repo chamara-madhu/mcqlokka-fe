@@ -164,6 +164,7 @@ const CreateQuestionMain = () => {
     let type = "";
     let no = "";
     let paperId = "";
+    let lessonId = "";
     let question = "";
     let options = "";
     let answer = "";
@@ -181,6 +182,11 @@ const CreateQuestionMain = () => {
 
     // Validate Type
     if (!form.paperId) {
+      paperId = "Paper name is required";
+    }
+
+    // Validate Type
+    if (!form.lessonId) {
       paperId = "Paper name is required";
     }
 
@@ -209,6 +215,7 @@ const CreateQuestionMain = () => {
       type ||
       no ||
       paperId ||
+      lessonId ||
       question ||
       options ||
       answer ||
@@ -219,6 +226,7 @@ const CreateQuestionMain = () => {
         type,
         no,
         paperId,
+        lessonId,
         question,
         options,
         answer,
@@ -311,7 +319,7 @@ const CreateQuestionMain = () => {
       <PageHeader title={id ? "Edit Question" : "Create Question"} />
 
       <div>
-        <form className="flex w-[50%] flex-col gap-6">
+        <form className="flex w-full md:w-[50%] flex-col gap-6">
           <TypeOrSelect
             isClearable
             label="Type"

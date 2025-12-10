@@ -74,7 +74,7 @@ const ManagePaperMain = () => {
         <table className="w-full border table-fixed">
           <thead className="bg-purple-100 h-14">
             <tr className="text-sm text-left">
-              <th className="w-[100px]">Subject</th>
+              <th className="w-[200px]">Subject</th>
               <th className="w-[100px]">Exam</th>
               <th className="w-[100px]">Medium</th>
               <th className="w-[100px]">type</th>

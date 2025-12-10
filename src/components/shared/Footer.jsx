@@ -1,13 +1,12 @@
 import LogoImg from "../../assets/images/logo.png";
-// import TwitterIcon from "../../assets/icons/social-icons/twitter.png";
 import FacebookIcon from "../../assets/icons/social-icons/facebook.png";
-import InstagramIcon from "../../assets/icons/social-icons/instagram.png";
+// import InstagramIcon from "../../assets/icons/social-icons/instagram.png";
 import LinkedinIcon from "../../assets/icons/social-icons/linkedin.png";
 import YouTubeIcon from "../../assets/icons/social-icons/youtube.png";
 import {
   CONTACT_US_PATH,
   FAQ_PATH,
-  MCQ_ALL_PATH,
+  // MCQ_ALL_PATH,
   HOME_PATH,
   PRICING_PATH,
   REGISTER_PATH,
@@ -47,7 +46,7 @@ const AnimatedIcon = ({ href, src, alt }) => (
 function Footer() {
   const textLinks = [
     { href: HOME_PATH, text: "Home", delay: 0 },
-    { href: MCQ_ALL_PATH, text: "Features", delay: 0.2 },
+    // { href: MCQ_ALL_PATH, text: "Features", delay: 0.2 },
     { href: PRICING_PATH, text: "Pricing", delay: 0.4 },
   ];
 

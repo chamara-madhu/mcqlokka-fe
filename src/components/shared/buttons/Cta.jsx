@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { REGISTER_PATH } from "../../../constants/routes";
@@ -40,14 +39,6 @@ const Cta = ({
       {label}
     </Link>
   );
-};
-
-Cta.propTypes = {
-  label: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-  size: PropTypes.oneOf(["small", "normal", "large", "extraLarge"]),
-  animation: PropTypes.oneOf(["blink", "shake", "move"]),
-  className: PropTypes.string,
 };
 
 export default Cta;

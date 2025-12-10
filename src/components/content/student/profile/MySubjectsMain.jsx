@@ -229,7 +229,7 @@ const MySubjectsMain = () => {
                       className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-purple-50 transition-colors"
                     >
                       <Link
-                        to={`/mcq/${paper.id}`}
+                        to={`/subjects/${subject?.id}/papers/${paper.id}/mcq`}
                         target="_blank"
                         className="text-sm hover:text-purple-600 text-gray-900"
                       >

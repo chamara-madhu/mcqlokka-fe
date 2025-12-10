@@ -164,7 +164,7 @@ export default function CartMain() {
                     <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-4">
                       <button
                         onClick={() => dispatch(removeFromCart(item._id))}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        className="p-2 absolute top-3 right-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                         title="Remove item"
                       >
                         <Trash2 className="w-5 h-5" />

@@ -88,7 +88,7 @@ const Navbar = () => {
               <div className="relative">
                 <ShoppingCart className="w-6 h-6 text-gray-700 group-hover:text-purple-600 transition-colors" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="md:hidden absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                     {cartCount}
                   </span>
                 )}

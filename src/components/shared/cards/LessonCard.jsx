@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
-import { MCQ_ALL_PATH } from "../../../constants/routes";
+// import { Link } from "react-router-dom";
+// import { MCQ_ALL_PATH } from "../../../constants/routes";
 import classNames from "classnames";
 import { EXAMS, FEES } from "../../../constants/base";
 
 const LessonCard = ({ _id, exam, lesson, fee }) => {
   return (
-    <Link to={`${MCQ_ALL_PATH}/${_id}`}>
+    // <Link to={`${MCQ_ALL_PATH}/${_id}`}>
       <div className="flex flex-col w-full border border-purple-400 rounded-xl">
         <div
           className={`relative flex justify-center items-center ${
@@ -31,7 +31,7 @@ const LessonCard = ({ _id, exam, lesson, fee }) => {
           </div>
         </div>
       </div>
-    </Link>
+    // </Link>
   );
 };
 

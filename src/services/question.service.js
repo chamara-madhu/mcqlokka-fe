@@ -10,6 +10,7 @@ const questionService = () => ({
   getAllQuestionsAndAnswersByPaperId: (paperId) =>
     ApiIndex.QuestionApi.getAllQuestionsAndAnswersByPaperId(paperId),
   deleteQuestion: (id) => ApiIndex.QuestionApi.deleteQuestion(id),
+  removeAllByPaperId: (paperId) => ApiIndex.QuestionApi.removeAllByPaperId(paperId),
   updateApprovalStatus: (id, status) => ApiIndex.QuestionApi.updateApprovalStatus(id, status),
   scanQuestion: (formData) => ApiIndex.QuestionApi.scanQuestion(formData),
   generateModelPaper: (data) => ApiIndex.QuestionApi.generateModelPaper(data),

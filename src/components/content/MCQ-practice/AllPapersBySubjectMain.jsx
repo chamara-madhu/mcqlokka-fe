@@ -247,12 +247,12 @@ function AllPapersBySubjectMain() {
 
         {/* Tabs Navigation */}
         <div className="bg-white border p-2 my-8 rounded-lg">
-          <div className="flex flex-wrap gap-2">
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide">
             {tabs.map(({ id, label }) => (
               <button
                 key={id}
                 onClick={() => setActiveTab(id)}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                className={`flex-shrink-0 flex items-center space-x-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
                   activeTab === id
                     ? "bg-purple-600 text-white shadow-lg"
                     : "bg-purple-50 text-gray-600 hover:bg-purple-200"

@@ -185,7 +185,7 @@ const ScanQuestionMain = () => {
       <PageHeader title={"Extract Paper Questions"} />
 
       <div>
-        <form className="flex w-[50%] flex-col gap-6">
+        <form className="flex w-full md:w-[50%] flex-col gap-6">
           <TypeOrSelect
             isClearable
             label="Paper"

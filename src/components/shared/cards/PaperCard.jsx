@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
-import { MCQ_ALL_PATH } from "../../../constants/routes";
 import classNames from "classnames";
-import { EXAMS, FEES } from "../../../constants/base";
+import { FEES } from "../../../constants/base";
 import { Lock, Unlock } from "feather-icons-react";
 
 const PaperCard = ({ _id, subject, fee, year, hasPurchased }) => {
   return (
-    <Link to={`${MCQ_ALL_PATH}/${_id}`}>
+    <Link to={`/subjects/${subject?._id}/papers/${_id}/mcq`}>
       <div
         className={`relative flex flex-col w-full border rounded-xl ${
           fee === FEES.FREE

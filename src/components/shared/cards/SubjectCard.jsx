@@ -59,7 +59,7 @@ const SubjectCard = ({ subject }) => {
           {subject?.medium === MEDIUMS.ENGLISH
             ? "8 papers"
             : "ප්‍රශ්න පත්‍ර 8 යි"}{" "}
-          (2017 - 2025)
+          (2017 - 2024)
         </p>
         <p
           className={`text-sm rounded-lg mb-1 ${

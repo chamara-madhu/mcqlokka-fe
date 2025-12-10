@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { MCQ_ALL_PATH } from "../../../constants/routes";
 import StudentRankCard from "../../shared/cards/StudentRankCard";
 import { useEffect, useState } from "react";
 import paperService from "../../../services/paper.service";
@@ -15,9 +14,6 @@ import {
   Clock,
   BookOpen,
   Trophy,
-  FileText,
-  Timer,
-  HelpCircle,
 } from "lucide-react";
 import {
   Chart as ChartJS,
@@ -326,7 +322,7 @@ const MCQStartMain = () => {
         ) : null}
 
         {/* Attempts Remaining */}
-        {eligibility?.attemptsRemaining != null && (
+        {/* {eligibility?.attemptsRemaining != null && (
           <div className="flex items-center gap-3 px-4 py-3 bg-purple-50 border border-purple-200 rounded-lg">
             <AlertCircle className="w-5 h-5 text-purple-600 flex-shrink-0" />
             <p className="text-sm font-medium text-purple-700">
@@ -335,7 +331,7 @@ const MCQStartMain = () => {
                 : "All attempts have been used."}
             </p>
           </div>
-        )}
+        )} */}
 
         <hr className="border-gray-200" />
 
@@ -541,7 +537,7 @@ const MCQStartMain = () => {
                 {t.cancel}
               </button>
               <Link
-                to={`${MCQ_ALL_PATH}/${selectedMode}/${paper?._id}`}
+                to={`/subjects/${paper?.subject?._id}/papers/${paper?._id}/mcq/${selectedMode}`}
                 className="w-full sm:w-auto"
               >
                 <button className="w-full px-5 py-2.5 bg-purple-600 text-white rounded-lg text-sm font-semibold hover:bg-purple-700 transition-colors shadow-lg hover:shadow-xl">

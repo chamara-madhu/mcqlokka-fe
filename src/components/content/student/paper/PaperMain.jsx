@@ -9,9 +9,10 @@ import {
   PAPER_MODES,
   QUESTION_DIFFICULTY_TYPES,
 } from "../../../../constants/base";
-import { MCQ_EXAM_MARK_PATH } from "../../../../constants/routes";
+import { MCQ_EXAM_RESULTS_PATH } from "../../../../constants/routes";
 import config from "../../../../config/aws";
 import PageLoader from "../../../shared/loading/PageLoader";
+import { Clock } from "lucide-react";
 
 const PaperMain = () => {
   const [activeQuestion, setActiveQuestion] = useState({});
@@ -105,9 +106,7 @@ const PaperMain = () => {
   const handleSelectQuestion = (no) => {
     window.scrollTo(0, 0);
 
-    const nextQ = questions.filter(
-      (question) => question.no === no
-    );
+    const nextQ = questions.filter((question) => question.no === no);
 
     if (nextQ?.length) {
       setActiveQuestion(nextQ[0]);
@@ -126,7 +125,7 @@ const PaperMain = () => {
       );
 
       if (res?.data?.id) {
-        navigate(MCQ_EXAM_MARK_PATH.replace(":markId", res.data.id));
+        navigate(MCQ_EXAM_RESULTS_PATH.replace(":markId", res.data.id));
       }
     } catch (err) {
       console.log({ err });
@@ -138,24 +137,36 @@ const PaperMain = () => {
   }
 
   return (
-    <div className="flex px-20 pt-10 pb-20">
+    <div className="flex px-4 sm:px-6 lg:px-8 pt-10 pb-20">
       <div className="flex flex-col w-full max-w-screen-xl gap-10 mx-auto">
         <div className="flex flex-col gap-4 pb-4 border-b border-b-gray-200">
-          {/* Timer Header */}
-          <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-semibold">
-              G.C.E {paper?.subject?.exam} - {paper?.subject?.name} -{" "}
-              {paper?.year} - {paper?.subject?.medium}
-            </h1>
+          {/* Title and Timer */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div className="flex-1">
+              <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 leading-tight">
+                G.C.E {paper?.subject?.exam} - {paper?.subject?.name}
+              </h1>
+              <p className="text-sm text-gray-600 mt-1">
+                {paper?.year} - {paper?.subject?.medium}
+              </p>
+            </div>
+
+            {/* Timer */}
             <div
               className={classNames(
-                "text-lg font-bold px-4 py-2 rounded-lg",
-                timeLeft < 300 ? "bg-red-500 text-white" : "bg-green-200"
+                "flex items-center gap-2 text-base lg:text-lg font-bold px-4 py-2 rounded-lg shadow-sm",
+                timeLeft < 300
+                  ? "bg-red-500 text-white animate-pulse"
+                  : timeLeft < 600
+                  ? "bg-orange-500 text-white"
+                  : "bg-green-500 text-white"
               )}
             >
-              ⏱️ {formatTime(timeLeft)}
+              <Clock className="w-4 h-4 lg:w-5 lg:h-5" />
+              <span>{formatTime(timeLeft)}</span>
             </div>
           </div>
+
           <div className="flex flex-wrap gap-2">
             {answers?.map((answer, i) => (
               <span
@@ -180,7 +191,7 @@ const PaperMain = () => {
           <div className="flex flex-col gap-8">
             <h5 className="text-lg mb-[-20px] font-semibold">
               Question : {activeQuestion?.no} &nbsp;
-              {/* <span
+              <span
                 className={classNames(
                   "px-3 py-1 text-sm font-medium rounded-full",
                   activeQuestion?.difficulty === QUESTION_DIFFICULTY_TYPES?.EASY
@@ -192,7 +203,7 @@ const PaperMain = () => {
                 )}
               >
                 {activeQuestion?.difficulty}
-              </span> */}
+              </span>
             </h5>
             <div className="flex flex-col gap-5">
               <div className="whitespace-pre-wrap">
@@ -211,7 +222,7 @@ const PaperMain = () => {
                 </div>
               )}
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {activeQuestion?.options &&
                 activeQuestion?.options?.map((option, index) => (
                   <div

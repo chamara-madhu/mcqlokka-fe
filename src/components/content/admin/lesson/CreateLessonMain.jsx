@@ -156,7 +156,7 @@ const CreateLessonMain = () => {
     <>
       <PageHeader title={id ? "Edit Lesson" : "Create Lesson"} />
 
-        <form className="flex w-[50%] flex-col gap-6">
+        <form className="flex w-full md:w-[50%] flex-col gap-6">
           <TypeOrSelect
             isClearable
             label="Subject"

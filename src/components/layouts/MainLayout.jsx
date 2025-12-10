@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import Navbar from "./headers/Navbar";
 import Footer from "../shared/Footer";
 import { useEffect } from "react";
@@ -18,10 +17,6 @@ const MainLayout = ({ children }) => {
       <Footer />
     </>
   );
-};
-
-MainLayout.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default MainLayout;

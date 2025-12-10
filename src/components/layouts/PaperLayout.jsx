@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import PaperNavbar from "./headers/PaperNavbar";
@@ -16,10 +15,6 @@ const PaperLayout = ({ children }) => {
       {children}
     </>
   );
-};
-
-PaperLayout.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default PaperLayout;

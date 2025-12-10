@@ -36,6 +36,10 @@ const deleteQuestion = async (id) => {
   return await axios.delete(`/questions/${id}`);
 };
 
+const removeAllByPaperId = async (paperId) => {
+  return await axios.delete(`/questions/all/${paperId}`);
+};
+
 const updateApprovalStatus = async (id, status) => {
   return await axios.put(`/questions/${id}/approval`, { isApproved: status });
 };
@@ -64,6 +68,7 @@ export default {
   getAllQuestionsByPaperId,
   getAllQuestionsAndAnswersByPaperId,
   deleteQuestion,
+  removeAllByPaperId,
   updateApprovalStatus,
   scanQuestion,
   generateModelPaper,

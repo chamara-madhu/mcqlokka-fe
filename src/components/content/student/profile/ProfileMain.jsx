@@ -32,7 +32,7 @@ const ProfileMain = () => {
           name: res.data.name,
           email: res.data.email,
         }));
-        setPreviewUrl(`${config.S3_PUBLIC_URL}/${res.data.avatar}`);
+        setPreviewUrl(res.data.avatar ? `${config.S3_PUBLIC_URL}/${res.data.avatar}` : null);
       } catch (error) {
         const errorMessage =
           error?.response?.data?.message ||

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import classNames from "classnames";
 
 const Button = ({
@@ -44,17 +43,6 @@ const Button = ({
       {isLoading ? loadingLabel ? loadingLabel : "Loading..." : label}
     </button>
   );
-};
-
-Button.propTypes = {
-  label: PropTypes.string.isRequired,
-  type: PropTypes.string,
-  handleBtn: PropTypes.func,
-  size: PropTypes.oneOf(["small", "normal", "large", "extraLarge"]),
-  color: PropTypes.oneOf(["primary", "secondary"]),
-  animation: PropTypes.oneOf(["blink", "shake", "move"]),
-  className: PropTypes.string,
-  isLoading: PropTypes.bool,
 };
 
 export default Button;

@@ -4,7 +4,7 @@ import { Edit2, Trash } from "feather-icons-react";
 import PageHeader from "../../../shared/headers/PageHeader";
 import questionService from "../../../../services/question.service";
 import { ADMIN_QUESTION_CREATE_PATH } from "../../../../constants/routes";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TypeOrSelect from "../../../shared/fields/TypeOrSelect";
 import paperService from "../../../../services/paper.service";
 import config from "../../../../config/aws";
@@ -17,13 +17,12 @@ const ManageQuestionMain = () => {
   const [loading, setLoading] = useState(false);
   const { getAllPapers } = paperService();
 
-  const navigate = useNavigate();
-
   const {
     getAllQuestionsAndAnswersByPaperId,
     deleteQuestion,
     lessonStatsByPaper,
     updateApprovalStatus,
+    removeAllByPaperId,
   } = questionService();
 
   useEffect(() => {
@@ -104,6 +103,30 @@ const ManageQuestionMain = () => {
     }
   };
 
+  const handleDeleteAllQuestions = async () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete all questions? This action cannot be undone."
+    );
+
+    if (!confirmed) return; // user clicked Cancel
+
+    setLoading(true);
+
+    try {
+      await removeAllByPaperId(paperId);
+      toast.success("Questions successfully deleted!");
+      setQuestions([]);
+      setLessonStats([]);
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message ||
+          "An unexpected error occurred. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleToggleApproval = async (question) => {
     const newStatus = question.isApproved === "Yes" ? "No" : "Yes";
 
@@ -126,7 +149,7 @@ const ManageQuestionMain = () => {
   return (
     <>
       <PageHeader title="Manage Question" />
-      <div className="flex w-[500px] mb-7">
+      <div className="flex md:w-[500px] mb-7">
         <TypeOrSelect
           isClearable
           label="Filter by Paper"
@@ -175,6 +198,15 @@ const ManageQuestionMain = () => {
           </table>
         </div>
       ) : null}
+
+      {questions.length > 0 && (
+        <button
+          onClick={handleDeleteAllQuestions}
+          className="w-fit bg-red-500 mb-5 hover:bg-red-700 text-white py-2 px-4 rounded-lg cursor-pointer"
+        >
+          Delete All
+        </button>
+      )}
 
       {questions.length > 0 ? (
         <div className="overflow-x-auto">

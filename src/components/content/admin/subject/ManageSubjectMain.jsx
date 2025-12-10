@@ -77,7 +77,7 @@ const ManageSubjectMain = () => {
           <thead className="bg-purple-100 h-14">
             <tr className="text-sm text-left">
               <th className="w-[70px]">Icon</th>
-              <th className="">Name</th>
+              <th className="w-[200px] md:w-auto">Name</th>
               <th className="w-[100px]">Exam</th>
               <th className="w-[100px]">Type</th>
               <th className="w-[100px]">Medium</th>

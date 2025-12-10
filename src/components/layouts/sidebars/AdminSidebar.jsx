@@ -153,7 +153,7 @@ const AdminSidebar = () => {
 
   return (
     <div
-      className="flex sticky top-[72px] flex-col w-[300px] h-full bg-purple-50 border-r border-purple-100 pb-4 overflow-auto"
+      className="flex sticky top-[75px] flex-col h-full bg-purple-50 border-r border-purple-100 pb-4 overflow-auto"
       style={{ height: "calc(100vh - 75px)" }}
     >
       {menuItems.map((item, index) => {

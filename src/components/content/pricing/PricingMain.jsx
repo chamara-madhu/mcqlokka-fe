@@ -2,9 +2,17 @@ import { Check } from "feather-icons-react";
 import { useState } from "react";
 import { HOME_PATH } from "../../../constants/routes";
 import { Link } from "react-router-dom";
+import {
+  Award,
+  BarChart,
+  BookOpen,
+  Clock,
+  Target,
+  TrendingUp,
+} from "lucide-react";
 
 export default function PricingMain() {
-  const [selectedSubjects, setSelectedSubjects] = useState(1);
+  const [selectedSubjects, setSelectedSubjects] = useState(3);
 
   const plans = [
     {
@@ -15,10 +23,14 @@ export default function PricingMain() {
       savings: null,
       description: "Great for students focusing on one subject",
       features: [
+        "Lifetime access",
+        "Unlimited attempts",
         "Full MCQ access",
+        "Learning & Exam mode practice",
+        "Instant results",
         "Detailed explanations",
         "Progress tracking",
-        "Lifetime access",
+        "Advanced analytics",
       ],
     },
     {
@@ -29,10 +41,15 @@ export default function PricingMain() {
       savings: "~15%",
       description: "Perfect for two-subject combinations",
       features: [
-        "Everything in Single Pack",
         "Save ~15% per subject",
-        "Advanced analytics",
         "Lifetime access",
+        "Unlimited attempts",
+        "Full MCQ access",
+        "Learning & Exam mode practice",
+        "Instant results",
+        "Detailed explanations",
+        "Progress tracking",
+        "Advanced analytics",
       ],
     },
     {
@@ -43,10 +60,15 @@ export default function PricingMain() {
       savings: "~26%",
       description: "Ideal for full A/L subject combinations",
       features: [
-        "Everything in Double Pack",
         "Save ~26% per subject",
-        "Mock exams included",
         "Lifetime access",
+        "Unlimited attempts",
+        "Full MCQ access",
+        "Learning & Exam mode practice",
+        "Instant results",
+        "Detailed explanations",
+        "Progress tracking",
+        "Advanced analytics",
       ],
       popular: true,
     },
@@ -60,8 +82,14 @@ export default function PricingMain() {
       features: [
         "Add unlimited subjects",
         "Rs. 590 per extra subject",
-        "All premium features",
         "Lifetime access",
+        "Unlimited attempts",
+        "Full MCQ access",
+        "Learning & Exam mode practice",
+        "Instant results",
+        "Detailed explanations",
+        "Progress tracking",
+        "Advanced analytics",
       ],
       isMulti: true,
     },
@@ -72,6 +100,12 @@ export default function PricingMain() {
     if (numSubjects === 2) return 1690;
     if (numSubjects === 3) return 2190;
     return 2190 + (numSubjects - 3) * 590;
+  };
+
+  const calculateSavings = (numSubjects) => {
+    const standardPrice = numSubjects * 990;
+    const actualPrice = calculatePrice(numSubjects);
+    return standardPrice - actualPrice;
   };
 
   const priceExamples = [
@@ -98,8 +132,8 @@ export default function PricingMain() {
             Simple. One-time. Lifetime access.
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-purple-700 max-w-3xl mx-auto px-4 mb-4">
-            Practice A/L MCQs for ICT, Accounting, Economics, Chemistry, and
-            more — anytime, anywhere.
+            Practice O/L, A/L MCQs for ICT, Accounting, Economics, Chemistry, and
+            more... anytime, anywhere.
           </p>
           <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-purple-600">
             Pay once, own it forever. 💰
@@ -224,9 +258,18 @@ export default function PricingMain() {
               <p className="text-3xl sm:text-4xl font-bold mb-2">
                 Rs. {calculatePrice(selectedSubjects).toLocaleString()}
               </p>
-              <p className="text-xs sm:text-sm text-purple-600">
+              <p className="text-xs sm:text-sm text-purple-600 mb-4">
                 One-time payment • Lifetime access
               </p>
+              {selectedSubjects > 1 && (
+                <div className="inline-flex items-center gap-2 bg-green-50 border border-green-200 text-green-700 px-4 py-2 rounded-md">
+                  <Award className="w-4 h-4" />
+                  <span className="text-sm font-semibold">
+                    You save Rs.{" "}
+                    {calculateSavings(selectedSubjects).toLocaleString()}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -246,68 +289,102 @@ export default function PricingMain() {
                   <th className="text-right py-3 px-2 sm:px-4 text-sm sm:text-base font-semibold text-purple-900">
                     Total Price (LKR)
                   </th>
+                  <th className="text-right py-3 px-2 sm:px-4 text-sm sm:text-base font-semibold text-purple-900">
+                    Savings
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {priceExamples.map((example, idx) => (
-                  <tr
-                    key={idx}
-                    className={`border-b border-purple-100 hover:bg-purple-50 transition-colors ${
-                      example.subjects === 3 ? "bg-purple-50" : ""
-                    }`}
-                  >
-                    <td className="py-3 px-2 sm:px-4 text-sm sm:text-base text-gray-700">
-                      {example.subjects}{" "}
-                      {example.subjects === 1 ? "subject" : "subjects"}
-                    </td>
-                    <td className="py-3 px-2 sm:px-4 text-right text-sm sm:text-base font-semibold text-purple-900">
-                      Rs. {example.price.toLocaleString()}
-                    </td>
-                  </tr>
-                ))}
+                {priceExamples.map((example, idx) => {
+                  const savings = example.subjects * 990 - example.price;
+                  return (
+                    <tr
+                      key={idx}
+                      className={`border-b border-purple-100 hover:bg-purple-50 transition-colors ${
+                        example.subjects === 3 ? "bg-purple-50" : ""
+                      }`}
+                    >
+                      <td className="py-3 px-2 sm:px-4 text-sm sm:text-base text-gray-700">
+                        {example.subjects}{" "}
+                        {example.subjects === 1 ? "subject" : "subjects"}
+                      </td>
+                      <td className="py-3 px-2 sm:px-4 text-right text-sm sm:text-base font-semibold text-purple-900">
+                        Rs. {example.price.toLocaleString()}
+                      </td>
+                      <td className="py-4 px-6 text-right">
+                        {savings > 0 ? (
+                          <span className="text-green-600 font-semibold">
+                            Rs. {savings.toLocaleString()}
+                          </span>
+                        ) : (
+                          <span className="text-gray-400">-</span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
         </div>
 
         {/* Features Section */}
-        <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-6 sm:p-8 lg:p-10 mb-12 sm:mb-16">
-          <h2 className="text-2xl sm:text-3xl font-bold text-purple-900 mb-6 sm:mb-8 text-center">
-            What's Included 🎓
+        <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-10 mb-20">
+          <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">
+            What's Included
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {[
               {
-                title: "Complete MCQ Library",
-                desc: "Thousands of questions for all A/L subjects",
+                title: "Lifetime access",
+                desc: "One payment, forever access",
+                icon: Clock,
               },
               {
-                title: "Instant Explanations",
-                desc: "Detailed solutions for every question",
+                title: "Unlimited attempts",
+                desc: "Practice as many times as you need",
+                icon: TrendingUp,
               },
               {
-                title: "Progress Tracking",
+                title: "Full MCQ access",
+                desc: "Complete question library for all subjects",
+                icon: BookOpen,
+              },
+              {
+                title: "Learning & Exam mode practice",
+                desc: "Two modes to suit your preparation style",
+                icon: Target,
+              },
+              {
+                title: "Instant results",
+                desc: "Get immediate feedback on your answers",
+                icon: Award,
+              },
+              {
+                title: "Detailed explanations",
+                desc: "Understand every concept thoroughly",
+                icon: Check,
+              },
+              {
+                title: "Progress tracking",
                 desc: "Monitor your improvement over time",
+                icon: BarChart,
               },
               {
-                title: "Mock Exams",
-                desc: "Practice under real exam conditions",
+                title: "Advanced analytics",
+                desc: "Insights into your performance",
+                icon: TrendingUp,
               },
-              {
-                title: "Subject Flexibility",
-                desc: "Choose any combination of subjects",
-              },
-              { title: "Lifetime Access", desc: "One payment, forever access" },
             ].map((item, idx) => (
-              <div key={idx} className="flex items-start space-x-3">
-                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <Check className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
+              <div key={idx} className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <item.icon className="w-6 h-6 text-purple-600" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-purple-900 text-sm sm:text-base mb-1">
+                  <h3 className="font-semibold text-gray-900 text-base mb-1">
                     {item.title}
                   </h3>
-                  <p className="text-gray-600 text-xs sm:text-sm">
+                  <p className="text-sm text-gray-600 leading-relaxed">
                     {item.desc}
                   </p>
                 </div>
@@ -317,24 +394,23 @@ export default function PricingMain() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center px-4">
-          <div className="bg-gradient-to-r from-purple-100 to-purple-200 rounded-xl sm:rounded-2xl p-6 sm:p-8 mb-6">
-            <h3 className="text-xl sm:text-2xl font-bold text-purple-900 mb-3">
-              Ready to ace your A/L exams?
+        <div className="text-center">
+          <div className="bg-purple-600 rounded-xl p-10 mb-6 shadow-lg">
+            <h3 className="text-3xl font-bold text-white mb-4">
+              Ready to Start Your Preparation?
             </h3>
-            <p className="text-sm sm:text-base text-purple-700 mb-4">
-              Join thousands of students who trust our platform for their exam
-              preparation
+            <p className="text-lg text-purple-100 mb-6 max-w-2xl mx-auto">
+              Join thousands of students who trust our platform for their O/L
+              and A/L exam preparation
             </p>
             <Link to={HOME_PATH}>
-              <button className="bg-purple-600 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold text-sm sm:text-base hover:bg-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl">
-                Start Learning Today
+              <button className="bg-white text-purple-600 px-8 py-4 rounded-lg font-semibold text-base hover:bg-gray-50 transition-all duration-200 shadow-md hover:shadow-lg">
+                Get Started Today
               </button>
             </Link>
           </div>
-          <p className="text-xs sm:text-sm text-purple-600">
-            Need help choosing? Contact our support team for personalized
-            guidance
+          <p className="text-sm text-gray-600">
+            Need help choosing a plan? Contact our support team for assistance
           </p>
         </div>
       </div>

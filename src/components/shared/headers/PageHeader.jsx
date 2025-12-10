@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { ArrowLeft } from "feather-icons-react";
 import { useNavigate } from "react-router-dom";
 
@@ -20,12 +19,6 @@ const PageHeader = ({ title, showBack }) => {
       </div>
     </div>
   );
-};
-
-// PropTypes validation
-PageHeader.propTypes = {
-  title: PropTypes.string.isRequired,
-  showBack: PropTypes.bool,
 };
 
 export default PageHeader;

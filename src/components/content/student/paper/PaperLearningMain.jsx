@@ -9,7 +9,7 @@ import {
   PAPER_MODES,
   QUESTION_DIFFICULTY_TYPES,
 } from "../../../../constants/base";
-import { MCQ_EXAM_MARK_PATH } from "../../../../constants/routes";
+import { MCQ_EXAM_RESULTS_PATH } from "../../../../constants/routes";
 import config from "../../../../config/aws";
 import PageLoader from "../../../shared/loading/PageLoader";
 
@@ -151,7 +151,7 @@ const PaperLearningMain = () => {
       );
 
       if (res?.data?.id) {
-        navigate(MCQ_EXAM_MARK_PATH.replace(":markId", res.data.id));
+        navigate(MCQ_EXAM_RESULTS_PATH.replace(":markId", res.data.id));
       }
     } catch (err) {
       console.log({ err });
@@ -166,14 +166,18 @@ const PaperLearningMain = () => {
   const isCorrect = isChecked && userAnswer === correctAnswer;
 
   return (
-    <div className="flex px-6 md:px-20 pt-10 pb-20">
+    <div className="flex px-4 sm:px-6 lg:px-8 pt-10 pb-20">
       <div className="flex flex-col w-full max-w-screen-xl gap-10 mx-auto">
         {/* HEADER */}
         <div className="pb-4 border-b border-b-gray-200">
-          <h1 className="text-2xl font-semibold text-gray-800">
-            G.C.E {paper?.subject?.exam} - {paper?.subject?.name} ({paper?.year}
-            ) - {paper?.subject?.medium}
-          </h1>
+          <div className="flex-1">
+            <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 leading-tight">
+              G.C.E {paper?.subject?.exam} - {paper?.subject?.name}
+            </h1>
+            <p className="text-sm text-gray-600 mt-1">
+              {paper?.year} - {paper?.subject?.medium}
+            </p>
+          </div>
 
           <div className="flex flex-wrap gap-2 mt-6">
             {questions.map((_, i) => {

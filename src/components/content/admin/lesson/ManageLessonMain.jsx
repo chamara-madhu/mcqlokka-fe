@@ -57,7 +57,7 @@ const ManageLessonMain = () => {
             <tr className="text-sm text-left">
               <th className="w-[250px]">Subject</th>
               <th className="w-[100px]">no</th>
-              <th>Lesson</th>
+              <th className="w-[200px] md:w-auto">Lesson</th>
               <th className="w-[110px]">Action</th>
             </tr>
           </thead>
