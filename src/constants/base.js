@@ -8,22 +8,22 @@ export const SUBJECTS = {
   ACCOUNTING: "Accounting",
   BUSINESS_STUDIES: "Business Studies",
   ECONOMICS: "Economics",
-  STATISTICS: "Statistics",
+  STATISTICS: "Business Statistics",
   ICT: "ICT",
 
   BIOLOGY: "Biology",
   CHEMISTRY: "Chemistry",
   PHYSICS: "Physics",
-  AGRICULTURE: "Agriculture",
+  AGRICULTURE: "Agricultural Science",
 
-  LOGIC: "Logic",
-  MEDIA_STUDIES: "Media Studies",
+  LOGIC: "Logic & Scientific Method",
+  MEDIA: "Communication & Media Studies",
   POLITICAL_SCIENCE: "Political Science",
   BUDDHIST_CIVILIZATION: "Buddhist Civilization",
   ART: "Art",
 
   BST: "Biosystems Technology",
-  BRT: "BioResource Technology",
+  BRT: "Engineering Technology ",
   SFT: "Science for Technology"
 };
 

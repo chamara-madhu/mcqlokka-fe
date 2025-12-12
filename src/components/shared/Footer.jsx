@@ -97,7 +97,7 @@ function Footer() {
     //   delay: 1.3,
     // },
     {
-      href: "https://www.youtube.com/channel/UCMZ9laPB9j55TF9V_95nEDw",
+      href: "https://www.youtube.com/@MCQLokka",
       src: YouTubeIcon,
       alt: "YouTube",
       delay: 1.5,
@@ -170,10 +170,6 @@ function Footer() {
             <div className="flex gap-2">
               <Link to={"/"} target="_blank" className="hover:underline">
                 Privacy Policy
-              </Link>
-              |
-              <Link to={"/"} target="_blank" className="hover:underline">
-                Cookie Policy
               </Link>
               |
               <Link to={"/"} target="_blank" className="hover:underline">

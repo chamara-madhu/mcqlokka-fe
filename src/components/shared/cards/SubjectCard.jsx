@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { EXAMS, IS_APPROVED_TYPES, MEDIUMS } from "../../../constants/base";
 import config from "../../../config/aws";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../../redux/features/cartSlice";
+// import { useDispatch } from "react-redux";
+// import { addToCart } from "../../../redux/features/cartSlice";
 
 const SubjectCard = ({ subject }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const isComingSoon = subject.isApproved !== IS_APPROVED_TYPES.YES;
 
@@ -70,7 +70,7 @@ const SubjectCard = ({ subject }) => {
             ? "English medium"
             : "සිංහල මාධ්‍යය"}
         </p>
-        <div className="flex justify-end mt-3">
+        {/* <div className="flex justify-end mt-3">
           <button
             type="button"
             className={`px-3 py-2 text-sm rounded-lg ${
@@ -88,7 +88,7 @@ const SubjectCard = ({ subject }) => {
           >
             {isComingSoon ? "Coming Soon" : "Add to Cart"}
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

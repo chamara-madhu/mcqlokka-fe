@@ -88,6 +88,11 @@ const ManageQuestionMain = () => {
   }, [paperId]);
 
   const handleDeleteQuestion = async (id) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this question?"
+    );
+    if (!confirmed) return;
+
     try {
       await deleteQuestion(id);
       toast.success("Question successfully deleted!");

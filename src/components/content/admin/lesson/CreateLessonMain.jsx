@@ -10,7 +10,7 @@ import PageHeader from "../../../shared/headers/PageHeader";
 import subjectService from "../../../../services/subject.service";
 
 const initialState = {
-  subjectId: "",
+  subject: "",
   no: "",
   lesson: "",
 };
@@ -54,7 +54,7 @@ const CreateLessonMain = () => {
         const res = await getLessonById(id);
         setForm((prev) => ({
           ...prev,
-          subjectId: res.data.subject?._id,
+          subject: res.data.subject?._id,
           no: res.data.no,
           lesson: res.data.lesson,
         }));
@@ -86,13 +86,13 @@ const CreateLessonMain = () => {
   }, []);
 
   const isValid = () => {
-    let subjectId = "";
+    let subject = "";
     let no = "";
     let lesson = "";
 
     // Validate Exam
-    if (!form.subjectId) {
-      subjectId = "Exam is required";
+    if (!form.subject) {
+      subject = "Exam is required";
     }
 
     // Validate Medium
@@ -106,10 +106,10 @@ const CreateLessonMain = () => {
     }
 
     // Check if any error exists
-    if (subjectId || no || lesson) {
+    if (subject || no || lesson) {
       setErrors((prev) => ({
         ...prev,
-        subjectId,
+        subject,
         no,
         lesson,
       }));
@@ -160,16 +160,16 @@ const CreateLessonMain = () => {
           <TypeOrSelect
             isClearable
             label="Subject"
-            name="subjectId"
+            name="subject"
             onChange={handleChange}
             options={subjects}
             value={
               subjects.filter(
-                (subject) => subject.value === form.subjectId
+                (subject) => subject.value === form.subject
               )?.[0]?.label
             }
             placeholder="-- Select --"
-            error={errors.subjectId}
+            error={errors.subject}
             showRequiredLabel
           />
           <FormInput

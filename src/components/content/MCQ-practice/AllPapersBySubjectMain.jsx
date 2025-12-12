@@ -116,21 +116,38 @@ function AllPapersBySubjectMain() {
   }));
 
   // Calculate average stats
-  const avgStats = {
-    totalStudents: Math.round(
-      allStats.reduce((sum, s) => sum + s.noOfStuds, 0) / allStats.length
-    ),
-    passRate: Math.round(
-      (allStats.reduce((sum, s) => sum + s.a + s.b + s.c + s.s, 0) /
-        allStats.reduce((sum, s) => sum + s.noOfStuds, 0)) *
-        100
-    ),
-    aPassRate: Math.round(
-      (allStats.reduce((sum, s) => sum + s.a, 0) /
-        allStats.reduce((sum, s) => sum + s.noOfStuds, 0)) *
-        100
-    ),
-  };
+  const lastYearData = allStats?.[0]?.noOfStuds
+    ? {
+        totalStudents: allStats[0].noOfStuds,
+        passRate: Math.round(
+          ((allStats[0].a + allStats[0].b + allStats[0].c + allStats[0].s) /
+            allStats[0].noOfStuds) *
+            100
+        ),
+        aPassRate: Math.round((allStats[0].a / allStats[0].noOfStuds) * 100),
+        year: allStats[0].year,
+      }
+    : null;
+
+  // Calculate average stats
+  const avgStats = allStats?.[0]?.year
+    ? {
+        totalStudents: Math.round(
+          allStats.reduce((sum, s) => sum + s.noOfStuds, 0) / allStats.length
+        ),
+        passRate: Math.round(
+          (allStats.reduce((sum, s) => sum + s.a + s.b + s.c + s.s, 0) /
+            allStats.reduce((sum, s) => sum + s.noOfStuds, 0)) *
+            100
+        ),
+        aPassRate: Math.round(
+          (allStats.reduce((sum, s) => sum + s.a, 0) /
+            allStats.reduce((sum, s) => sum + s.noOfStuds, 0)) *
+            100
+        ),
+        year: `${allStats[allStats.length - 1].year}-${allStats[0].year}`,
+      }
+    : null;
 
   if (preLoading) {
     return <PageLoader />;
@@ -148,7 +165,7 @@ function AllPapersBySubjectMain() {
               </h1>
               <p className="text-purple-600 text-lg sm:text-xl mb-4">
                 {subject?.exam === EXAMS.AL
-                  ? subject?.medium === MEDIUMS.ENGLISH
+                  ? subject?.medium !== MEDIUMS.ENGLISH
                     ? "G.C.E - Advanced Level"
                     : "අ.පො.ස. උසස් පෙළ"
                   : subject?.medium === MEDIUMS.ENGLISH
@@ -165,7 +182,7 @@ function AllPapersBySubjectMain() {
                   {subject?.type} papers
                 </span>
                 <span className="px-4 py-2 bg-purple-200 backdrop-blur-md rounded-lg text-black text-sm font-medium">
-                  9 Years (2017-2025)
+                  {allStats?.length} Years ({avgStats?.year})
                 </span>
               </div>
             </div>
@@ -198,53 +215,121 @@ function AllPapersBySubjectMain() {
           Overview
         </h1>
 
-        {/* Stats Overview Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div className="bg-white rounded-lg border border-purple-200 p-4">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-gray-600">
-                Average Students/Year
-              </span>
-              <Users className="w-5 h-5 text-purple-600" />
-            </div>
-            <p className="text-2xl font-bold text-gray-900">
-              {avgStats.totalStudents.toLocaleString()}
-            </p>
-          </div>
+        {/* Last Year Stats Section */}
+        <div className="mb-6">
+          <h2 className="text-base font-medium mb-3">
+            Last Year ({lastYearData ? lastYearData.year : "N/A"}) Statistics
+          </h2>
+          {lastYearData ? (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-300 p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-gray-700 font-medium">
+                    Students
+                  </span>
+                  <Users className="w-5 h-5 text-purple-700" />
+                </div>
+                <p className="text-2xl font-bold text-purple-900">
+                  {lastYearData.totalStudents.toLocaleString()}
+                </p>
+              </div>
 
-          <div className="bg-white rounded-lg border border-purple-200 p-4">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-gray-600">Average Pass Rate</span>
-              <TrendingUp className="w-5 h-5 text-blue-600" />
-            </div>
-            <p className="text-2xl font-bold text-gray-900">
-              {avgStats.passRate}%
-            </p>
-          </div>
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-300 p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-gray-700 font-medium">
+                    Pass Rate (A+B+C+S)
+                  </span>
+                  <TrendingUp className="w-5 h-5 text-blue-700" />
+                </div>
+                <p className="text-2xl font-bold text-blue-900">
+                  {lastYearData.passRate}%
+                </p>
+              </div>
 
-          <div className="bg-white rounded-lg border border-purple-200 p-4">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-gray-600">Average Fail Rate</span>
-              <TrendingDown className="w-5 h-5 text-red-600" />
-            </div>
-            <p className="text-2xl font-bold text-gray-900">
-              {100 - avgStats.passRate}%
-            </p>
-          </div>
+              <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-lg border border-red-300 p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-gray-700 font-medium">
+                    Fail Rate (F)
+                  </span>
+                  <TrendingDown className="w-5 h-5 text-red-700" />
+                </div>
+                <p className="text-2xl font-bold text-red-900">
+                  {100 - lastYearData.passRate}%
+                </p>
+              </div>
 
-          <div className="bg-white rounded-lg border border-purple-200 p-4">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-gray-600">
-                Average <b>"A"</b> Grade Rate
-              </span>
-              <Award className="w-5 h-5 text-green-600" />
+              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-300 p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-gray-700 font-medium">
+                    <b>"A"</b> Grade Rate
+                  </span>
+                  <Award className="w-5 h-5 text-green-700" />
+                </div>
+                <p className="text-2xl font-bold text-green-900">
+                  {lastYearData.aPassRate}%
+                </p>
+              </div>
             </div>
-            <p className="text-2xl font-bold text-gray-900">
-              {avgStats.aPassRate}%
+          ) : (
+            <p className="text-gray-500 italic">
+              No data available for last year
             </p>
-          </div>
+          )}
         </div>
 
+        {/* Average Stats Section */}
+        <h2 className="text-base font-medium mb-3">
+          Average Statistics ({avgStats?.year})
+        </h2>
+        {avgStats?.totalStudents ? (
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="bg-white rounded-lg border border-purple-200 p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-gray-600">Average Students</span>
+                <Users className="w-5 h-5 text-purple-600" />
+              </div>
+              <p className="text-2xl font-bold text-gray-900">
+                {avgStats.totalStudents.toLocaleString()}
+              </p>
+            </div>
+
+            <div className="bg-white rounded-lg border border-purple-200 p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-gray-600">
+                  Average Pass Rate (A+B+C+S)
+                </span>
+                <TrendingUp className="w-5 h-5 text-blue-600" />
+              </div>
+              <p className="text-2xl font-bold text-gray-900">
+                {avgStats.passRate}%
+              </p>
+            </div>
+
+            <div className="bg-white rounded-lg border border-purple-200 p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-gray-600">
+                  Average Fail Rate (F)
+                </span>
+                <TrendingDown className="w-5 h-5 text-red-600" />
+              </div>
+              <p className="text-2xl font-bold text-gray-900">
+                {100 - avgStats.passRate}%
+              </p>
+            </div>
+
+            <div className="bg-white rounded-lg border border-purple-200 p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-gray-600">
+                  Average <b>"A"</b> Grade Rate
+                </span>
+                <Award className="w-5 h-5 text-green-600" />
+              </div>
+              <p className="text-2xl font-bold text-gray-900">
+                {avgStats.aPassRate}%
+              </p>
+            </div>
+          </div>
+        ) : null}
         {/* Tabs Navigation */}
         <div className="bg-white border p-2 my-8 rounded-lg">
           <div className="flex gap-2 overflow-x-auto scrollbar-hide">

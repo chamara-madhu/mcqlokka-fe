@@ -33,6 +33,11 @@ const ManageLessonMain = () => {
   }, []);
 
   const handleDeleteLesson = async (id) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this lesson?"
+    );
+    if (!confirmed) return;
+
     try {
       await deleteLesson(id);
       toast.success("Lesson successfully deleted!");
