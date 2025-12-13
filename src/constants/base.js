@@ -23,7 +23,7 @@ export const SUBJECTS = {
   ART: "Art",
 
   BST: "Biosystems Technology",
-  BRT: "Engineering Technology ",
+  ET: "Engineering Technology",
   SFT: "Science for Technology"
 };
 
@@ -35,7 +35,7 @@ export const EXAMS = {
 export const MEDIUMS = {
   SINHALA: "Sinhala",
   ENGLISH: "English",
-  // TAMIL: "Tamil",
+  TAMIL: "Tamil",
 };
 
 export const TYPES = {

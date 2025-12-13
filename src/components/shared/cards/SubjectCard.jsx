@@ -70,6 +70,8 @@ const SubjectCard = ({ subject }) => {
             ? "English medium"
             : "සිංහල මාධ්‍යය"}
         </p>
+        {isComingSoon &&
+        <p className="text-right text-xs mt-3 text-gray-500">Coming Soon</p>}
         {/* <div className="flex justify-end mt-3">
           <button
             type="button"
