@@ -92,6 +92,11 @@ function App() {
     return auth_token() && isAdmin() ? <Outlet /> : <Navigate to="/login" />;
   };
 
+  // Create a private route for admins
+  const BothRoute = () => {
+    return auth_token() && (isAdmin() || isStudent())? <Outlet /> : <Navigate to="/login" />;
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("auth_token");
     localStorage.removeItem("user_data");
@@ -143,7 +148,7 @@ function App() {
 
         <Route path={PRICING_PATH} exact element={<Pricing />} />
 
-        <Route exact path={MCQ_EXAM_MODE_PATH} element={<StudentRoute />}>
+        <Route exact path={MCQ_EXAM_MODE_PATH} element={<BothRoute />}>
           <Route path={MCQ_EXAM_MODE_PATH} exact element={<Paper />} />
         </Route>
 

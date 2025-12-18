@@ -285,7 +285,7 @@ function AllPapersBySubjectMain() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="bg-white rounded-lg border border-purple-200 p-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-600">Average Students</span>
+                <span className="text-sm text-gray-600">Students</span>
                 <Users className="w-5 h-5 text-purple-600" />
               </div>
               <p className="text-2xl font-bold text-gray-900">
@@ -296,7 +296,7 @@ function AllPapersBySubjectMain() {
             <div className="bg-white rounded-lg border border-purple-200 p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-gray-600">
-                  Average Pass Rate (A+B+C+S)
+                  Pass Rate (A+B+C+S)
                 </span>
                 <TrendingUp className="w-5 h-5 text-blue-600" />
               </div>
@@ -308,7 +308,7 @@ function AllPapersBySubjectMain() {
             <div className="bg-white rounded-lg border border-purple-200 p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-gray-600">
-                  Average Fail Rate (F)
+                  Fail Rate (F)
                 </span>
                 <TrendingDown className="w-5 h-5 text-red-600" />
               </div>
@@ -320,7 +320,7 @@ function AllPapersBySubjectMain() {
             <div className="bg-white rounded-lg border border-purple-200 p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-gray-600">
-                  Average <b>"A"</b> Grade Rate
+                  <b>"A"</b> Grade Rate
                 </span>
                 <Award className="w-5 h-5 text-green-600" />
               </div>

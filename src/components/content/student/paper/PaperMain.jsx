@@ -8,11 +8,15 @@ import paperService from "../../../../services/paper.service";
 import {
   PAPER_MODES,
   QUESTION_DIFFICULTY_TYPES,
+  USER_ROLES,
 } from "../../../../constants/base";
 import { MCQ_EXAM_RESULTS_PATH } from "../../../../constants/routes";
 import config from "../../../../config/aws";
 import PageLoader from "../../../shared/loading/PageLoader";
 import { Clock } from "lucide-react";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 
 const PaperMain = () => {
   const [activeQuestion, setActiveQuestion] = useState({});
@@ -24,6 +28,7 @@ const PaperMain = () => {
   const [preLoading, setPreLoading] = useState(true);
   const { paperId } = useParams();
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user_data") || "{}");
 
   const { markPaper } = paperService();
   const { getAllQuestionsByPaperId } = questionService();
@@ -191,7 +196,7 @@ const PaperMain = () => {
           <div className="flex flex-col gap-8">
             <h5 className="text-lg mb-[-20px] font-semibold">
               Question : {activeQuestion?.no} &nbsp;
-              <span
+              {/* <span
                 className={classNames(
                   "px-3 py-1 text-sm font-medium rounded-full",
                   activeQuestion?.difficulty === QUESTION_DIFFICULTY_TYPES?.EASY
@@ -203,12 +208,19 @@ const PaperMain = () => {
                 )}
               >
                 {activeQuestion?.difficulty}
-              </span>
+              </span> */}
             </h5>
             <div className="flex flex-col gap-5">
-              <div className="whitespace-pre-wrap">
-                <ReactMarkdown>{activeQuestion?.question}</ReactMarkdown>
-              </div>
+              {activeQuestion?.question !== "." && (
+                <div className="whitespace-pre-wrap">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkMath]}
+                    rehypePlugins={[rehypeKatex]}
+                  >
+                    {activeQuestion?.question}
+                  </ReactMarkdown>
+                </div>
+              )}
               {activeQuestion?.image && (
                 <img
                   className="max-w-3xl"
@@ -218,7 +230,12 @@ const PaperMain = () => {
               )}
               {activeQuestion?.restOfQuestion && (
                 <div className="whitespace-pre-wrap">
-                  <ReactMarkdown>{activeQuestion.restOfQuestion}</ReactMarkdown>
+                  <ReactMarkdown
+                    remarkPlugins={[remarkMath]}
+                    rehypePlugins={[rehypeKatex]}
+                  >
+                    {activeQuestion.restOfQuestion}
+                  </ReactMarkdown>
                 </div>
               )}
             </div>
@@ -237,12 +254,35 @@ const PaperMain = () => {
                     )}
                     onClick={() => handleSelectAnswer(index)}
                   >
-                    ({index + 1}) &nbsp; {option}
+                    ({index + 1}) &nbsp;{" "}
+                    <ReactMarkdown
+                      remarkPlugins={[remarkMath]}
+                      rehypePlugins={[rehypeKatex]}
+                    >
+                      {option}
+                    </ReactMarkdown>
                   </div>
                 ))}
             </div>
           </div>
         )}
+
+        {user?.role === USER_ROLES.ADMIN &&
+        activeQuestion?.answerClarification ? (
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+            <div>
+              <h4 className="font-semibold text-blue-900 mb-2">Explanation</h4>
+              <div className="text-blue-800 whitespace-pre-wrap">
+                <ReactMarkdown
+                  remarkPlugins={[remarkMath]}
+                  rehypePlugins={[rehypeKatex]}
+                >
+                  {activeQuestion?.answerClarification}
+                </ReactMarkdown>
+              </div>
+            </div>
+          </div>
+        ) : null}
 
         <div
           className={classNames(

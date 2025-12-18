@@ -244,9 +244,16 @@ const PaperLearningMain = () => {
           </div>
 
           <div className="flex flex-col gap-5">
-            <div className="whitespace-pre-wrap">
-              <ReactMarkdown>{activeQuestion?.question}</ReactMarkdown>
-            </div>
+            {activeQuestion?.question !== "." && (
+              <div className="whitespace-pre-wrap">
+                <ReactMarkdown
+                  remarkPlugins={[remarkMath]}
+                  rehypePlugins={[rehypeKatex]}
+                >
+                  {activeQuestion?.question}
+                </ReactMarkdown>
+              </div>
+            )}
             {activeQuestion?.image && (
               <img
                 className="max-w-[600px]"
@@ -256,7 +263,12 @@ const PaperLearningMain = () => {
             )}
             {activeQuestion?.restOfQuestion && (
               <div className="whitespace-pre-wrap">
-                <ReactMarkdown>{activeQuestion.restOfQuestion}</ReactMarkdown>
+                <ReactMarkdown
+                  remarkPlugins={[remarkMath]}
+                  rehypePlugins={[rehypeKatex]}
+                >
+                  {activeQuestion.restOfQuestion}
+                </ReactMarkdown>
               </div>
             )}
           </div>
@@ -304,7 +316,12 @@ const PaperLearningMain = () => {
                   Explanation
                 </h4>
                 <div className="text-blue-800 whitespace-pre-wrap">
-                  <ReactMarkdown>{answerClarification}</ReactMarkdown>
+                  <ReactMarkdown
+                    remarkPlugins={[remarkMath]}
+                    rehypePlugins={[rehypeKatex]}
+                  >
+                    {answerClarification}
+                  </ReactMarkdown>
                 </div>
               </div>
             </div>

@@ -112,15 +112,13 @@ const MCQStartMain = () => {
       learningDesc: "Practice with instant feedback and explanations",
       examInstructions: [
         "This is a timed test. Please make sure you are not interrupted during the test, as the timer cannot be paused once started.",
-        "Once you submit an answer, you cannot go back to change it.",
+        "You can review and change your answers anytime before final submission.",
         "The exam will automatically submit when the time runs out.",
-        "Your answers will be saved automatically as you progress.",
         "Make sure you have a stable internet connection throughout the exam.",
       ],
       learningInstructions: [
         "This mode allows you to practice at your own pace without time pressure.",
         "You will receive instant feedback for each answer you submit.",
-        "You can review and change your answers anytime before final submission.",
         "Detailed explanations are provided for each question to help you learn.",
         "Take your time to understand the concepts thoroughly.",
       ],
@@ -143,15 +141,13 @@ const MCQStartMain = () => {
       learningDesc: "ක්ෂණික ප්‍රතිචාර සහ පැහැදිලි කිරීම් සමඟ පුහුණු වන්න",
       examInstructions: [
         "මෙය කාල සීමාවක් ඇති පරීක්ෂණයකි. ආරම්භ කළ පසු කාල ගණකය නැවැත්විය නොහැකි බැවින්, පරීක්ෂණය අතරතුර බාධා නොවන බව සහතික කර ගන්න.",
-        "ඔබ පිළිතුරක් ඉදිරිපත් කළ පසු, එය වෙනස් කිරීමට ආපසු යා නොහැක.",
+        "අවසන් ඉදිරිපත් කිරීමට පෙර ඕනෑම වේලාවක ඔබගේ පිළිතුරු සමාලෝචනය කර වෙනස් කළ හැකිය.",
         "කාලය අවසන් වූ විට විභාගය ස්වයංක්‍රීයව ඉදිරිපත් වේ.",
-        "ඔබ ඉදිරියට යන විට ඔබගේ පිළිතුරු ස්වයංක්‍රීයව සුරකිනු ලැබේ.",
         "විභාගය පුරාවටම ස්ථාවර අන්තර්ජාල සම්බන්ධතාවයක් ඇති බවට වග බලා ගන්න.",
       ],
       learningInstructions: [
         "මෙම ආකාරය ඔබට කාල පීඩනයකින් තොරව ඔබේම වේගයෙන් පුහුණු වීමට ඉඩ සලසයි.",
         "ඔබ ඉදිරිපත් කරන සෑම පිළිතුරක් සඳහාම ඔබට ක්ෂණික ප්‍රතිචාර ලැබෙනු ඇත.",
-        "අවසන් ඉදිරිපත් කිරීමට පෙර ඕනෑම වේලාවක ඔබගේ පිළිතුරු සමාලෝචනය කර වෙනස් කළ හැකිය.",
         "ඔබට ඉගෙන ගැනීමට උපකාර කිරීම සඳහා සෑම ප්‍රශ්නයක් සඳහාම විස්තරාත්මක පැහැදිලි කිරීම් සපයනු ලැබේ.",
         "සංකල්ප හොඳින් අවබෝධ කර ගැනීමට ඔබේ කාලය ගන්න.",
       ],
