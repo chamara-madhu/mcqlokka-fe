@@ -18,8 +18,8 @@ const initialState = {
   otpErr: "",
 };
 
-const SignUpLoginMain = () => {
-  const [showSignUpView, setShowSignUpView] = useState(false);
+const SignUpLoginMain = ({ isSignUp }) => {
+  const [showSignUpView, setShowSignUpView] = useState(isSignUp);
   const [showOtpView, setShowOtpView] = useState(false);
   const [form, setForm] = useState(initialState);
   const [error, setError] = useState("");
