@@ -356,7 +356,7 @@ function AllPapersBySubjectMain() {
         )}
 
         {activeTab === "syllabus" && (
-          <SyllabusContent subjectId={subject._id} />
+          <SyllabusContent subjectId={subject._id} syllabusPdfUrl={subject.pdf} />
         )}
 
         {activeTab === "papers" && (

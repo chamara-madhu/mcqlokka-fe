@@ -26,6 +26,8 @@ const initialState = {
 const initialFiles = {
   icon: null,
   iconErr: "",
+  pdf: null,
+  pdfErr: "",
 };
 
 const CreateSubjectMain = () => {
@@ -58,6 +60,7 @@ const CreateSubjectMain = () => {
         setFiles((prev) => ({
           ...prev,
           icon: res.data.icon,
+          pdf: res.data.pdf,
         }));
       } catch (error) {
         const errorMessage =
@@ -179,6 +182,10 @@ const CreateSubjectMain = () => {
       formData.append("icon", files.icon);
     }
 
+    if (files?.pdf) {
+      formData.append("pdf", files.pdf);
+    }
+
     try {
       if (!id) {
         await createSubject(formData);
@@ -280,10 +287,27 @@ const CreateSubjectMain = () => {
                 ? files.icon
                 : ""
             }
+            allowMaxFileSize={102400}
             handleFile={handleFile}
             error={errors.icon}
             removeImage={removeImage}
           />
+
+          <ImageUpload
+            label="Syllabus"
+            name="pdf"
+            value={files.pdf}
+            existingValue={
+              typeof files?.pdf === "string" && files?.pdf?.includes("syllabus")
+                ? files.pdf
+                : ""
+            }
+            allowFileTypes={["application/pdf"]}
+            handleFile={handleFile}
+            error={errors.pdf}
+            removeImage={removeImage}
+          />
+          
           <div className="flex gap-2">
             <Button
               label={id ? "Save" : "Submit"}

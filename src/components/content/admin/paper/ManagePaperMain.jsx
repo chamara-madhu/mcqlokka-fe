@@ -33,6 +33,12 @@ const ManagePaperMain = () => {
   }, []);
 
   const handleDeletePaper = async (id) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this paper?"
+    );
+
+    if (!confirmed) return;
+
     try {
       await deletePaper(id);
       toast.success("Paper successfully deleted!");

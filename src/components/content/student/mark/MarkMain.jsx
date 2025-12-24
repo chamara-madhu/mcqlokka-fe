@@ -159,7 +159,7 @@ const MarkMain = () => {
                 })}
               </p>
             </div>
-            <button
+            {/* <button
               onClick={handleDownload}
               disabled={downloading}
               className="inline-flex items-center space-x-2 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 text-white px-6 py-2.5 rounded-lg font-semibold transition-colors text-sm"
@@ -175,7 +175,7 @@ const MarkMain = () => {
                   <span>Download</span>
                 </>
               )}
-            </button>
+            </button> */}
           </div>
         </div>
 
@@ -300,7 +300,7 @@ const MarkMain = () => {
         </div>
 
         {/* Summary Grid */}
-        <div className="p-6 flex gap-3">
+        <div className="p-6 flex flex-wrap gap-3">
           {questions.map((question, index) => {
             const userAnswers = marks?.answers?.[question.no - 1] || [];
             const correctAnswers = question.answer || [];

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import PageLoader from "../../shared/loading/PageLoader";
 import lessonService from "../../../services/lesson.service";
 import ReactMarkdown from "react-markdown";
+import config from "../../../config/aws";
+import { Download } from "lucide-react";
 
-const SyllabusContent = ({ subjectId }) => {
+const SyllabusContent = ({ subjectId, syllabusPdfUrl }) => {
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -32,6 +34,17 @@ const SyllabusContent = ({ subjectId }) => {
         Total: <strong className="text-purple-700">{lessons.length}</strong>{" "}
         lessons
       </p>
+      {syllabusPdfUrl && (
+          <a
+            href={`${config.S3_PUBLIC_URL}/${syllabusPdfUrl}`}
+            download
+            target="_blank"
+            className="inline-flex mb-8 items-center gap-2 bg-purple-600 text-white px-4 py-3 rounded-lg font-medium hover:bg-purple-700 transition-colors text-sm"
+          >
+            <Download className="w-4 h-4" />
+            Download Full Syllabus
+          </a>
+        )}
       <ol className="space-y-4 text-gray-700">
         {lessons.map((lesson, index) => (
           <li key={index} className="flex items-start gap-4">

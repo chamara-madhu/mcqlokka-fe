@@ -35,6 +35,12 @@ const ManageSubjectMain = () => {
   }, []);
 
   const handleDeleteSubject = async (id) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this subject?"
+    );
+
+    if (!confirmed) return;
+
     try {
       await deleteSubject(id);
       toast.success("Subject successfully deleted!");

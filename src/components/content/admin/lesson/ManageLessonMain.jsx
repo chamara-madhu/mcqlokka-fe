@@ -36,6 +36,7 @@ const ManageLessonMain = () => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this lesson?"
     );
+    
     if (!confirmed) return;
 
     try {

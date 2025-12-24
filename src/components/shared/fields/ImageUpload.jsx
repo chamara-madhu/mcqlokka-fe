@@ -3,8 +3,6 @@ import classNames from "classnames";
 import { UploadCloud, X } from "feather-icons-react";
 import config from "../../../config/aws";
 
-const allowFileTypes = ["image/jpeg", "image/png"];
-
 const ImageUpload = ({
   name,
   value,
@@ -14,6 +12,7 @@ const ImageUpload = ({
   labelClass,
   removeImage,
   allowMaxFileSize = 1024 * 1024 * 2, // 2MB
+  allowFileTypes = ["image/jpeg", "image/png"],
   showRequiredLabel = false,
   error,
   height = "200px",
