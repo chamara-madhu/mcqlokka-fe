@@ -12,6 +12,8 @@ import {
 import { MCQ_EXAM_RESULTS_PATH } from "../../../../constants/routes";
 import config from "../../../../config/aws";
 import PageLoader from "../../../shared/loading/PageLoader";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 const PaperLearningMain = () => {
   const [activeQuestion, setActiveQuestion] = useState({});
