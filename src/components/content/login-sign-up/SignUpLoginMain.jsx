@@ -6,28 +6,30 @@ import authService from "../../../services/auth.service";
 import FormInput from "../../shared/fields/FormInput";
 import { ADMIN_DASHBOARD_PATH } from "../../../constants/routes";
 import Logo from "../../../assets/images/logo.png";
-import { ArrowLeft, AlertCircle } from "feather-icons-react";
+import { ArrowLeft } from "feather-icons-react";
+import OtpInput from "../../shared/fields/OtpInput";
 
 const initialState = {
   name: "",
   email: "",
-  password: "",
+  otp: "",
   nameErr: "",
   emailErr: "",
-  passwordErr: "",
+  otpErr: "",
 };
 
-const SignUpLoginMain = ({ isSignUp }) => {
-  const [showSignUpView, setShowSignUpView] = useState(isSignUp);
+const SignUpLoginMain = () => {
+  const [showSignUpView, setShowSignUpView] = useState(false);
+  const [showOtpView, setShowOtpView] = useState(true);
   const [form, setForm] = useState(initialState);
   const [error, setError] = useState("");
-  const [veryfyEmailMsg, setVeryfyEmailMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const emailRef = useRef(null);
   const nameRef = useRef(null);
+  const otpRef = useRef(null);
 
-  const { login, signUp } = authService();
+  const { login, signUp, verifyOtp } = authService();
 
   useEffect(() => {
     if (showSignUpView) {
@@ -49,9 +51,12 @@ const SignUpLoginMain = ({ isSignUp }) => {
     }));
   }, []);
 
+  const handleOTPChange = (value) => {
+    setForm((prev) => ({ ...prev, otp: value, otpErr: "" }));
+  };
+
   const validateLogin = () => {
     let emailErr = "";
-    let passwordErr = "";
 
     if (!form.email) {
       emailErr = "Email is required";
@@ -59,15 +64,10 @@ const SignUpLoginMain = ({ isSignUp }) => {
       emailErr = "Email is invalid";
     }
 
-    if (!form.password) {
-      passwordErr = "Password is required";
-    }
-
-    if (emailErr || passwordErr) {
+    if (emailErr) {
       setForm((prevForm) => ({
         ...prevForm,
         emailErr,
-        passwordErr,
       }));
 
       return false;
@@ -83,19 +83,12 @@ const SignUpLoginMain = ({ isSignUp }) => {
 
       const data = {
         email: form.email,
-        password: form.password,
       };
 
       try {
-        const res = await login(data);
-        localStorage.setItem("auth_token", res.data.token);
-        localStorage.setItem("user_data", JSON.stringify(res.data.user));
+        await login(data);
+        setShowOtpView(true);
         setLoading(false);
-        if (res.data.user.role === 0) {
-          navigate(ADMIN_DASHBOARD_PATH);
-        } else {
-          navigate(-1);
-        }
       } catch (err) {
         console.log(err);
         setError(err?.response?.data?.message);
@@ -108,10 +101,9 @@ const SignUpLoginMain = ({ isSignUp }) => {
   const validateInSignUp = () => {
     let nameErr = "";
     let emailErr = "";
-    let passwordErr = "";
 
     if (!form.name) {
-      nameErr = "First name is required";
+      nameErr = "Name is required";
     }
 
     if (!form.email) {
@@ -120,32 +112,11 @@ const SignUpLoginMain = ({ isSignUp }) => {
       emailErr = "Email is invalid";
     }
 
-    const passwordRegex =
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-
-    if (!form.password) {
-      passwordErr = "Password is required.";
-    } else if (form.password.length < 8) {
-      passwordErr = "Password must be at least 8 characters long.";
-    } else if (!/[A-Z]/.test(form.password)) {
-      passwordErr = "Password must contain at least one uppercase letter.";
-    } else if (!/[a-z]/.test(form.password)) {
-      passwordErr = "Password must contain at least one lowercase letter.";
-    } else if (!/\d/.test(form.password)) {
-      passwordErr = "Password must contain at least one digit.";
-    } else if (!/[!@#$%^&*]/.test(form.password)) {
-      passwordErr =
-        "Password must contain at least one special character (e.g., !@#$%^&*).";
-    } else if (!passwordRegex.test(form.password)) {
-      passwordErr = "Password does not meet the required criteria.";
-    }
-
-    if (nameErr || emailErr || passwordErr) {
+    if (nameErr || emailErr) {
       setForm((prevForm) => ({
         ...prevForm,
         nameErr,
         emailErr,
-        passwordErr,
       }));
 
       return false;
@@ -162,16 +133,13 @@ const SignUpLoginMain = ({ isSignUp }) => {
       const data = {
         name: form.name,
         email: form.email,
-        password: form.password,
-        avatar: form.avatar,
       };
 
       try {
         const res = await signUp(data);
 
-        setVeryfyEmailMsg(res.data.message);
+        setShowOtpView(true);
         setLoading(false);
-        setForm(initialState);
       } catch (err) {
         setForm((prev) => ({
           ...prev,
@@ -182,6 +150,69 @@ const SignUpLoginMain = ({ isSignUp }) => {
         setLoading(false);
       }
     }
+  };
+
+  const validateOtp = () => {
+    let otpErr = "";
+
+    if (!form.otp) {
+      otpErr = "OTP is required";
+    }
+
+    if (otpErr) {
+      setForm((prevForm) => ({
+        ...prevForm,
+        otpErr,
+      }));
+
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleOTP = async (e) => {
+    e.preventDefault();
+
+    if (!validateOtp()) return;
+
+    setLoading(true);
+
+    const data = {
+      email: form.email,
+      otp: form.otp,
+    };
+
+    try {
+      const res = await verifyOtp(data);
+
+      localStorage.setItem("auth_token", res.data.token);
+      localStorage.setItem("user_data", JSON.stringify(res.data.user));
+
+      if (res.data.user.role === 0) {
+        navigate(ADMIN_DASHBOARD_PATH);
+      } else {
+        navigate(-1);
+      }
+    } catch (err) {
+      if (err?.response?.data?.code === 1100) {
+        setForm((prevForm) => ({
+          ...prevForm,
+          otpErr: err.response.data.message,
+        }));
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleBack = () => {
+    setShowOtpView(false);
+    setForm((prevForm) => ({
+      ...prevForm,
+      otp: "",
+      otpErr: "",
+    }));
   };
 
   return (
@@ -205,87 +236,114 @@ const SignUpLoginMain = ({ isSignUp }) => {
           <p className="mt-2 mb-10 text-4xl font-bold">
             {showSignUpView ? "Sign Up" : "Login"}
           </p>
-          {veryfyEmailMsg ? (
-            <p className="text-purple-600 mb-3">
-              <AlertCircle className="inline" /> {veryfyEmailMsg}
-            </p>
-          ) : null}
 
-          <form
-            className="flex flex-col gap-6"
-            onSubmit={showSignUpView ? handleSignUp : handleLogin}
-          >
-            {showSignUpView && (
-              <FormInput
-                label="Name"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                error={form.nameErr}
-                // info="* This name will apply your certificate."
-              />
-            )}
-            <FormInput
-              label="Email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              error={form.emailErr}
-            />
-            <FormInput
-              type="password"
-              label="Password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              error={form.passwordErr}
-            />
-            <p className="text-sm text-red-400">{error}</p>
-            <div>
-              <Button
-                label={showSignUpView ? "Sign up" : "Login"}
-                type="submit"
-                variant="dark"
-                className="w-full"
-                isLoading={loading}
-              />
-              {showSignUpView ? (
-                <p className="mt-2 text-sm font-medium text-center">
-                  Do you have an account?{" "}
-                  <span
-                    className="text-purple-600 cursor-pointer"
-                    onClick={() => {
-                      setShowSignUpView(false);
-                      setForm((prevForm) => ({
-                        ...prevForm,
-                        emailErr: "",
-                        nameErr: "",
-                        lNameErr: "",
-                      }));
-                    }}
-                  >
-                    Login
-                  </span>
-                </p>
-              ) : (
-                <p className="mt-2 text-sm font-medium text-center">
-                  Don&apos;t you have an account?{" "}
-                  <span
-                    className="text-purple-600 cursor-pointer"
-                    onClick={() => {
-                      setShowSignUpView(true);
-                      setForm((prevForm) => ({
-                        ...prevForm,
-                        emailErr: "",
-                      }));
-                    }}
-                  >
-                    Sign up free
-                  </span>
-                </p>
+          {!showOtpView ? (
+            <form
+              className="flex flex-col gap-6"
+              onSubmit={showSignUpView ? handleSignUp : handleLogin}
+            >
+              {showSignUpView && (
+                <FormInput
+                  label="Name"
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  error={form.nameErr}
+                  // info="* This name will apply your certificate."
+                />
               )}
-            </div>
-          </form>
+              <FormInput
+                label="Email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                error={form.emailErr}
+                info="An OTP will be sent to you"
+              />
+              <p className="text-sm text-red-400">{error}</p>
+              <div>
+                <Button
+                  label={showSignUpView ? "Sign up" : "Login"}
+                  type="submit"
+                  variant="dark"
+                  className="w-full"
+                  isLoading={loading}
+                />
+                {showSignUpView ? (
+                  <p className="mt-2 text-sm font-medium text-center">
+                    Do you have an account?{" "}
+                    <span
+                      className="text-purple-600 cursor-pointer"
+                      onClick={() => {
+                        setShowSignUpView(false);
+                        setForm((prevForm) => ({
+                          ...prevForm,
+                          emailErr: "",
+                          nameErr: "",
+                          lNameErr: "",
+                        }));
+                      }}
+                    >
+                      Login
+                    </span>
+                  </p>
+                ) : (
+                  <p className="mt-2 text-sm font-medium text-center">
+                    Don&apos;t you have an account?{" "}
+                    <span
+                      className="text-purple-600 cursor-pointer"
+                      onClick={() => {
+                        setShowSignUpView(true);
+                        setForm((prevForm) => ({
+                          ...prevForm,
+                          emailErr: "",
+                        }));
+                      }}
+                    >
+                      Sign up free
+                    </span>
+                  </p>
+                )}
+              </div>
+            </form>
+          ) : (
+            <form className="flex flex-col gap-6" onSubmit={handleOTP}>
+              {/* <FormInput
+                ref={otpRef}
+                label="OTP"
+                name="otp"
+                value={form.otp}
+                onChange={handleChange}
+                error={form.otpErr}
+                info={`An OTP has been sent to ${form.email}`}
+              /> */}
+              <p className="text-sm text-gray-600">
+                An OTP has been sent to{" "}
+                <span className="font-medium text-gray-800">{form.email}</span>
+              </p>
+              <OtpInput
+                value={form.otp}
+                onChange={handleOTPChange}
+                error={form.otpErr}
+              />
+              <div>
+                <Button
+                  label="Verify OTP"
+                  type="submit"
+                  variant="dark"
+                  className="w-full"
+                  isLoading={loading}
+                  loadingLabel="Verifying"
+                />
+                <p
+                  className="mt-2 text-sm font-medium text-center cursor-pointer"
+                  onClick={handleBack}
+                >
+                  Go back
+                </p>
+              </div>
+            </form>
+          )}
         </div>
       </div>
     </div>
