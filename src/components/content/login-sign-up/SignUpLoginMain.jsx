@@ -20,14 +20,13 @@ const initialState = {
 
 const SignUpLoginMain = () => {
   const [showSignUpView, setShowSignUpView] = useState(false);
-  const [showOtpView, setShowOtpView] = useState(true);
+  const [showOtpView, setShowOtpView] = useState(false);
   const [form, setForm] = useState(initialState);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const emailRef = useRef(null);
   const nameRef = useRef(null);
-  const otpRef = useRef(null);
 
   const { login, signUp, verifyOtp } = authService();
 
@@ -308,15 +307,6 @@ const SignUpLoginMain = () => {
             </form>
           ) : (
             <form className="flex flex-col gap-6" onSubmit={handleOTP}>
-              {/* <FormInput
-                ref={otpRef}
-                label="OTP"
-                name="otp"
-                value={form.otp}
-                onChange={handleChange}
-                error={form.otpErr}
-                info={`An OTP has been sent to ${form.email}`}
-              /> */}
               <p className="text-sm text-gray-600">
                 An OTP has been sent to{" "}
                 <span className="font-medium text-gray-800">{form.email}</span>
