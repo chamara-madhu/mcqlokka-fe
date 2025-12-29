@@ -1,4 +1,5 @@
 import axios from "axios";
+import { LOGIN_PATH } from "../constants/routes";
 
 // Create an Axios instance
 const axiosInstance = axios.create();
@@ -20,6 +21,27 @@ axiosInstance.interceptors.request.use(
   },
   (error) => {
     // Handle errors if necessary
+    return Promise.reject(error);
+  }
+);
+
+// ✅ Response interceptor for catching 401
+axiosInstance.interceptors.response.use(
+  (response) => response, // pass successful responses through
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      alert(JSON.stringify(error.response))
+      alert("im")
+      // Clear auth data
+      localStorage.removeItem("auth_token");
+
+      // clear other stored user data
+      localStorage.removeItem("user_data");
+
+      // Redirect to login page
+      window.location.href = LOGIN_PATH;
+    }
+
     return Promise.reject(error);
   }
 );

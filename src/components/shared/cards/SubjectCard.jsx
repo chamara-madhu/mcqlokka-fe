@@ -12,7 +12,7 @@ const SubjectCard = ({ subject }) => {
   return (
     <div
       onClick={() =>
-        !isComingSoon && navigate(`subjects/${subject?._id}`)
+        !isComingSoon && navigate(`/subjects/${subject.exam.replace("/", "")}/${subject.forSearch}/${subject.medium}-medium/${subject?._id}`.toLowerCase())
       }
       className={`relative flex flex-col w-full border rounded-xl ${
         isComingSoon

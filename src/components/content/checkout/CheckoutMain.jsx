@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import BankTransferDetails from "./BankTransferDetails";
 import paymentService from "../../../services/payment.service";
 import { clearCart } from "../../../redux/features/cartSlice";
+import BackButton from "../../shared/buttons/BackButton";
 
 export default function CheckoutPage() {
   const [bankSlip, setBankSlip] = useState(null);
@@ -145,17 +146,19 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <BackButton page="cart" />
+
         {/* Page Header */}
-        <div className="mb-12 text-center">
+        <div className="mb-12">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-purple-900 mb-3">
             Complete Your Purchase
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-600">
             Transfer the payment and upload your bank slip for verification
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 w-full mx-auto">
           {/* Left Column - Bank Details & Upload (3 columns) */}
           <div className="lg:col-span-3 space-y-6">
             <BankTransferDetails total={total} />

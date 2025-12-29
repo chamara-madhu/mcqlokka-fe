@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../../../redux/features/cartSlice";
 import { EXAMS } from "../../../constants/base";
 import { calculateTotalAmount } from "../../../utils/general";
+import BackButton from "../../shared/buttons/BackButton";
 
 export default function CartMain() {
   // const [cartItems, setCartItems] = useState([
@@ -89,6 +90,8 @@ export default function CartMain() {
       </div> */}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <BackButton page="subjects" />
+        
         {/* Page Title */}
         <div className="mb-8">
           <h1 className="text-3xl sm:text-4xl font-bold text-purple-900 mb-2">
@@ -112,9 +115,9 @@ export default function CartMain() {
               Start adding subjects to your cart to begin your learning journey
             </p>
             <Link to={HOME_PATH}>
-            <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-semibold transition-colors">
-              Browse Subjects
-            </button>
+              <button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-xl font-semibold transition-colors">
+                Browse Subjects
+              </button>
             </Link>
           </div>
         ) : (
@@ -136,7 +139,10 @@ export default function CartMain() {
                               {item.name}
                             </h3>
                             <p className="text-sm text-purple-600 font-medium mb-2">
-                              G.C.E {item.exam === EXAMS.AL ? "Advanced Level" : "Ordinary Level"}
+                              G.C.E{" "}
+                              {item.exam === EXAMS.AL
+                                ? "Advanced Level"
+                                : "Ordinary Level"}
                             </p>
                           </div>
                         </div>

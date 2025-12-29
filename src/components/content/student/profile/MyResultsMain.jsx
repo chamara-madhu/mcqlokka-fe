@@ -276,7 +276,7 @@ const MyResultsMain = () => {
                       <div>
                         <button
                           onClick={() =>
-                            (window.location.href = `/subjects/${result?.paper?.subject?._id}/papers/${result?.paper?._id}/mcq/marks/${result._id}`)
+                            (window.location.href = `/subjects/mcq/marks/${result._id}`)
                           }
                           className="inline-flex items-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
                         >

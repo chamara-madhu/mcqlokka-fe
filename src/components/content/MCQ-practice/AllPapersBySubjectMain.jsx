@@ -20,8 +20,15 @@ import { Bar } from "react-chartjs-2";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/features/cartSlice";
 import PageLoader from "../../shared/loading/PageLoader";
-import { Award, TrendingDown, TrendingUp, Users } from "lucide-react";
+import {
+  ArrowLeft,
+  Award,
+  TrendingDown,
+  TrendingUp,
+  Users,
+} from "lucide-react";
 import SyllabusContent from "./SyllabusContent";
+import BackButton from "../../shared/buttons/BackButton";
 
 ChartJS.register(
   CategoryScale,
@@ -156,8 +163,10 @@ function AllPapersBySubjectMain() {
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <BackButton page="subjects" />
+
         {/* Subject Info Section */}
-        <div className="mb-12">
+        <div className="mb-5 bg-purple-50 p-7 rounded-t-2xl border-b-2 border-b-purple-200">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="mb-6 lg:mb-0">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-purple-900 mb-3">
@@ -165,7 +174,7 @@ function AllPapersBySubjectMain() {
               </h1>
               <p className="text-purple-600 text-lg sm:text-xl mb-4">
                 {subject?.exam === EXAMS.AL
-                  ? subject?.medium !== MEDIUMS.ENGLISH
+                  ? subject?.medium === MEDIUMS.ENGLISH
                     ? "G.C.E - Advanced Level"
                     : "අ.පො.ස. උසස් පෙළ"
                   : subject?.medium === MEDIUMS.ENGLISH
@@ -307,9 +316,7 @@ function AllPapersBySubjectMain() {
 
             <div className="bg-white rounded-lg border border-purple-200 p-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-600">
-                  Fail Rate (F)
-                </span>
+                <span className="text-sm text-gray-600">Fail Rate (F)</span>
                 <TrendingDown className="w-5 h-5 text-red-600" />
               </div>
               <p className="text-2xl font-bold text-gray-900">
@@ -356,7 +363,10 @@ function AllPapersBySubjectMain() {
         )}
 
         {activeTab === "syllabus" && (
-          <SyllabusContent subjectId={subject._id} syllabusPdfUrl={subject.pdf} />
+          <SyllabusContent
+            subjectId={subject._id}
+            syllabusPdfUrl={subject.pdf}
+          />
         )}
 
         {activeTab === "papers" && (

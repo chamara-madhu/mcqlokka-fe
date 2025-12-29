@@ -108,10 +108,10 @@ const MySubjectsMain = () => {
             </div>
             <p className="text-2xl font-bold text-gray-900">
               {subjects.length
-                ? Math.round(
+                ? (
                     subjects.reduce((sum, s) => sum + s.progress, 0) /
                       subjects.length
-                  )
+                  )?.toFixed(2)
                 : 0}
               %
             </p>
@@ -134,10 +134,10 @@ const MySubjectsMain = () => {
             </div>
             <p className="text-2xl font-bold text-gray-900">
               {subjects.length
-                ? Math.round(
-                    subjects.reduce((sum, s) => sum + s.avgMarks, 0) /
-                      subjects.length
-                  )
+                ? 
+                    (subjects.reduce((sum, s) => sum + s.avgMarks, 0) /
+                      subjects.length)?.toFixed(2)
+                  
                 : 0}
             </p>
           </div>
@@ -228,17 +228,21 @@ const MySubjectsMain = () => {
                       key={idx}
                       className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-purple-50 transition-colors"
                     >
+                      <div>
+
                       <Link
-                        to={`/subjects/${subject?.id}/papers/${paper.id}/mcq`}
+                        to={`/subjects/${subject.exam.replace("/", "")}/${subject.forSearch}/${subject.medium}-medium/past-paper/${paper?.year}/${paper.id}/mcq`.toLowerCase()}
                         target="_blank"
                         className="text-sm hover:text-purple-600 text-gray-900"
                       >
                         {paper.year} paper
                       </Link>
+                      <p className="text-xs text-gray-500">{paper.attempts} attemps</p>
+                      </div>
                       <div className="flex items-center space-x-2">
                         {paper.marks && (
                           <span className="text-xs font-semibold text-purple-600">
-                            {Math.floor(paper.marks)}%
+                            {paper.marks.toFixed(2)}
                           </span>
                         )}
                         {getStatusBadge(paper.status)}
@@ -249,7 +253,7 @@ const MySubjectsMain = () => {
               </div>
 
               {/* Action Buttons */}
-              <Link to={`/subjects/${subject.id}`}>
+              <Link to={`/subjects/${subject.exam.replace("/", "")}/${subject.forSearch}/${subject.medium}-medium/${subject.id}`.toLowerCase()}>
                 <button className="flex w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-4 rounded-lg font-semibold transition-colors items-center justify-center space-x-2">
                   <Play className="w-4 h-4" />
                   <span>Continue</span>

@@ -38,11 +38,11 @@ import {
   ADMIN_SUBJECT_CREATE_PATH,
   ADMIN_SUBJECT_EDIT_PATH,
   ADMIN_SUBJECT_MANAGE_PATH,
-  VERIFY_ACCOUNT_PATH,
   MY_SUBJECTS_PATH,
   CONTACT_PATH,
   MCQ_LEARNING_MODE_PATH,
   ADMIN_BULK_LESSON_CREATE_PATH,
+  PAPER_DETAILS_PATH,
 } from "./constants/routes";
 import Paper from "./pages/students/Paper";
 import CreatePaper from "./pages/admin/paper/CreatePaper";
@@ -80,6 +80,7 @@ import MySubjects from "./pages/students/MySubjects";
 import Contact from "./pages/Contact";
 import PaperLearning from "./pages/students/PaperLearning";
 import CreateBulkLesson from "./pages/admin/lesson/CreateBulkLesson";
+import PaperDetails from "./pages/PaperDetails";
 
 function App() {
   // Create a private route for passengers
@@ -127,10 +128,6 @@ function App() {
           <Route exact path={REGISTER_PATH} element={<SignUp />} />
         </Route>
 
-        <Route exact path={VERIFY_ACCOUNT_PATH} element={<LoginRoute />}>
-          <Route path={VERIFY_ACCOUNT_PATH} element={<VerifyAccount />} />
-        </Route>
-
         <Route path={MCQS_BY_LESSON_PATH} exact element={<MCQsByLesson />} />
 
         <Route path={ABOUT_PATH} exact element={<About />} />
@@ -143,6 +140,8 @@ function App() {
         />
         <Route path={CART_PATH} exact element={<Cart />} />
         <Route path={CHECKOUT_PATH} exact element={<Checkout />} />
+
+        <Route path={PAPER_DETAILS_PATH} exact element={<PaperDetails />} />
 
         <Route path={MCQ_SECTION_PATH} exact element={<MCQStart />} />
 

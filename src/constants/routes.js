@@ -2,16 +2,16 @@ export const HOME_PATH = "/";
 
 // export const MCQ_ALL_PATH = "/mcq";
 
-export const SUBJECT_PAPERS_PATH = "/subjects/:subjectId";
-export const PAPER_DETAILS_PATH = "/subjects/:subjectId/papers/:paperId";
+export const SUBJECT_PAPERS_PATH = "/subjects/:exam/:subjectName/:medium/:subjectId";
+export const PAPER_DETAILS_PATH = "/subjects/:exam/:subjectName/:medium/past-paper/:year/:paperId";
 export const MCQ_SECTION_PATH =
-  "/subjects/:subjectId/papers/:paperId/mcq";
+  "/subjects/:exam/:subjectName/:medium/past-paper/:year/:paperId/mcq";
 export const MCQ_LEARNING_MODE_PATH =
-  "/subjects/:subjectId/papers/:paperId/mcq/learning";
+  "/subjects/:exam/:subjectName/:medium/past-paper/:year/:paperId/mcq/learning";
 export const MCQ_EXAM_MODE_PATH =
-  "/subjects/:subjectId/papers/:paperId/mcq/exam";
+  "/subjects/:exam/:subjectName/:medium/past-paper/:year/:paperId/mcq/exam";
 export const MCQ_EXAM_RESULTS_PATH =
-  "/subjects/:subjectId/papers/:paperId/mcq/marks/:markId";
+  "/subjects/mcq/marks/:markId";
 
 export const MCQS_BY_LESSON_PATH = "/mcqs/by/lesson";
 
@@ -23,7 +23,6 @@ export const PRICING_PATH = "/pricing";
 export const FAQ_PATH = "/contact#faq";
 export const LOGIN_PATH = "/login";
 export const REGISTER_PATH = "/register";
-export const VERIFY_ACCOUNT_PATH = "/verify/:token";
 export const CONTACT_US_PATH = "/contact";
 
 export const ADMIN_DASHBOARD_PATH = "/admin/dashboard";

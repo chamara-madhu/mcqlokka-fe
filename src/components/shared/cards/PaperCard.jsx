@@ -5,7 +5,7 @@ import { Lock, Unlock } from "feather-icons-react";
 
 const PaperCard = ({ _id, subject, fee, year, hasPurchased }) => {
   return (
-    <Link to={`/subjects/${subject?._id}/papers/${_id}/mcq`}>
+    <Link to={`/subjects/${subject.exam.replace("/", "")}/${subject.forSearch}/${subject.medium}-medium/past-paper/${year}/${_id}`.toLowerCase()}>
       <div
         className={`relative flex flex-col w-full border rounded-xl ${
           fee === FEES.FREE
