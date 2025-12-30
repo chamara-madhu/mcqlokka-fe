@@ -173,7 +173,7 @@ const MCQStartMain = () => {
         {/* Left Sidebar */}
         <div className="flex flex-col w-full lg:w-[40%] gap-5 lg:gap-7">
           {/* Welcome Card */}
-          <div className="flex flex-col w-full gap-6 lg:gap-10 p-5 lg:p-6 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 shadow-sm">
+          <div className="flex flex-col w-full gap-6 lg:gap-10 p-5 lg:p-6 rounded-xl bg-purple-50 shadow-sm">
             {user?.name && (
               <p className="text-base lg:text-lg font-medium text-purple-900">
                 Hey {user.name} 👋
@@ -219,23 +219,6 @@ const MCQStartMain = () => {
               </div>
             </div>
           </div>
-
-          {/* Leaderboard */}
-          {highestMarkStudents?.length > 0 && (
-            <div className="flex flex-col w-full p-5 lg:p-6 rounded-xl bg-white border border-purple-200 shadow-sm">
-              <div className="flex items-center gap-2 mb-4">
-                <Trophy className="w-5 h-5 text-purple-600" />
-                <h2 className="text-lg font-bold text-purple-900">
-                  Leaderboard
-                </h2>
-              </div>
-              <div className="flex flex-col gap-3">
-                {highestMarkStudents.map((student, i) => (
-                  <StudentRankCard key={student?._id} no={i + 1} {...student} />
-                ))}
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Right Content */}
@@ -323,146 +306,29 @@ const MCQStartMain = () => {
             </div>
           ) : null}
 
-          {/* Attempts Remaining */}
-          {/* {eligibility?.attemptsRemaining != null && (
-          <div className="flex items-center gap-3 px-4 py-3 bg-purple-50 border border-purple-200 rounded-lg">
-            <AlertCircle className="w-5 h-5 text-purple-600 flex-shrink-0" />
-            <p className="text-sm font-medium text-purple-700">
-              {eligibility.attemptsRemaining > 0
-                ? `${eligibility?.attemptsRemaining} attempt(s) remaining`
-                : "All attempts have been used."}
-            </p>
-          </div>
-        )} */}
-
-          <hr className="border-gray-200" />
-
-          {/* Statistics Section */}
-          {paper?.stats?.noOfStuds ? (
-            <div className="flex flex-col w-full bg-white border border-purple-200 rounded-xl p-5 lg:p-8 shadow-sm">
-              <h2 className="text-lg lg:text-xl font-bold text-purple-900 mb-5">
-                Student Performance Statistics
-              </h2>
-              <div className="flex items-center gap-2 mb-5">
-                <span className="text-2xl lg:text-3xl font-bold text-purple-900">
-                  {paper?.stats?.noOfStuds?.toLocaleString()}
-                </span>
-                <span className="text-sm lg:text-base text-gray-600">
-                  students faced the exam.
-                </span>
-              </div>
-
-              {/* Responsive Stats Layout */}
-              <div className="flex flex-col lg:flex-row gap-5 lg:gap-6">
-                {/* Table */}
-                <div className="w-full lg:w-[40%] overflow-x-auto">
-                  <table className="w-full border border-gray-300 rounded-lg overflow-hidden text-sm">
-                    <thead>
-                      <tr className="bg-purple-100">
-                        <th className="px-3 lg:px-4 py-2 text-left font-semibold">
-                          Grade
-                        </th>
-                        <th className="px-3 lg:px-4 py-2 text-right font-semibold">
-                          Students
-                        </th>
-                        <th className="px-3 lg:px-4 py-2 text-right font-semibold">
-                          %
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {["A", "B", "C", "S", "F"].map((grade, idx) => (
-                        <tr key={grade} className={idx % 2 ? "bg-gray-50" : ""}>
-                          <td className="px-3 lg:px-4 py-2 font-medium">
-                            {grade}
-                          </td>
-                          <td className="px-3 lg:px-4 py-2 text-right">
-                            {paper?.stats[grade.toLowerCase()].toLocaleString()}
-                          </td>
-                          <td className="px-3 lg:px-4 py-2 text-right">
-                            {(
-                              (paper?.stats[grade.toLowerCase()] /
-                                paper?.stats.noOfStuds) *
-                              100
-                            ).toFixed(2)}
-                            %
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+          {/* Leaderboard */}
+          {highestMarkStudents?.length > 0 && (
+            <>
+              <hr className="border-gray-200" />
+              <div className="flex flex-col w-full p-5 lg:p-6 rounded-xl bg-white border border-purple-200 shadow-sm">
+                <div className="flex items-center gap-2 mb-4">
+                  <Trophy className="w-5 h-5 text-purple-600" />
+                  <h2 className="text-lg font-bold text-purple-900">
+                    Leaderboard
+                  </h2>
                 </div>
-
-                {/* Chart */}
-                <div className="w-full lg:w-[60%] h-[250px] lg:h-[260px]">
-                  <Bar
-                    data={{
-                      labels: ["A", "B", "C", "S", "F"],
-                      datasets: [
-                        {
-                          label: "Students",
-                          data: ["A", "B", "C", "S", "F"].map(
-                            (g) => paper.stats[g.toLowerCase()] ?? 0
-                          ),
-                          backgroundColor: [
-                            "#4BC0C0",
-                            "#36A2EB",
-                            "#9966FF",
-                            "#FFCE56",
-                            "#FF6384",
-                          ],
-                          borderColor: "#fff",
-                          borderWidth: 1,
-                        },
-                      ],
-                    }}
-                    options={{
-                      indexAxis: "y",
-                      responsive: true,
-                      maintainAspectRatio: false,
-                      plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                          callbacks: {
-                            label: (ctx) => {
-                              const val = ctx.parsed.x;
-                              const pct = (
-                                (val / paper.stats.noOfStuds) *
-                                100
-                              ).toFixed(2);
-                              return `${
-                                ctx.label
-                              }: ${val.toLocaleString()} (${pct}%)`;
-                            },
-                          },
-                        },
-                      },
-                      scales: {
-                        x: {
-                          ticks: { beginAtZero: true },
-                          title: { display: true, text: "Number of Students" },
-                        },
-                        y: {
-                          title: { display: true, text: "Grade" },
-                        },
-                      },
-                    }}
-                  />
+                <div className="flex flex-col gap-3">
+                  {highestMarkStudents.map((student, i) => (
+                    <StudentRankCard
+                      key={student?._id}
+                      no={i + 1}
+                      {...student}
+                    />
+                  ))}
                 </div>
               </div>
-
-              <div className="mt-6 lg:mt-10 text-xs lg:text-sm text-gray-500 text-center px-4">
-                This summary reflects the actual performance distribution for{" "}
-                <b>
-                  G.C.E{" "}
-                  {paper?.subject?.exam === EXAMS.AL
-                    ? "Advanced Level"
-                    : "Ordinary Level"}{" "}
-                  - {paper?.year}.
-                </b>
-              </div>
-            </div>
-          ) : null}
+            </>
+          )}
         </div>
 
         {/* Modal */}

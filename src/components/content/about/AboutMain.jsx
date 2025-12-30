@@ -1,52 +1,55 @@
-import React from "react";
-import { Target, Users, Award, BookOpen, TrendingUp, Heart, CheckCircle, Sparkles, Star, Trophy, Book, FileQuestion, Languages, Paperclip } from "lucide-react";
+import {
+  Target,
+  Users,
+  Heart,
+  Sparkles,
+  Book,
+  FileQuestion,
+  Languages,
+  Paperclip,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { HOME_PATH, REGISTER_PATH } from "../../../constants/routes";
+import Benifits from "./Benifits";
 
 export default function AboutUsPage() {
   const stats = [
     // { number: "25,000+", label: "Active Students", icon: Users },
     { number: "20+", label: "Subjects", icon: Book },
     { number: "150+", label: "Past Papers", icon: Paperclip },
-    { number: "50,000+", label: "MCQ Questions", icon: FileQuestion },
-    { number: "Sin/Eng", label: "Mediums", icon: Languages }
+    { number: "10,000+", label: "MCQ Questions", icon: FileQuestion },
+    { number: "Sin/Eng", label: "Mediums", icon: Languages },
   ];
 
   const values = [
     {
       icon: Target,
       title: "Excellence in Education",
-      description: "Providing the highest quality MCQ practice materials for O/L and A/L students across Sri Lanka."
+      description:
+        "Providing the highest quality MCQ practice materials for O/L and A/L students across Sri Lanka.",
     },
     {
       icon: Heart,
       title: "Student-Centered",
-      description: "Every decision we make prioritizes student success and their learning experience."
+      description:
+        "Every decision we make prioritizes student success and their learning experience.",
     },
     {
       icon: Sparkles,
       title: "Innovation & Technology",
-      description: "Leveraging cutting-edge technology to make exam preparation accessible and effective."
+      description:
+        "Leveraging cutting-edge technology to make exam preparation accessible and effective.",
     },
     {
       icon: Users,
       title: "Community Support",
-      description: "Building a supportive community where students can learn, grow, and succeed together."
-    }
-  ];
-
-  const features = [
-    { title: "Lifetime Access", desc: "Pay once. Practice forever. No renewals, no subscriptions.", icon: Trophy },
-    { title: "Real Exam Papers", desc: "Exact past papers from 2015–2025 with marking schemes.", icon: BookOpen },
-    { title: "Instant Answers", desc: "See correct answers and explanations immediately.", icon: CheckCircle },
-    { title: "Free Practice", desc: "Every subject includes free sample papers to try.", icon: Heart },
-    { title: "Multiple Attempts", desc: "Practice each paper multiple times for better learning.", icon: TrendingUp },
-    { title: "Mobile Friendly", desc: "Practice anytime, anywhere on any device.", icon: Sparkles }
+      description:
+        "Building a supportive community where students can learn, grow, and succeed together.",
+    },
   ];
 
   return (
     <div className="min-h-screen bg-purple-50">
-      
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-purple-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
@@ -55,11 +58,19 @@ export default function AboutUsPage() {
               About MCQ Lokka
             </h1>
             <p className="text-xl sm:text-2xl text-purple-100 mb-8">
-              Sri Lanka's #1 Online MCQ Practice Platform for <span className="font-bold">O/L</span> and <span className="font-bold">A/L</span> Students
+              #1 Online MCQ Practice Platform for Sri Lankan Students
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              {["Since 2024", "100% Online", "Island-Wide", "Lifetime Access"].map((tag) => (
-                <span key={tag} className="bg-white bg-opacity-20 backdrop-blur-md px-6 py-3 rounded-full text-white font-semibold">
+              {[
+                "Founded 2025",
+                "100% Online",
+                "Lifetime Access",
+                "Unlimited Attempts",
+              ].map((tag) => (
+                <span
+                  key={tag}
+                  className="bg-white bg-opacity-20 backdrop-blur-md px-6 py-3 rounded-full text-white font-semibold"
+                >
                   {tag}
                 </span>
               ))}
@@ -72,7 +83,10 @@ export default function AboutUsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {stats.map((stat, index) => (
-            <div key={index} className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 text-center">
+            <div
+              key={index}
+              className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 text-center"
+            >
               <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
                 <stat.icon className="w-6 h-6 text-purple-600" />
               </div>
@@ -87,45 +101,103 @@ export default function AboutUsPage() {
         </div>
       </div>
 
-      {/* Our Story Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+      <div className="max-w-7xl mt-20 mb-10 mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start text-justify">
+          {/* Left Column - Story */}
+          <div className="space-y-8">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 leading-tight">
               Our Story
             </h2>
-            <div className="space-y-4 text-gray-700 leading-relaxed">
-              <p>
-                MCQ Lokka was founded in 2024 by a group of former A/L students and teachers who understood one simple truth: practicing MCQs is the #1 way to score high in O/L and A/L exams.
+
+            <div className="prose prose-lg max-w-none">
+              <p className="text-gray-700 leading-relaxed mb-4">
+                MCQ Lokka was founded in 2025 by{" "}
+                <span className="font-semibold text-gray-900">
+                  Chamara Madhushanka
+                </span>
+                , a passionate software engineer and former A/L student who
+                experienced firsthand the struggles of preparing for O/L and A/L
+                exams in Sri Lanka.
               </p>
-              <p className="text-lg font-semibold text-purple-700">
-                "Finding quality, organized practice papers shouldn't be this hard."
+
+              <p className="text-gray-700 leading-relaxed">
+                While studying and later helping others prepare, Chamara noticed
+                a critical gap: there was no dedicated online platform for MCQ
+                practice. Past papers existed only as hardcopies, were extremely
+                difficult to find online, and when available, lacked answer
+                explanations and chapter-wise organization.
               </p>
-              <p>
-                We saw students wasting hours searching for past papers, struggling with poor-quality questions, and lacking proper explanations. That's why we built MCQ Lokka.
+
+              <div className="relative pl-6 border-l-4 border-purple-500 py-2 my-8">
+                <p className="text-xl font-medium text-gray-900 italic">
+                  "No student should have to struggle this much just to get good
+                  practice."
+                </p>
+                <p className="text-sm text-gray-600 mt-2">
+                  — Chamara Madhushanka, Founder
+                </p>
+              </div>
+
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Students in rural areas and those without access to expensive
+                tuition faced significant disadvantages. Quality preparation
+                materials remained out of reach for most, creating an unequal
+                playing field.
               </p>
-              <p>
-                A clean, fast, and affordable platform where every student in Sri Lanka can practice thousands of real exam-style MCQs with instant answers and lifetime access.
+
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Understanding that mastering MCQs is crucial for achieving high
+                marks in O/L and A/L exams, Chamara built MCQ Lokka—a
+                streamlined, accessible platform designed for{" "}
+                <span className="font-semibold text-gray-900">
+                  every Sri Lankan student
+                </span>
+                .
               </p>
-              <div className="bg-purple-100 border-l-4 border-purple-600 p-4 mt-6">
-                <p className="text-purple-900 font-semibold">
-                  No subscriptions. No hidden fees. Just pure practice.
+
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Today, MCQ Lokka provides thousands of exam-style questions,
+                chapter-by-chapter practice, detailed explanations, progress
+                tracking, and lifetime access—all with a single affordable
+                payment.
+              </p>
+            </div>
+          </div>
+
+          {/* Right Column - Mission & Vision Cards */}
+          <div className="space-y-6 lg:sticky lg:top-8">
+            {/* Vision Card */}
+            <div className="group relative overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
+              <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 to-blue-400"></div>
+              <div className="p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  Our Vision
+                </h3>
+                <p className="text-gray-700 leading-relaxed">
+                  To be Sri Lanka's most trusted MCQ practice platform, where
+                  every student prepares with confidence and joyfully says:{" "}
+                  <span className="font-semibold text-gray-900 italic">
+                    "I passed because of MCQ Lokka."
+                  </span>
                 </p>
               </div>
             </div>
-          </div>
-          <div className="space-y-6">
-            <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-2xl p-8 text-white shadow-xl">
-              <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
-              <p className="text-purple-100 leading-relaxed">
-                To help every O/L and A/L student in Sri Lanka master MCQs through unlimited practice, clear explanations, and affordable one-time access.
-              </p>
-            </div>
-            <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-8 text-white shadow-xl">
-              <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
-              <p className="text-blue-100 leading-relaxed">
-                To become Sri Lanka's most trusted MCQ practice platform — where every student says: "I passed because of MCQ Lokka."
-              </p>
+
+            {/* Mission Card */}
+            <div className="group relative overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
+              <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-purple-600 to-purple-400"></div>
+              <div className="p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  Our Mission
+                </h3>
+                <p className="text-gray-700 leading-relaxed">
+                  To empower every O/L and A/L student in Sri Lanka with equal
+                  access to high-quality MCQ practice through an affordable,
+                  easy-to-use platform that delivers chapter-wise questions,
+                  clear explanations, past papers, unlimited practice, and
+                  lifetime access.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -151,9 +223,7 @@ export default function AboutUsPage() {
                 <h3 className="text-xl font-bold text-gray-900 mb-3">
                   {value.title}
                 </h3>
-                <p className="text-gray-600">
-                  {value.description}
-                </p>
+                <p className="text-gray-600">{value.description}</p>
               </div>
             ))}
           </div>
@@ -161,29 +231,7 @@ export default function AboutUsPage() {
       </div>
 
       {/* Why Students Love Us */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Why Students Choose MCQ Lokka
-          </h2>
-          <p className="text-lg text-gray-600">Real features. Real results.</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
-            <div key={index} className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                <feature.icon className="w-6 h-6 text-purple-600" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-gray-600 text-sm">
-                {feature.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
+      <Benifits />
 
       {/* Testimonial */}
       {/* <div className="bg-gradient-to-br from-purple-50 to-blue-50 py-16 sm:py-24">
@@ -217,7 +265,7 @@ export default function AboutUsPage() {
             Ready to Start Practicing?
           </h2>
           <p className="text-xl text-purple-100 mb-10">
-            Join 25,000+ students who are already preparing smarter with MCQ Lokka
+            Pay once. Practice forever.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to={REGISTER_PATH}>

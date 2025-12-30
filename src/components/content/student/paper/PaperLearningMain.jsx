@@ -6,6 +6,7 @@ import ReactMarkdown from "react-markdown";
 import Button from "../../../shared/buttons/Button";
 import paperService from "../../../../services/paper.service";
 import {
+  MEDIUMS,
   PAPER_MODES,
   QUESTION_DIFFICULTY_TYPES,
 } from "../../../../constants/base";
@@ -177,7 +178,10 @@ const PaperLearningMain = () => {
               G.C.E {paper?.subject?.exam} - {paper?.subject?.name}
             </h1>
             <p className="text-sm text-gray-600 mt-1">
-              {paper?.year} - {paper?.subject?.medium}
+              {paper?.year} - {" "}
+              {paper?.subject?.medium === MEDIUMS.ENGLISH
+                ? "English Medium"
+                : "සිංහල මාධ්‍යය"}
             </p>
           </div>
 
@@ -215,7 +219,9 @@ const PaperLearningMain = () => {
         <div className="">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold">
-              Question {activeQuestion.no} &nbsp;
+              {paper?.subject?.medium === MEDIUMS.ENGLISH
+                ? "Question"
+                : "ප්‍රශ්නය"}{" "} {activeQuestion.no} &nbsp;
               {/* <span
                 className={classNames(
                   "px-3 py-1 text-sm font-medium rounded-full",
@@ -315,7 +321,9 @@ const PaperLearningMain = () => {
             <div className="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-4">
               <div>
                 <h4 className="font-semibold text-blue-900 mb-2">
-                  Explanation
+                  {paper?.subject?.medium === MEDIUMS.ENGLISH
+                    ? "Explanation"
+                    : "පැහැදිලි කිරීම"}
                 </h4>
                 <div className="text-blue-800 whitespace-pre-wrap">
                   <ReactMarkdown

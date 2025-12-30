@@ -100,7 +100,10 @@ const PaperDetailsMain = () => {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div className="mb-4 md:mb-0">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-purple-900 mb-2">
-              {paper?.year} {paper?.subject?.medium === MEDIUMS.ENGLISH ? "paper" : "ප්‍රශ්න පත්‍රය"}
+              {paper?.year}{" "}
+              {paper?.subject?.medium === MEDIUMS.ENGLISH
+                ? "paper"
+                : "ප්‍රශ්න පත්‍රය"}
             </h1>
             <p className="text-purple-600 text-lg md:text-xl mb-3">
               {paper.subject.name}
@@ -217,107 +220,121 @@ const PaperDetailsMain = () => {
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
         {/* Left Sidebar */}
         <div className="flex flex-col w-full lg:w-[60%] gap-5 lg:gap-7">
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 shadow-md border border-purple-200">
-            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-              Part I - Multiple Choice Questions
+          <h2 className="text-xl md:text-2xl font-bold text-purple-900">
+            Paper Structure
+          </h2>
+
+          <div className="space-y-3">
+            <h3 className="text-lg font-semibold text-gray-800">
+              Part I - MCQ
             </h3>
-            <div className="grid grid-cols-3 gap-4 mb-4">
-              <div className="bg-white rounded-lg p-3 shadow-sm">
-                <p className="text-xs text-gray-600 font-medium">Medium</p>
-                <p className="text-sm font-semibold text-gray-900">
-                  {paper.subject.medium}
-                </p>
-              </div>
-              <div className="bg-white rounded-lg p-3 shadow-sm">
-                <p className="text-xs text-gray-600 font-medium">Duration</p>
-                <p className="text-sm font-semibold text-gray-900">
-                  {paper.time} hours
-                </p>
-              </div>
-              <div className="bg-white rounded-lg p-3 shadow-sm">
-                <p className="text-xs text-gray-600 font-medium">Questions</p>
-                <p className="text-sm font-semibold text-gray-900">
-                  {paper.noOfQuestions}
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={() =>
-                navigate(
-                  `/subjects/${paper.subject.exam.replace("/", "")}/${
-                    paper.subject.forSearch
-                  }/${paper.subject.medium}-medium/past-paper/${paper.year}/${paper._id}/mcq`.toLowerCase()
-                )
-              }
-              className="w-full py-3 bg-purple-700 hover:bg-purple-800 text-white rounded-lg font-semibold transition"
-            >
-              Try Now
-            </button>
-          </div>
 
-          <div className="space-y-4">
-            {/* Structured Part 1 */}
-            <div className="rounded-xl bg-white p-6 shadow-md border border-gray-200">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-1">
-                    Part I - Structured Questions
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    Download Question Paper & Marking Scheme
+            {/* Part I - MCQ Section (Interactive on MCQ Lokka) */}
+            <div className="bg-purple-50 rounded-2xl p-6 border border-purple-200">
+              <h3 className="text-xl md:text-2xl font-bold text-purple-900 mb-4">
+                Multiple Choice Questions (MCQs)
+              </h3>
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="bg-white rounded-lg p-4 shadow-sm text-center">
+                  <p className="text-xs text-gray-600 font-medium">Medium</p>
+                  <p className="text-lg font-bold text-purple-800">
+                    {paper.subject.medium}
+                  </p>
+                </div>
+                <div className="bg-white rounded-lg p-4 shadow-sm text-center">
+                  <p className="text-xs text-gray-600 font-medium">Duration</p>
+                  <p className="text-lg font-bold text-purple-800">
+                    {paper.time} hours
+                  </p>
+                </div>
+                <div className="bg-white rounded-lg p-4 shadow-sm text-center">
+                  <p className="text-xs text-gray-600 font-medium">Questions</p>
+                  <p className="text-lg font-bold text-purple-800">
+                    {paper.noOfQuestions}
                   </p>
                 </div>
               </div>
-              <div className="grid sm:grid-cols-2 gap-3">
-                <button
-                  //   onClick={() => handleDownload(selectedPaper.parts.part1.structuredPDF)}
-                  className="py-3 px-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition font-medium flex items-center justify-center gap-2"
-                >
-                  <Download size={18} />
-                  Questions
-                </button>
-                <button
-                  //   onClick={() => handleDownload(selectedPaper.parts.part1.structuredMarkingSchemePDF)}
-                  className="py-3 px-4 border-2 border-purple-600 text-purple-700 hover:bg-purple-50 rounded-lg transition font-medium flex items-center justify-center gap-2"
-                >
-                  <Download size={18} />
-                  Marking Scheme
-                </button>
-              </div>
-            </div>
 
-            {/* Part II */}
-            <div className="rounded-xl p-6 shadow-md border border-gray-200">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h3 className="text-lg md:text-xl font-bold mb-1">
-                    Part II - Essay Questions
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    Download Question Paper & Marking Scheme
-                  </p>
-                </div>
-              </div>
-              <div className="grid sm:grid-cols-2 gap-3">
-                <button
-                  //   onClick={() => handleDownload(selectedPaper.parts.part1.structuredPDF)}
-                  className="py-3 px-4 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition font-medium flex items-center justify-center gap-2"
-                >
-                  <Download size={18} />
-                  Questions
-                </button>
-                <button
-                  //   onClick={() => handleDownload(selectedPaper.parts.part1.structuredMarkingSchemePDF)}
-                  className="py-3 px-4 border-2 border-purple-600 text-purple-700 hover:bg-purple-50 rounded-lg transition font-medium flex items-center justify-center gap-2"
-                >
-                  <Download size={18} />
-                  Marking Scheme
-                </button>
-              </div>
+              <button
+                onClick={() =>
+                  navigate(
+                    `/subjects/${paper.subject.exam.replace("/", "")}/${
+                      paper.subject.forSearch
+                    }/${paper.subject.medium}-medium/past-paper/${paper.year}/${
+                      paper._id
+                    }/mcq`.toLowerCase()
+                  )
+                }
+                className="flex-1 w-full py-3 bg-purple-700 hover:bg-purple-800 text-white rounded-lg font-semibold transition shadow-md"
+              >
+                Practice MCQs Now
+              </button>
+
+              <p className="text-sm text-gray-600 mt-4 text-center">
+                ✓ Instant results ✓ Detailed explanations ✓ Unlimited attempts ✓
+                Progress tracking
+              </p>
             </div>
           </div>
 
-          {/* MCQ Info Card */}
+          {/* Part II & Structured - Downloadable PDFs */}
+          <div className="space-y-3">
+            <h3 className="text-lg font-semibold text-gray-800">
+              Part I - Structured
+            </h3>
+
+            <div className="flex justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
+              <div className="font-medium text-gray-900">Paper</div>
+              <a
+                href={paper.structuredPaperUrl} // assume you have this field or adjust accordingly
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 font-medium"
+              >
+                <Download size={18} /> Download PDF
+              </a>
+            </div>
+
+            <div className="flex justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
+              <div className="font-medium text-gray-900">Marking Scheme</div>
+              <a
+                href={paper.structuredMarkingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 font-medium"
+              >
+                <Download size={18} /> Download PDF
+              </a>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <h3 className="text-lg font-semibold text-gray-800">Part II</h3>
+
+            <div className="flex justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
+              <div className="font-medium text-gray-900">Paper</div>
+              <a
+                href={paper.essayPaperUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 font-medium"
+              >
+                <Download size={18} /> Download PDF
+              </a>
+            </div>
+
+            <div className="flex justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
+              <div className="font-medium text-gray-900">Marking Scheme</div>
+              <a
+                href={paper.essayMarkingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 font-medium"
+              >
+                <Download size={18} /> Download PDF
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Right Content */}
