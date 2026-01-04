@@ -1,7 +1,11 @@
 import axios from "./base";
 
 const createPaper = async (data) => {
-  return await axios.post("/papers", data);
+  return await axios.post("/papers", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 const getAllPapers = async (params = {}) => {
@@ -13,7 +17,11 @@ const getPaperById = async (id) => {
 };
 
 const updatePaper = async (id, data) => {
-  return await axios.put(`/papers/${id}`, data);
+  return await axios.put(`/papers/${id}`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 const deletePaper = async (id) => {

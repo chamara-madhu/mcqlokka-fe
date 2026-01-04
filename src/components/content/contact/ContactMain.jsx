@@ -4,48 +4,44 @@ import { Mail, Phone, Clock, MessageCircle } from "feather-icons-react";
 const faqs = [
   {
     q: "How long does payment verification take?",
-    a: "Payment verification usually takes 1-24 hours on business days. Once verified, you'll receive a confirmation email and instant access to your subjects."
+    a: "Payment verification usually takes 1-24 hours on business days. Once verified, you'll receive a confirmation email and instant access to your subjects.",
   },
   {
     q: "When will I get access to my purchased subjects?",
-    a: "Immediately after payment verification! Your subjects will appear in the 'My Subjects' section of your dashboard."
+    a: "Immediately after payment verification! Your subjects will appear in the 'My Subjects' section of your dashboard.",
   },
   {
     q: "Are the questions up to date with the latest syllabus?",
-    a: "Yes! All questions are regularly updated by experienced teachers to match the current GCE A/L and O/L syllabus in Sri Lanka."
+    a: "Yes! All questions are regularly updated by experienced teachers to match the current GCE A/L and O/L syllabus in Sri Lanka.",
   },
   {
-    q: "Are there only MCQ questions?",
-    a: "Yes, MCQ Lokka focuses exclusively on high-quality Multiple Choice Questions (MCQs) - perfect for exam preparation."
+    q: "Does the platform provide Paper II and marking schemes?",
+    a: "Yes. In addition to MCQs, we provide PDFs for Paper II along with the corresponding marking schemes so students can practice and check their answers effectively.",
   },
   {
     q: "Is this a lifetime purchase?",
-    a: "Yes! Once purchased, you get lifetime access to your subjects - no renewals, no subscriptions."
+    a: "Yes! Once purchased, you get lifetime access to your subjects - no renewals, no subscriptions.",
   },
   {
     q: "Can I try a paper for free before buying?",
-    a: "Absolutely! Every subject includes at least one free practice paper that you can attempt up to 2 times - no payment required."
+    a: "Absolutely! Every subject includes at least one free practice paper that you can attempt up to 2 times - no payment required.",
   },
   {
     q: "How many attempts do I get for purchased papers?",
-    a: "You can attempt each purchased paper up to 3 times. This helps you practice effectively and track your improvement."
+    a: "You can attempt each purchased paper an unlimited number of times.",
   },
   {
     q: "Can multiple students share one account?",
-    a: "No, each account is meant for individual use only. This ensures accurate progress tracking and personalized performance reports."
+    a: "No, each account is meant for individual use only. This ensures accurate progress tracking and personalized performance reports.",
   },
   {
     q: "What payment methods do you accept?",
-    a: "Currently, we accept bank transfers only. Simply make the transfer and upload the slip - we'll activate your account quickly. Online card payments are coming soon!"
+    a: "Currently, we accept bank transfers only. Simply make the transfer and upload the slip - we'll activate your account quickly. Online card payments are coming soon!",
   },
   {
     q: "Do you offer discounts for schools or groups?",
-    a: "Yes! We offer special bulk pricing for schools, tuition classes, and study groups. Contact us for a custom quote."
+    a: "Yes! We offer special bulk pricing for schools, tuition classes, and study groups. Contact us for a custom quote.",
   },
-  {
-    q: "I didn't receive the verification email. What should I do?",
-    a: "First, please check your spam/junk folder. If it's not there, reply to us with your payment reference number - we'll activate your account manually within a few hours."
-  }
 ];
 
 const ContactMain = () => {

@@ -1,8 +1,10 @@
 import LogoImg from "../../assets/images/logo.png";
 import FacebookIcon from "../../assets/icons/social-icons/facebook.png";
-// import InstagramIcon from "../../assets/icons/social-icons/instagram.png";
+import InstagramIcon from "../../assets/icons/social-icons/instagram.png";
 import LinkedinIcon from "../../assets/icons/social-icons/linkedin.png";
 import YouTubeIcon from "../../assets/icons/social-icons/youtube.png";
+import TiktokIcon from "../../assets/icons/social-icons/tiktok.png";
+import WhatsappIcon from "../../assets/icons/social-icons/whatsapp.png";
 import {
   CONTACT_US_PATH,
   FAQ_PATH,
@@ -90,12 +92,24 @@ function Footer() {
       alt: "Facebook",
       delay: 1.1,
     },
-    // {
-    //   href: "https://www.instagram.com/adxlai/",
-    //   src: InstagramIcon,
-    //   alt: "Instagram",
-    //   delay: 1.3,
-    // },
+    {
+      href: "https://www.instagram.com/mcqlokka/",
+      src: InstagramIcon,
+      alt: "Instagram",
+      delay: 1.3,
+    },
+    {
+      href: "https://www.tiktok.com/@mcqlokka",
+      src: TiktokIcon,
+      alt: "Tiktok",
+      delay: 1.3,
+    },
+    {
+      href: "https://wa.me/94710193314",
+      src: WhatsappIcon,
+      alt: "Whatsapp",
+      delay: 1.3,
+    },
     {
       href: "https://www.youtube.com/@MCQLokka",
       src: YouTubeIcon,
@@ -107,8 +121,8 @@ function Footer() {
   return (
     <footer className="px-5 pt-12 pb-5 bg-gray-50">
       <div className="max-w-screen-xl mx-auto">
-        <div className="grid grid-cols-1 gap-16 sm:grid-cols-[40%,1fr] lg:grid-cols-[40%,1fr,1fr,1fr]">
-          <div className="flex flex-col sm:max-w-[400px] items-center w-full gap-5 sm:items-start">
+        <div className="grid grid-cols-1 gap-16 sm:grid-cols-[40%,1fr,1fr] lg:grid-cols-[50%,1fr,1fr]">
+          <div className="flex flex-col sm:max-w-[550px] items-center w-full gap-5 sm:items-start">
             <Link to={HOME_PATH}>
               <img
                 src={LogoImg}
@@ -144,7 +158,7 @@ function Footer() {
               ))}
             </div>
           </div>
-          <div className="flex flex-col gap-5">
+          {/* <div className="flex flex-col gap-5">
             <div className="flex flex-col items-center sm:items-start">
               {emailLinks.map(({ text, delay, label }) => (
                 <AnimatedLink key={text} delay={delay}>
@@ -159,7 +173,7 @@ function Footer() {
                 </AnimatedLink>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="max-w-screen-xl mx-auto mt-5">

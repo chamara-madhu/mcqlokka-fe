@@ -61,7 +61,7 @@ const AllSubjectsMain = () => {
   useEffect(() => {
     const fetch = async () => {
       setPreLoading(true);
-      const res = await getAllSubjects();
+      const res = await getAllSubjects({ isApproved: "Yes" });
       setPapers(res?.data || []);
       setPreLoading(false);
     };
@@ -276,9 +276,10 @@ const AllSubjectsMain = () => {
         {/* Search and Results Count */}
         <div className="flex flex-col gap-3 mb-5 sm:flex-row sm:items-center sm:justify-between">
           <span className="text-sm text-gray-500 font-medium">
-            {filteredPapers?.length || 0} Subject{filteredPapers?.length !== 1 ? "s" : ""}
+            {filteredPapers?.length || 0} Subject
+            {filteredPapers?.length !== 1 ? "s" : ""}
           </span>
-          
+
           {/* Search Bar */}
           <div className="relative w-full sm:w-auto">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />

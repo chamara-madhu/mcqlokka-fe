@@ -9,6 +9,7 @@ import PageHeader from "../../../shared/headers/PageHeader";
 import TypeOrSelect from "../../../shared/fields/TypeOrSelect";
 import { useNavigate, useParams } from "react-router-dom";
 import { ADMIN_PAPER_MANAGE_PATH } from "../../../../constants/routes";
+import ImageUpload from "../../../shared/fields/ImageUpload";
 
 const initialState = {
   subjectId: "",
@@ -27,9 +28,18 @@ const initialState = {
   },
 };
 
+const initialFiles = {
+  part1StructuredQuestion: null,
+  part1StructuredMarkingScheme: null,
+  part2Question: null,
+  part2MarkingScheme: null,
+
+};
+
 const CreatePaperMain = () => {
   const [subjects, setSubjects] = useState([]);
   const [form, setForm] = useState(initialState);
+  const [files, setFiles] = useState(initialFiles);
   const [errors, setErrors] = useState(initialState);
   const [loading, setLoading] = useState(false);
 
@@ -121,6 +131,22 @@ const CreatePaperMain = () => {
     }));
   }, []);
 
+  const handleFile = (name, value) => {
+    setFiles((file) => ({
+      ...file,
+      [name]: value,
+      [name + "Err"]: "",
+    }));
+  };
+
+  const removeImage = (name) => {
+    setFiles((file) => ({
+      ...file,
+      [name]: null,
+      [name + "Err"]: "",
+    }));
+  };
+
   const isValid = () => {
     let subjectId = "";
     let fee = "";
@@ -192,12 +218,37 @@ const CreatePaperMain = () => {
 
     setLoading(true);
 
+    const formData = new FormData();
+    formData.set("subjectId", form.subjectId);
+    formData.set("fee", form.fee);
+    formData.set("year", form.year);
+    formData.set("noOfQuestions", form.noOfQuestions);
+    formData.set("time", form.time);
+    formData.set("longName", form.longName);
+    formData.set("stats", JSON.stringify(form.stats));
+
+    if (files?.part1StructuredQuestion) {
+      formData.append("part1StructuredQuestion", files.part1StructuredQuestion);
+    }
+
+    if (files?.part1StructuredMarkingScheme) {
+      formData.append("part1StructuredMarkingScheme", files.part1StructuredMarkingScheme);
+    }
+
+    if (files?.part2Question) {
+      formData.append("part2Question", files.part2Question);
+    }
+
+    if (files?.part2MarkingScheme) {
+      formData.append("part2MarkingScheme", files.part2MarkingScheme);
+    }
+
     try {
       if (!id) {
-        await createPaper(form);
+        await createPaper(formData);
         toast.success("Paper successfully created");
       } else {
-        await updatePaper(id, form);
+        await updatePaper(id, formData);
         toast.success("Paper successfully updated");
         navigate(ADMIN_PAPER_MANAGE_PATH);
       }
@@ -353,6 +404,83 @@ const CreatePaperMain = () => {
               />
             </div>
           </div>
+
+          <ImageUpload
+            label="Paper I - Structured"
+            name="part1StructuredQuestion"
+            value={files.part1StructuredQuestion}
+            existingValue={
+              typeof files?.part1StructuredQuestion === "string" &&
+              files?.part1StructuredQuestion?.includes(
+                "part1StructuredQuestion"
+              )
+                ? files.part1StructuredQuestion
+                : ""
+            }
+            allowMaxFileSize={5242880}
+            allowFileTypes={["application/pdf"]}
+            handleFile={handleFile}
+            error={errors.part1StructuredQuestion}
+            removeImage={removeImage}
+          />
+
+          <ImageUpload
+            label="Paper I - Structured - Marking Scheme"
+            name="part1StructuredMarkingScheme"
+            value={files.part1StructuredMarkingScheme}
+            existingValue={
+              typeof files?.part1StructuredMarkingScheme === "string" &&
+              files?.part1StructuredMarkingScheme?.includes(
+                "part1StructuredMarkingScheme"
+              )
+                ? files.part1StructuredMarkingScheme
+                : ""
+            }
+            allowMaxFileSize={5242880}
+            allowFileTypes={["application/pdf"]}
+            handleFile={handleFile}
+            error={errors.part1StructuredMarkingScheme}
+            removeImage={removeImage}
+          />
+
+          <ImageUpload
+            label="Paper II"
+            name="part2Question"
+            value={files.part2Question}
+            existingValue={
+              typeof files?.part2Question === "string" &&
+              files?.part2Question?.includes(
+                "part2Question"
+              )
+                ? files.part2Question
+                : ""
+            }
+            allowMaxFileSize={5242880}
+            allowFileTypes={["application/pdf"]}
+            handleFile={handleFile}
+            error={errors.part2Question}
+            removeImage={removeImage}
+          />
+
+          <ImageUpload
+            label="Paper II - Marking Scheme"
+            name="part2MarkingScheme"
+            value={files.part2MarkingScheme}
+            existingValue={
+              typeof files?.part2MarkingScheme === "string" &&
+              files?.part2MarkingScheme?.includes(
+                "part2MarkingScheme"
+              )
+                ? files.part2MarkingScheme
+                : ""
+            }
+            allowMaxFileSize={5242880}
+            allowFileTypes={["application/pdf"]}
+            handleFile={handleFile}
+            error={errors.part2MarkingScheme}
+            removeImage={removeImage}
+          />
+
           <div className="flex gap-2">
             <Button
               label={id ? "Save" : "Submit"}

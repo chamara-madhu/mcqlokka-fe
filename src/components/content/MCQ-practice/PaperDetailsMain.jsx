@@ -28,6 +28,7 @@ import PageLoader from "../../shared/loading/PageLoader";
 import { addToCart } from "../../../redux/features/cartSlice";
 import { useDispatch } from "react-redux";
 import BackButton from "../../shared/buttons/BackButton";
+import config from "../../../config/aws";
 
 ChartJS.register(
   CategoryScale,
@@ -225,7 +226,7 @@ const PaperDetailsMain = () => {
           </h2>
 
           <div className="space-y-3">
-            <h3 className="text-lg font-semibold text-gray-800">
+            <h3 className="text-base font-semibold text-purple-600">
               Part I - MCQ
             </h3>
 
@@ -278,61 +279,86 @@ const PaperDetailsMain = () => {
           </div>
 
           {/* Part II & Structured - Downloadable PDFs */}
+          {paper.noOfQuestions !== 50 && 
           <div className="space-y-3">
-            <h3 className="text-lg font-semibold text-gray-800">
+            <h3 className="font-semibold text-purple-600">
               Part I - Structured
             </h3>
 
-            <div className="flex justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
-              <div className="font-medium text-gray-900">Paper</div>
-              <a
-                href={paper.structuredPaperUrl} // assume you have this field or adjust accordingly
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 font-medium"
-              >
-                <Download size={18} /> Download PDF
-              </a>
+            <div className="flex text-sm justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
+              <div className=" text-gray-700">Paper</div>
+              {!paper?.part1StructuredQuestion ? (
+                <span className="cursor-pointer items-center text-gray-400">
+                  Coming Soon
+                </span>
+              ) : (
+                <a
+                  href={`${config.S3_PUBLIC_URL}/${paper.part1StructuredQuestion}`} // assume you have this field or adjust accordingly
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 "
+                >
+                  <Download size={18} /> Download PDF
+                </a>
+              )}
             </div>
 
-            <div className="flex justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
-              <div className="font-medium text-gray-900">Marking Scheme</div>
-              <a
-                href={paper.structuredMarkingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 font-medium"
-              >
-                <Download size={18} /> Download PDF
-              </a>
+            <div className="flex text-sm justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
+              <div className=" text-gray-700">Marking Scheme</div>
+              {!paper?.part1StructuredMarkingScheme ? (
+                <span className="cursor-pointer items-center text-gray-400">
+                  Coming Soon
+                </span>
+              ) : (
+                <a
+                  href={paper.part1StructuredMarkingScheme}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 "
+                >
+                  <Download size={18} /> Download PDF
+                </a>
+              )}
             </div>
-          </div>
+          </div>}
 
           <div className="space-y-3">
-            <h3 className="text-lg font-semibold text-gray-800">Part II</h3>
+            <h3 className="font-semibold text-purple-600">Part II</h3>
 
-            <div className="flex justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
-              <div className="font-medium text-gray-900">Paper</div>
-              <a
-                href={paper.essayPaperUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 font-medium"
-              >
-                <Download size={18} /> Download PDF
-              </a>
+            <div className="flex text-sm justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
+              <div className=" text-gray-700">Paper</div>
+              {!paper?.part2Question ? (
+                <span className="cursor-pointer items-center text-gray-400">
+                  Coming Soon
+                </span>
+              ) : (
+                <a
+                  href={paper.part2Question}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 "
+                >
+                  <Download size={18} /> Download PDF
+                </a>
+              )}
             </div>
 
-            <div className="flex justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
-              <div className="font-medium text-gray-900">Marking Scheme</div>
-              <a
-                href={paper.essayMarkingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 font-medium"
-              >
-                <Download size={18} /> Download PDF
-              </a>
+            <div className="flex text-sm justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
+              <div className=" text-gray-700">Marking Scheme</div>
+              {!paper?.part2MarkingScheme ? (
+                <span className="cursor-pointer items-center text-gray-400">
+                  Coming Soon
+                </span>
+              ) : (
+                <a
+                  href={paper.part2MarkingScheme}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 "
+                >
+                  <Download size={18} /> Download PDF
+                </a>
+              )}
             </div>
           </div>
         </div>
