@@ -8,6 +8,7 @@ import { ADMIN_DASHBOARD_PATH } from "../../../constants/routes";
 import Logo from "../../../assets/images/logo.png";
 import { ArrowLeft } from "feather-icons-react";
 import OtpInput from "../../shared/fields/OtpInput";
+import HelmetComp from "../../shared/seo/HelmetComp";
 
 const initialState = {
   name: "",
@@ -219,6 +220,16 @@ const SignUpLoginMain = ({ isSignUp }) => {
       className="flex flex-col w-full h-full sm:flex-row"
       data-testid="signup-login-main"
     >
+      <HelmetComp
+        title={`MCQ Lokka | ${showSignUpView ? "Sign Up" : "Login"}`}
+        description={
+          showSignUpView
+            ? "Register on MCQ Lokka to start practicing O/L & A/L MCQs. Get lifetime access to past papers, lesson-wise questions, learning & exam modes, instant results, and detailed explanations."
+            : "Log in to MCQ Lokka to access your O/L & A/L MCQ practice, past papers, lesson-wise questions, and track your progress with instant results and detailed explanations."
+        }
+        url={window.location.href}
+      />
+
       <div className="hidden sm:flex w-1/3 md:w-1/2 h-[100vh] items-center justify-center bg-purple-100">
         <div className="flex flex-col gap-3">
           <Link
@@ -227,7 +238,7 @@ const SignUpLoginMain = ({ isSignUp }) => {
           >
             <ArrowLeft size="16" /> Go back
           </Link>
-          <img src={Logo} alt="main bg" className="w-[200px]" />
+          <img src={Logo} alt="main bg" className="w-[200px]" loading="lazy" />
         </div>
       </div>
       <div className="flex w-full sm:w-2/3 md:w-1/2 h-[100vh] items-center justify-center">

@@ -15,6 +15,7 @@ import config from "../../../../config/aws";
 import PageLoader from "../../../shared/loading/PageLoader";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import HelmetComp from "../../../shared/seo/HelmetComp";
 
 const PaperLearningMain = () => {
   const [activeQuestion, setActiveQuestion] = useState({});
@@ -170,6 +171,12 @@ const PaperLearningMain = () => {
 
   return (
     <div className="flex px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+      <HelmetComp
+        title={`MCQ Lokka | ${paper?.subject?.forSearch} ${paper?.subject?.exam} ${paper.year} Learning Mode MCQs (${paper?.subject?.medium} Medium)`}
+        description={`Take the ${paper?.year} ${paper?.subject?.forSearch} ${paper?.subject?.exam} past paper in learning mode on MCQ Lokka. Get instant results, detailed explanations, unlimited attempts, and strengthen your concepts today!`}
+        url={window.location.href}
+      />
+
       <div className="flex flex-col w-full max-w-screen-xl gap-10 mx-auto">
         {/* HEADER */}
         <div className="pb-4 border-b border-b-gray-200">
@@ -178,7 +185,7 @@ const PaperLearningMain = () => {
               G.C.E {paper?.subject?.exam} - {paper?.subject?.name}
             </h1>
             <p className="text-sm text-gray-600 mt-1">
-              {paper?.year} - {" "}
+              {paper?.year} -{" "}
               {paper?.subject?.medium === MEDIUMS.ENGLISH
                 ? "English Medium"
                 : "සිංහල මාධ්‍යය"}
@@ -221,7 +228,8 @@ const PaperLearningMain = () => {
             <h2 className="text-lg font-semibold">
               {paper?.subject?.medium === MEDIUMS.ENGLISH
                 ? "Question"
-                : "ප්‍රශ්නය"}{" "} {activeQuestion.no} &nbsp;
+                : "ප්‍රශ්නය"}{" "}
+              {activeQuestion.no} &nbsp;
               {/* <span
                 className={classNames(
                   "px-3 py-1 text-sm font-medium rounded-full",
@@ -267,6 +275,7 @@ const PaperLearningMain = () => {
                 className="max-w-[600px]"
                 src={`${config.S3_PUBLIC_URL}/${activeQuestion?.image}`}
                 alt={`MCQ ${activeQuestion?.type} ${activeQuestion?.no}`}
+                loading="lazy"
               />
             )}
             {activeQuestion?.restOfQuestion && (

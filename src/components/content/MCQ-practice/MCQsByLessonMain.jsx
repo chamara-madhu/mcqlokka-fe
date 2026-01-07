@@ -126,6 +126,7 @@ const MCQsByLessonMain = () => {
                       : UnCheckedIcon
                   }
                   alt="check icon"
+                  loading="lazy"
                 />
                 <span className="text-sm">G.C.E {exam.label}</span>
               </label>
@@ -184,6 +185,7 @@ const MCQsByLessonMain = () => {
                       : UnCheckedIcon
                   }
                   alt="check icon"
+                  loading="lazy"
                 />
                 <span className="text-sm">{fee.label}</span>
               </label>

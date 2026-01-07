@@ -1,6 +1,6 @@
-# Online ICT Frontend
+# MCQ Lokka Frontend
 
-This repository contains the frontend code for the Online ICT project. It is designed to provide the server-side logic for the platform, which offers ICT learning and assessment features.
+This repository contains the frontend code for the MCQ Lokka project. It is designed to provide the server-side logic for the platform, which offers ICT learning and assessment features.
 
 ## Getting Started
 

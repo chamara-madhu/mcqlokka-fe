@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import SyllabusContent from "./SyllabusContent";
 import BackButton from "../../shared/buttons/BackButton";
+import HelmetComp from "../../shared/seo/HelmetComp";
 
 ChartJS.register(
   CategoryScale,
@@ -162,6 +163,12 @@ function AllPapersBySubjectMain() {
 
   return (
     <div className="min-h-screen">
+      <HelmetComp
+        title={`MCQ Lokka | ${subject?.forSearch} ${subject?.exam} Past Papers & MCQs (${subject?.medium} Medium)`}
+        description={`Practice ${subject?.forSearch} ${subject?.exam} MCQs on MCQ Lokka. Access ${avgStats?.year} past papers, lesson-wise questions, syllabus, performance stats, and try a free sample paper today!`}
+        url={window.location.href}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <BackButton page="subjects" />
 
@@ -220,9 +227,9 @@ function AllPapersBySubjectMain() {
           </div>
         </div>
 
-        <h1 className="text-2xl mt-8 mb-5 font-bold text-purple-900">
+        <h2 className="text-2xl mt-8 mb-5 font-bold text-purple-900">
           Overview
-        </h1>
+        </h2>
 
         {/* Last Year Stats Section */}
         <div className="mb-6">
@@ -371,9 +378,9 @@ function AllPapersBySubjectMain() {
 
         {activeTab === "papers" && (
           <div>
-            <h1 className="text-2xl mt-8 font-bold text-purple-900">
+            <h2 className="text-2xl mt-8 font-bold text-purple-900">
               {subject?.type} Papers
-            </h1>
+            </h2>
 
             {/* Free Sample Banner */}
             {!hasPurchased && (
@@ -417,9 +424,9 @@ function AllPapersBySubjectMain() {
           <div>
             {allStats?.length > 0 ? (
               <div className="mt-10">
-                <h1 className="text-2xl mt-8 font-bold text-purple-900">
+                <h2 className="text-2xl mt-8 font-bold text-purple-900">
                   Statistics
-                </h1>
+                </h2>
                 <p className="mb-5 text-gray-500">
                   This summary reflects the actual performance distribution.
                 </p>

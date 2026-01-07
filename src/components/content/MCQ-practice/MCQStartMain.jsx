@@ -28,6 +28,7 @@ import PageLoader from "../../shared/loading/PageLoader";
 import { addToCart } from "../../../redux/features/cartSlice";
 import { useDispatch } from "react-redux";
 import BackButton from "../../shared/buttons/BackButton";
+import HelmetComp from "../../shared/seo/HelmetComp";
 
 ChartJS.register(
   CategoryScale,
@@ -168,6 +169,12 @@ const MCQStartMain = () => {
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
+      <HelmetComp
+        title={`MCQ Lokka | Practice ${paper?.subject?.forSearch} ${paper?.subject?.exam} ${paper.year} MCQs (${paper?.subject?.medium} Medium)`}
+        description={`Practice the ${paper?.year} ${paper?.subject?.forSearch} ${paper?.subject?.exam} past paper MCQs on MCQ Lokka. Learn in exam mode with time limits or study in learning mode with instant results and explanations.`}
+        url={window.location.href}
+      />
+
       <BackButton page="paper" />
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
         {/* Left Sidebar */}
@@ -229,9 +236,9 @@ const MCQStartMain = () => {
             (paper?.fee === FEES.PAID &&
               eligibility?.attemptsRemaining > 0)) && (
             <>
-              <h1 className="text-xl lg:text-2xl font-bold text-gray-900">
+              <h2 className="text-xl lg:text-2xl font-bold text-gray-900">
                 {t.mode}
-              </h1>
+              </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
                 {/* Exam Mode Card */}
                 <button
@@ -280,9 +287,9 @@ const MCQStartMain = () => {
           {(!user?.name && paper?.fee === FEES.PAID) ||
           (paper?.fee === FEES.PAID && eligibility?.isNeedToBuy) ? (
             <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl p-5 lg:p-6 border border-purple-200">
-              <h1 className="text-xl lg:text-2xl font-bold text-gray-900 mb-4">
+              <h2 className="text-xl lg:text-2xl font-bold text-gray-900 mb-4">
                 Buy now
-              </h1>
+              </h2>
               <button
                 onClick={() => handleAddToCart(paper?.subject)}
                 className={`flex w-full sm:w-auto items-center justify-center space-x-2 px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${

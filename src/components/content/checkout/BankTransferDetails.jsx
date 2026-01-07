@@ -5,7 +5,7 @@ const BankTransferDetails = ({ total }) => {
   const bankDetails = {
     bankName: "Sampath Bank PLC",
     accountName: "MCQ Lokka",
-    accountNumber: "1234567890",
+    accountNumber: "101355245062",
     branch: "Maharagama Branch",
   };
 
@@ -17,6 +17,7 @@ const BankTransferDetails = ({ total }) => {
           src={Sampath} 
           alt="Sampath Bank Logo" 
           className="h-16 mx-auto mb-4"
+          loading="lazy"
         />
         <h2 className="text-xl font-semibold text-gray-800">Bank Transfer Details</h2>
       </div>

@@ -252,6 +252,7 @@ const ScanQuestionMain = () => {
                   src={URL.createObjectURL(file)}
                   alt="Preview"
                   className="max-w-xs rounded-md shadow-sm"
+                  loading="lazy"
                 />
               </div>
             )}

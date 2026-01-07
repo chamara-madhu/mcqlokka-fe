@@ -29,6 +29,7 @@ import { addToCart } from "../../../redux/features/cartSlice";
 import { useDispatch } from "react-redux";
 import BackButton from "../../shared/buttons/BackButton";
 import config from "../../../config/aws";
+import HelmetComp from "../../shared/seo/HelmetComp";
 
 ChartJS.register(
   CategoryScale,
@@ -94,6 +95,12 @@ const PaperDetailsMain = () => {
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
+      <HelmetComp
+        title={`MCQ Lokka | ${paper?.subject?.forSearch} ${paper?.subject?.exam} ${paper?.year} Past Paper MCQs`}
+        description={`Practice the ${paper?.year} ${paper?.subject?.forSearch} ${paper?.subject?.exam} past paper on MCQ Lokka. Access detailed MCQs, instant results, explanations, performance stats, and unlimited attempts.`}
+        url={window.location.href}
+      />
+
       <BackButton page="subject" />
 
       {/* Subject Info Section */}
@@ -149,7 +156,7 @@ const PaperDetailsMain = () => {
         </div>
       </div>
       {/* <div className="bg-purple-50 p-5 border-t-2 border-t-purple-500"> */}
-      <h1 className="text-2xl mt-8 mb-5 font-bold text-purple-900">Overview</h1>
+      <h2 className="text-2xl mt-8 mb-5 font-bold text-purple-900">Overview</h2>
 
       {/* Last Year Stats Section */}
       <div className="mb-10">
@@ -279,48 +286,49 @@ const PaperDetailsMain = () => {
           </div>
 
           {/* Part II & Structured - Downloadable PDFs */}
-          {paper.noOfQuestions !== 50 && 
-          <div className="space-y-3">
-            <h3 className="font-semibold text-purple-600">
-              Part I - Structured
-            </h3>
+          {paper.noOfQuestions !== 50 && (
+            <div className="space-y-3">
+              <h3 className="font-semibold text-purple-600">
+                Part I - Structured
+              </h3>
 
-            <div className="flex text-sm justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
-              <div className=" text-gray-700">Paper</div>
-              {!paper?.part1StructuredQuestion ? (
-                <span className="cursor-pointer items-center text-gray-400">
-                  Coming Soon
-                </span>
-              ) : (
-                <a
-                  href={`${config.S3_PUBLIC_URL}/${paper.part1StructuredQuestion}`} // assume you have this field or adjust accordingly
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 "
-                >
-                  <Download size={18} /> Download PDF
-                </a>
-              )}
-            </div>
+              <div className="flex text-sm justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
+                <div className=" text-gray-700">Paper</div>
+                {!paper?.part1StructuredQuestion ? (
+                  <span className="cursor-pointer items-center text-gray-400">
+                    Coming Soon
+                  </span>
+                ) : (
+                  <a
+                    href={`${config.S3_PUBLIC_URL}/${paper.part1StructuredQuestion}`} // assume you have this field or adjust accordingly
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 "
+                  >
+                    <Download size={18} /> Download PDF
+                  </a>
+                )}
+              </div>
 
-            <div className="flex text-sm justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
-              <div className=" text-gray-700">Marking Scheme</div>
-              {!paper?.part1StructuredMarkingScheme ? (
-                <span className="cursor-pointer items-center text-gray-400">
-                  Coming Soon
-                </span>
-              ) : (
-                <a
-                  href={paper.part1StructuredMarkingScheme}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 "
-                >
-                  <Download size={18} /> Download PDF
-                </a>
-              )}
+              <div className="flex text-sm justify-between items-center bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition">
+                <div className=" text-gray-700">Marking Scheme</div>
+                {!paper?.part1StructuredMarkingScheme ? (
+                  <span className="cursor-pointer items-center text-gray-400">
+                    Coming Soon
+                  </span>
+                ) : (
+                  <a
+                    href={paper.part1StructuredMarkingScheme}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex cursor-pointer items-center gap-2 text-purple-700 hover:text-purple-800 "
+                  >
+                    <Download size={18} /> Download PDF
+                  </a>
+                )}
+              </div>
             </div>
-          </div>}
+          )}
 
           <div className="space-y-3">
             <h3 className="font-semibold text-purple-600">Part II</h3>

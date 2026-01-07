@@ -85,6 +85,7 @@ const ImageUpload = ({
               src={existingValue ? `${config.S3_PUBLIC_URL}/${existingValue}` : URL.createObjectURL(value)}
               className="object-cover w-auto h-auto max-w-full max-h-full"
               alt={name}
+              loading="lazy"
             />
             <X
               onClick={() => removeImage(name)}

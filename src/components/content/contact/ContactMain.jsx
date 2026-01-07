@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Mail, Phone, Clock, MessageCircle } from "feather-icons-react";
+import HelmetComp from "../../shared/seo/HelmetComp";
 
 const faqs = [
   {
@@ -87,6 +88,12 @@ const ContactMain = () => {
 
   return (
     <div className="min-h-screen">
+      <HelmetComp
+        title="Contact MCQ Lokka | Get Support for O/L & A/L MCQ Practice"
+        description="Have questions or need help with MCQ Lokka? Contact us today for support with O/L & A/L MCQ practice, subscriptions, past papers, or technical assistance."
+        url={window.location.href}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
         <div className="text-center mb-12">
@@ -103,7 +110,7 @@ const ContactMain = () => {
           {/* Contact Information */}
           <div className="lg:col-span-1 space-y-6">
             {/* Contact Cards */}
-            <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+            {/* <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
                   <Mail className="w-6 h-6 text-purple-600" />
@@ -123,7 +130,7 @@ const ContactMain = () => {
                   </a>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <div className="flex items-start space-x-4">

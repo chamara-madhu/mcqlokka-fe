@@ -18,6 +18,7 @@ import { Clock } from "lucide-react";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
+import HelmetComp from "../../../shared/seo/HelmetComp";
 
 const PaperMain = () => {
   const [activeQuestion, setActiveQuestion] = useState({});
@@ -144,6 +145,12 @@ const PaperMain = () => {
 
   return (
     <div className="flex px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+      <HelmetComp
+        title={`MCQ Lokka | ${paper?.subject?.forSearch} ${paper?.subject?.exam} ${paper.year} Exam Mode MCQs (${paper?.subject?.medium} Medium)`}
+        description={`Take the ${paper?.year} ${paper?.subject?.forSearch} ${paper?.subject?.exam} past paper in exam mode on MCQ Lokka. Simulate real A/L conditions with a timer, ${answers?.length} MCQs, and instant scoring after completion.`}
+        url={window.location.href}
+      />
+
       <div className="flex flex-col w-full max-w-screen-xl gap-10 mx-auto">
         <div className="flex flex-col gap-4 pb-4 border-b border-b-gray-200">
           {/* Title and Timer */}
@@ -233,6 +240,7 @@ const PaperMain = () => {
                   className="max-w-3xl"
                   src={`${config.S3_PUBLIC_URL}/${activeQuestion?.image}`}
                   alt={`MCQ ${activeQuestion?.type} ${activeQuestion?.no}`}
+                  loading="lazy"
                 />
               )}
               {activeQuestion?.restOfQuestion && (

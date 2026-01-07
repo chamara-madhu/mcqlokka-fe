@@ -1,3 +1,10 @@
 # https://www.robotstxt.org/robotstxt.html
+Sitemap: https://mcqlokka.com/sitemap.xml
 User-agent: *
-Disallow: /
+Disallow: /login/
+Disallow: /register/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /admin/
+Disallow: /my-profile/
+Disallow: /subjects/mcq/marks/

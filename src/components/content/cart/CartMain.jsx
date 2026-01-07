@@ -15,6 +15,7 @@ import { EXAMS } from "../../../constants/base";
 import { calculateTotalAmount } from "../../../utils/general";
 import BackButton from "../../shared/buttons/BackButton";
 import Benifits from "../about/Benifits";
+import HelmetComp from "../../shared/seo/HelmetComp";
 
 export default function CartMain() {
   // const [cartItems, setCartItems] = useState([
@@ -74,21 +75,11 @@ export default function CartMain() {
 
   return (
     <div className="min-h-screen">
-      {/* Header
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <button className="flex items-center space-x-2 text-gray-700 hover:text-purple-600 font-medium transition-colors">
-              <ArrowLeft className="w-5 h-5" />
-              <span>Continue Shopping</span>
-            </button>
-            <div className="flex items-center space-x-2 text-gray-600">
-              <ShoppingBag className="w-5 h-5" />
-              <span className="font-medium">{cartItems.length} Items</span>
-            </div>
-          </div>
-        </div>
-      </div> */}
+      <HelmetComp
+        title="MCQ Lokka | Your Cart - Review Your Selected MCQ Subjects"
+        description="Review the MCQ subjects you’ve added to your cart on MCQ Lokka. Check your selections before proceeding to checkout and start unlimited O/L & A/L MCQ practice."
+        url={window.location.href}
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <BackButton page="subjects" />
@@ -270,8 +261,7 @@ export default function CartMain() {
 
         {/* Trust Badges */}
         <div className="mt-10">
-
-        <Benifits />
+          <Benifits />
         </div>
       </div>
     </div>

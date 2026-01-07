@@ -10,6 +10,7 @@ import {
 import SubjectCard from "../../shared/cards/SubjectCard";
 import PageLoader from "../../shared/loading/PageLoader";
 import { Filter, X, Search } from "feather-icons-react";
+import HelmetComp from "../../shared/seo/HelmetComp";
 
 const initialFilters = {
   subject: [],
@@ -149,6 +150,7 @@ const AllSubjectsMain = () => {
                 }
                 alt="check icon"
                 className="w-5 h-5"
+                loading="lazy"
               />
               <span className="text-sm">{subject.label}</span>
             </label>
@@ -180,6 +182,7 @@ const AllSubjectsMain = () => {
                 }
                 alt="check icon"
                 className="w-5 h-5"
+                loading="lazy"
               />
               <span className="text-sm">G.C.E {exam.label}</span>
             </label>
@@ -211,6 +214,7 @@ const AllSubjectsMain = () => {
                 }
                 alt="check icon"
                 className="w-5 h-5"
+                loading="lazy"
               />
               <span className="text-sm">{medium.label}</span>
             </label>
@@ -222,6 +226,11 @@ const AllSubjectsMain = () => {
 
   return (
     <div className="relative flex flex-col w-full gap-5 px-4 sm:px-6 lg:px-8 lg:flex-row lg:gap-7">
+      <HelmetComp
+        title="MCQ Lokka | Practice O/L & A/L MCQs for All Subjects in Sri Lanka"
+        description="Explore all O/L & A/L subjects on MCQ Lokka. Search, filter, and practice lesson-wise MCQs, past papers, and exam questions with detailed explanations anytime, anywhere."
+      />
+
       {/* Desktop Filters Sidebar */}
       <div className="hidden lg:block">
         <FilterSection />
@@ -274,11 +283,11 @@ const AllSubjectsMain = () => {
       {/* Main Content */}
       <div className="flex flex-col flex-1 w-full lg:w-auto">
         {/* Search and Results Count */}
-        <div className="flex flex-col gap-3 mb-5 sm:flex-row sm:items-center sm:justify-between">
-          <span className="text-sm text-gray-500 font-medium">
+        <div className="flex flex-col gap-3 mb-5 sm:flex-row sm:items-end sm:justify-between">
+          <h1 className="text-sm text-purple-500 font-medium">
             {filteredPapers?.length || 0} Subject
             {filteredPapers?.length !== 1 ? "s" : ""}
-          </span>
+          </h1>
 
           {/* Search Bar */}
           <div className="relative w-full sm:w-auto">

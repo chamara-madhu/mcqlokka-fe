@@ -177,6 +177,7 @@ const ProfileMain = () => {
                   src={previewUrl}
                   alt="Profile"
                   className="h-full w-full rounded-full object-cover"
+                  loading="lazy"
                 />
               ) : (
                 <User className="w-20 h-20 text-gray-300" />

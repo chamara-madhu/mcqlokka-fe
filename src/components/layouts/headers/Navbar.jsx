@@ -56,8 +56,9 @@ const Navbar = () => {
           <Link to={HOME_PATH} onClick={closeMobileMenu}>
             <img
               src={Logo}
-              alt="Online ICT Logo"
+              alt="MCQ Lokka Logo"
               className="w-[100px] md:w-[120px] rounded-md"
+              loading="lazy"
             />
           </Link>
 
@@ -125,6 +126,7 @@ const Navbar = () => {
                       className="w-10 h-10 object-cover rounded-full border-2 border-purple-200"
                       src={`${config.S3_PUBLIC_URL}/${user.avatar}`}
                       alt={user.name}
+                      loading="lazy"
                     />
                   ) : (
                     <div className="flex items-center justify-center w-10 h-10 bg-purple-200 rounded-full cursor-pointer hover:bg-purple-400 transition-colors font-semibold text-purple-700">
@@ -202,6 +204,7 @@ const Navbar = () => {
                       className="w-12 h-12 object-cover rounded-full border-2 border-purple-300"
                       src={`${config.S3_PUBLIC_URL}/${user.avatar}`}
                       alt={user.name}
+                      loading="lazy"
                     />
                   ) : (
                     <div className="flex items-center justify-center w-12 h-12 bg-purple-300 rounded-full font-semibold text-purple-700">

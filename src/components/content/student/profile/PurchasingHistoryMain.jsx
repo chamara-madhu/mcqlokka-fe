@@ -171,6 +171,7 @@ const PurchasingHistoryMain = () => {
                           src={`${config.S3_PUBLIC_URL}/${payment.slip}`}
                           alt="Payment slip"
                           className="w-full h-32 object-cover rounded-lg border-2 border-gray-200"
+                          loading="lazy"
                         />
                       </div>
                     </div>

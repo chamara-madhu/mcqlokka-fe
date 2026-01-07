@@ -12,6 +12,7 @@ import BankTransferDetails from "./BankTransferDetails";
 import paymentService from "../../../services/payment.service";
 import { clearCart } from "../../../redux/features/cartSlice";
 import BackButton from "../../shared/buttons/BackButton";
+import HelmetComp from "../../shared/seo/HelmetComp";
 
 export default function CheckoutPage() {
   const [bankSlip, setBankSlip] = useState(null);
@@ -145,6 +146,12 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen">
+      <HelmetComp
+        title="MCQ Lokka | Checkout - Complete Your Payment & Unlock Lifetime MCQ Access"
+        description="Complete your payment on MCQ Lokka to get lifetime access to O/L & A/L MCQs. Unlock past papers, lesson-wise questions, learning & exam modes, and detailed explanations."
+        url={window.location.href}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <BackButton page="cart" />
 
@@ -221,6 +228,7 @@ export default function CheckoutPage() {
                       src={previewUrl}
                       alt="Bank slip preview"
                       className="w-full"
+                      loading="lazy"
                     />
                     <button
                       type="button"

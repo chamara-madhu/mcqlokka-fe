@@ -35,7 +35,7 @@ export const EXAMS = {
 export const MEDIUMS = {
   SINHALA: "Sinhala",
   ENGLISH: "English",
-  TAMIL: "Tamil",
+  // TAMIL: "Tamil",
 };
 
 export const TYPES = {

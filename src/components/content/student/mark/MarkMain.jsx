@@ -14,6 +14,7 @@ import questionService from "../../../../services/question.service";
 import markService from "../../../../services/mark.service";
 import PageLoader from "../../../shared/loading/PageLoader";
 import { formatTimeSpent } from "../../../../utils/general";
+import HelmetComp from "../../../shared/seo/HelmetComp";
 
 const MarkMain = () => {
   const [marks, setMarks] = useState(null);
@@ -141,6 +142,12 @@ const MarkMain = () => {
 
   return (
     <div className="w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12" id="my-node">
+      <HelmetComp
+        title={`MCQ Lokka | ${marks?.paper?.longName} Paper Results & Detailed Explanations`}
+        description="Explore all O/L & A/L subjects on MCQ Lokka. Search, filter, and practice lesson-wise MCQs, past papers, and exam questions with detailed explanations anytime, anywhere."
+        url={window.location.href}
+      />
+
       {/* Header Card */}
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm mb-8 overflow-hidden">
         {/* Header */}
@@ -407,6 +414,7 @@ const MarkMain = () => {
                           src={question.image}
                           alt={`Question ${question.no}`}
                           className="mt-4 max-w-full rounded-lg border border-gray-200"
+                          loading="lazy"
                         />
                       )}
                       {question.restOfQuestion && (

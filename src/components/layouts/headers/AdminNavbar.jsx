@@ -18,7 +18,7 @@ const AdminNavbar = () => {
     <nav className="sticky top-0 z-10 px-4 py-3 h-[75px] bg-white border-b-2 border-purple-200">
       <div className="flex items-center justify-between">
         <Link to={HOME_PATH}>
-          <img src={Logo} alt="Online ICT Logo" className="w-[120px]" />
+          <img src={Logo} alt="MCQ Lokka Logo" className="w-[120px]" loading="lazy" />
         </Link>
         {user.name && (
           <div className="flex items-center gap-4">
@@ -33,6 +33,7 @@ const AdminNavbar = () => {
                 <img
                   className="w-10 h-10 object-cover rounded-full"
                   src={`${config.S3_PUBLIC_URL}/${user.avatar}`}
+                  loading="lazy"
                 />
               ) : (
                 <div className="flex items-center justify-center w-10 h-10 bg-purple-200 rounded-full cursor-pointer hover:bg-purple-400">

@@ -107,6 +107,7 @@ const ManageSubjectMain = () => {
                         src={`${config.S3_PUBLIC_URL}/${subject.icon}`}
                         alt="Question"
                         className="rounded"
+                        loading="lazy"
                       />
                     )}
                   </td>

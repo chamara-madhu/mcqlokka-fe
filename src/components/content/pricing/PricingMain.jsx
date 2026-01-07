@@ -10,6 +10,7 @@ import {
   Target,
   TrendingUp,
 } from "lucide-react";
+import HelmetComp from "../../shared/seo/HelmetComp";
 
 export default function PricingMain() {
   const [selectedSubjects, setSelectedSubjects] = useState(3);
@@ -120,20 +121,21 @@ export default function PricingMain() {
 
   return (
     <div className="min-h-screen">
+      <HelmetComp
+        title="MCQ Lokka Pricing | One-Time Payment for Lifetime O/L & A/L MCQ Access"
+        description="Pay once, practice forever! Choose single, double, triple, or multi-subject packs on MCQ Lokka for O/L & A/L MCQs. Enjoy lifetime access, unlimited attempts, learning & exam modes, instant results, and detailed explanations."
+        url={window.location.href}
+      />
+
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header Section */}
         <div className="text-center mb-12 sm:mb-16 lg:mb-20">
-          {/* <div className="flex justify-center mb-4">
-            <div className="bg-purple-100 p-3 sm:p-4 rounded-2xl">
-              <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 text-purple-600" />
-            </div>
-          </div> */}
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-purple-900 mb-3 sm:mb-4 px-4">
             Simple. One-time. Lifetime access.
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-purple-700 max-w-3xl mx-auto px-4 mb-4">
-            Practice O/L, A/L MCQs for ICT, Accounting, Economics, Chemistry, and
-            more... anytime, anywhere.
+            Practice O/L, A/L MCQs for ICT, Accounting, Economics, Chemistry,
+            and more... anytime, anywhere.
           </p>
           <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-purple-600">
             Pay once, own it forever. 💰

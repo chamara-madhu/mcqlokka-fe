@@ -11,6 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import { HOME_PATH, REGISTER_PATH } from "../../../constants/routes";
 import Benifits from "./Benifits";
+import HelmetComp from "../../shared/seo/HelmetComp";
 
 export default function AboutUsPage() {
   const stats = [
@@ -50,6 +51,12 @@ export default function AboutUsPage() {
 
   return (
     <div className="min-h-screen bg-purple-50">
+      <HelmetComp
+        title="About MCQ Lokka | One and Only Online O/L & A/L MCQ Practice Platform in Sri Lanka"
+        description="MCQ Lokka is Sri Lanka's one and only online platform for O/L & A/L MCQ practice. Get lifetime access to past papers, lesson-wise questions, instant results, and unlimited attempts."
+        url={window.location.href}
+      />
+
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-purple-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
@@ -58,7 +65,7 @@ export default function AboutUsPage() {
               About MCQ Lokka
             </h1>
             <p className="text-xl sm:text-2xl text-purple-100 mb-8">
-              #1 Online MCQ Practice Platform for Sri Lankan Students
+              One and Only Online MCQ Practice Platform for Sri Lankan Students
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               {[

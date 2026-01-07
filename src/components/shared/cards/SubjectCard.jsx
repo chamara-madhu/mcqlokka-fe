@@ -12,7 +12,7 @@ const SubjectCard = ({ subject }) => {
   return (
     <div
       onClick={() =>
-        !isComingSoon && navigate(`/subjects/${subject.exam.replace("/", "")}/${subject.forSearch}/${subject.medium}-medium/${subject?._id}`.toLowerCase())
+        !isComingSoon && navigate(`/subjects/${subject.exam.replace("/", "")}/${subject.forSearch.replaceAll(" ", "-").replaceAll("&", "and")}/${subject.medium}-medium/${subject?._id}`.toLowerCase())
       }
       className={`relative flex flex-col w-full border rounded-xl ${
         isComingSoon
@@ -33,6 +33,7 @@ const SubjectCard = ({ subject }) => {
           src={`${config.S3_PUBLIC_URL}/${subject?.icon}`}
           alt={subject?.name}
           className={isComingSoon ? "grayscale" : ""}
+          loading="lazy"
         />
         <div
           className={`absolute px-3 py-1 text-xs rounded-full right-2 top-2 ${

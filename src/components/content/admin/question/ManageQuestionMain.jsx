@@ -248,6 +248,7 @@ const ManageQuestionMain = () => {
                             src={`${config.S3_PUBLIC_URL}/${question.image}`}
                             alt="Question"
                             className="mt-2 max-w-[200px] rounded"
+                            loading="lazy"
                           />
                         )}
                         {question.restOfQuestion && (

@@ -41,7 +41,12 @@ const AnimatedIcon = ({ href, src, alt }) => (
     rel="noopener noreferrer"
     className="hover:underline"
   >
-    <img src={src} alt={alt} className="w-6 h-6 hover:opacity-70" />
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      className="w-6 h-6 hover:opacity-70"
+    />
   </a>
 );
 
@@ -127,11 +132,14 @@ function Footer() {
               <img
                 src={LogoImg}
                 className="w-[120px] object-contain rounded-md"
-                alt="Online ICT Logo"
+                alt="MCQ Lokka Logo"
+                loading="lazy"
               />
             </Link>
             <p className="text-sm leading-6 text-center sm:text-left">
-              MCQ ලොක්කා is your trusted A/L past paper MCQ practice platform. Practice real exam questions, track your progress, and get smarter every day. Learn anywhere, anytime be a true MCQ ලොක්කා!
+              MCQ ලොක්කා is your trusted A/L past paper MCQ practice platform.
+              Practice real exam questions, track your progress, and get smarter
+              every day. Learn anywhere, anytime be a true MCQ ලොක්කා!
             </p>
           </div>
           <div className="flex flex-col gap-5">
@@ -180,7 +188,7 @@ function Footer() {
         <hr />
         <div className="flex flex-col items-center justify-between gap-5 pt-2 mt-5 lg:flex-row">
           <div className="flex flex-col items-center gap-2 text-xs lg:flex-row">
-            <span>&copy; Online ICT PTY LTD. All Rights Reserved.</span>
+            <span>&copy; MCQ Lokka PTY LTD. All Rights Reserved.</span>
             <div className="flex gap-2">
               <Link to={"/"} target="_blank" className="hover:underline">
                 Privacy Policy
