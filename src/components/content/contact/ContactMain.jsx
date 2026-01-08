@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Mail, Phone, Clock, MessageCircle } from "feather-icons-react";
 import HelmetComp from "../../shared/seo/HelmetComp";
+import { Link } from "react-router-dom";
 
 const faqs = [
   {
@@ -38,10 +39,6 @@ const faqs = [
   {
     q: "What payment methods do you accept?",
     a: "Currently, we accept bank transfers only. Simply make the transfer and upload the slip - we'll activate your account quickly. Online card payments are coming soon!",
-  },
-  {
-    q: "Do you offer discounts for schools or groups?",
-    a: "Yes! We offer special bulk pricing for schools, tuition classes, and study groups. Contact us for a custom quote.",
   },
 ];
 
@@ -289,6 +286,24 @@ const ContactMain = () => {
                     <p className="text-sm text-gray-600">{item.a}</p>
                   </div>
                 ))}
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-2">
+                    Do you offer discounts for schools or groups?
+                  </h4>
+                  <p className="text-sm text-gray-600">
+                    Yes! We offer special bulk pricing for schools, tuition
+                    classes, and study groups.{" "}
+                    <Link
+                      className="text-purple-600 hover:underline"
+                      to="https://wa.me/94710193314"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Contact us
+                    </Link>{" "}
+                    for a custom quote.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

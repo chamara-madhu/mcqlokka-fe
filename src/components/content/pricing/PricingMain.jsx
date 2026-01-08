@@ -219,15 +219,17 @@ export default function PricingMain() {
                 </ul>
 
                 {/* CTA Button */}
-                <button
-                  className={`w-full py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 ${
-                    plan.popular
-                      ? "bg-purple-600 text-white hover:bg-purple-700 active:bg-purple-800"
-                      : "bg-purple-100 text-purple-700 hover:bg-purple-200 active:bg-purple-300"
-                  }`}
-                >
-                  Get Started
-                </button>
+                <Link to={HOME_PATH}>
+                  <button
+                    className={`w-full py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 ${
+                      plan.popular
+                        ? "bg-purple-600 text-white hover:bg-purple-700 active:bg-purple-800"
+                        : "bg-purple-100 text-purple-700 hover:bg-purple-200 active:bg-purple-300"
+                    }`}
+                  >
+                    Get Started
+                  </button>
+                </Link>
               </div>
             </div>
           ))}
@@ -412,7 +414,7 @@ export default function PricingMain() {
             </Link>
           </div>
           <p className="text-sm text-gray-600">
-            Need help choosing a plan? Contact our support team for assistance
+            Need help choosing a plan? <Link className="text-purple-600 hover:underline" to="https://wa.me/94710193314" target="_blank" rel="noopener noreferrer">Contact our support team</Link> for assistance
           </p>
         </div>
       </div>
