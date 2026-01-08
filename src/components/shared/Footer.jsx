@@ -137,9 +137,15 @@ function Footer() {
               />
             </Link>
             <p className="text-sm leading-6 text-center sm:text-left">
-              MCQ ලොක්කා is your trusted A/L past paper MCQ practice platform.
-              Practice real exam questions, track your progress, and get smarter
-              every day. Learn anywhere, anytime be a true MCQ ලොක්කා!
+              <b>MCQ ලොක්කා</b> is Sri Lanka's one and only dedicated online MCQ
+              practice platform for O/L and A/L students. Featuring 20+
+              subjects, 150+ past papers, and 10,000+ questions in Sinhala &
+              English, it provides lifetime access with a single payment,
+              unlimited attempts, lesson-wise practice, detailed explanations,
+              instant results, smart progress tracking, exam trends, and free
+              sample papers; all mobile-friendly for learning anytime, anywhere.
+              It empowers students to master MCQs confidently and achieve top
+              results!
             </p>
           </div>
           <div className="flex flex-col gap-5">

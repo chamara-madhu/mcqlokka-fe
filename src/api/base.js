@@ -30,8 +30,6 @@ axiosInstance.interceptors.response.use(
   (response) => response, // pass successful responses through
   (error) => {
     if (error.response && error.response.status === 401) {
-      alert(JSON.stringify(error.response))
-      alert("im")
       // Clear auth data
       localStorage.removeItem("auth_token");
 
