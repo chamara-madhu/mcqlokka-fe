@@ -447,7 +447,7 @@ const CreateQuestionMain = () => {
               )}
 
               {/* Message for required number of options */}
-              {form?.options?.length > 1 && form.options.length < 5 && (
+              {form?.options?.length > 1 && form.options.length < 4 && (
                 <p className="text-sm text-red-400">5 options are required.</p>
               )}
             </div>

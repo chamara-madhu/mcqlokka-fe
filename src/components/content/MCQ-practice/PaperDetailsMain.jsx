@@ -286,7 +286,7 @@ const PaperDetailsMain = () => {
           </div>
 
           {/* Part II & Structured - Downloadable PDFs */}
-          {paper.noOfQuestions !== 50 && (
+          {paper.noOfQuestions === 30 && (
             <div className="space-y-3">
               <h3 className="font-semibold text-purple-600">
                 Part I - Structured
