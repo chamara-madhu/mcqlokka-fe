@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import StudentRankCard from "../../shared/cards/StudentRankCard";
 import { useEffect, useState } from "react";
 import paperService from "../../../services/paper.service";
-import { EXAMS, FEES } from "../../../constants/base";
+import { EXAMS, FEES, MEDIUMS } from "../../../constants/base";
 import { Bar } from "react-chartjs-2";
 import markService from "../../../services/mark.service";
 import {
@@ -191,11 +191,14 @@ const MCQStartMain = () => {
               <h1 className="text-xl lg:text-2xl xl:text-3xl font-bold text-gray-900 leading-tight">
                 Welcome to
               </h1>
-              <h2 className="text-xl lg:text-2xl xl:text-3xl font-bold text-purple-900 leading-tight">
-                G.C.E{" "}
+              <h2 className="text-xl lg:text-2xl xl:text-2xl font-bold text-purple-900 leading-tight">
                 {paper?.subject?.exam === EXAMS.AL
-                  ? "Advanced Level"
-                  : "Ordinary Level"}
+                  ? paper?.subject?.medium === MEDIUMS.ENGLISH
+                    ? "G.C.E - Advanced Level"
+                    : "අ.පො.ස. උසස් පෙළ"
+                  : paper?.subject?.medium === MEDIUMS.ENGLISH
+                  ? "G.C.E - Ordinary Level"
+                  : "අ.පො.ස. සාමාන්‍ය පෙළ"}
               </h2>
               <p className="text-lg lg:text-xl font-semibold text-gray-800">
                 {paper?.subject?.name} - {paper?.year}
@@ -207,7 +210,9 @@ const MCQStartMain = () => {
               <div className="flex flex-col p-3 bg-white rounded-lg shadow-sm">
                 <p className="text-xs text-gray-600 font-medium">Medium</p>
                 <p className="text-sm font-semibold text-gray-900">
-                  {paper?.subject?.medium}
+                  {paper?.subject?.medium === MEDIUMS.ENGLISH
+                    ? "English"
+                    : "සිංහල"}
                 </p>
               </div>
 

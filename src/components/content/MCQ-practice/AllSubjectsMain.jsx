@@ -127,38 +127,6 @@ const AllSubjectsMain = () => {
       </div>
 
       <div>
-        <p className="mb-2 text-sm font-semibold">Subjects</p>
-        <div className="flex flex-col overflow-hidden rounded-md">
-          {SUBJECT_OPTIONS.map((subject) => (
-            <label
-              key={subject.value}
-              className="flex items-center h-10 gap-3 px-3 cursor-pointer bg-purple-50 hover:bg-purple-100 transition-colors"
-            >
-              <input
-                type="checkbox"
-                name="subject"
-                className="hidden peer"
-                value={subject.value}
-                checked={filters.subject.includes(subject.value)}
-                onChange={() => handleCheckboxChange("subject", subject.value)}
-              />
-              <img
-                src={
-                  filters.subject.includes(subject.value)
-                    ? CheckedIcon
-                    : UnCheckedIcon
-                }
-                alt="check icon"
-                className="w-5 h-5"
-                loading="lazy"
-              />
-              <span className="text-sm">{subject.label}</span>
-            </label>
-          ))}
-        </div>
-      </div>
-
-      <div>
         <p className="mb-2 text-sm font-semibold">Exam Type</p>
         <div className="flex flex-col overflow-hidden rounded-md">
           {EXAM_OPTIONS.map((exam) => (
@@ -217,6 +185,38 @@ const AllSubjectsMain = () => {
                 loading="lazy"
               />
               <span className="text-sm">{medium.label}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <p className="mb-2 text-sm font-semibold">Subjects</p>
+        <div className="flex flex-col overflow-hidden rounded-md">
+          {SUBJECT_OPTIONS.map((subject) => (
+            <label
+              key={subject.value}
+              className="flex items-center h-10 gap-3 px-3 cursor-pointer bg-purple-50 hover:bg-purple-100 transition-colors"
+            >
+              <input
+                type="checkbox"
+                name="subject"
+                className="hidden peer"
+                value={subject.value}
+                checked={filters.subject.includes(subject.value)}
+                onChange={() => handleCheckboxChange("subject", subject.value)}
+              />
+              <img
+                src={
+                  filters.subject.includes(subject.value)
+                    ? CheckedIcon
+                    : UnCheckedIcon
+                }
+                alt="check icon"
+                className="w-5 h-5"
+                loading="lazy"
+              />
+              <span className="text-sm">{subject.label}</span>
             </label>
           ))}
         </div>

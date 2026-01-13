@@ -16,9 +16,9 @@ import HelmetComp from "../../shared/seo/HelmetComp";
 export default function AboutUsPage() {
   const stats = [
     // { number: "25,000+", label: "Active Students", icon: Users },
-    { number: "20+", label: "Subjects", icon: Book },
-    { number: "150+", label: "Past Papers", icon: Paperclip },
-    { number: "10,000+", label: "MCQ Questions", icon: FileQuestion },
+    { number: "30+", label: "Subjects", icon: Book },
+    { number: "250+", label: "Past Papers", icon: Paperclip },
+    { number: "15,000+", label: "MCQ Questions", icon: FileQuestion },
     { number: "Sin/Eng", label: "Mediums", icon: Languages },
   ];
 

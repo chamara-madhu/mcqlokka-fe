@@ -138,8 +138,8 @@ function Footer() {
             </Link>
             <p className="text-sm leading-6 text-center sm:text-left">
               <b>MCQ ලොක්කා</b> is Sri Lanka's one and only dedicated online MCQ
-              practice platform for O/L and A/L students. Featuring 20+
-              subjects, 150+ past papers, and 10,000+ questions in Sinhala &
+              practice platform for O/L and A/L students. Featuring 30+
+              subjects, 250+ past papers, and 15,000+ questions in Sinhala &
               English, it provides lifetime access with a single payment,
               unlimited attempts, lesson-wise practice, detailed explanations,
               instant results, smart progress tracking, exam trends, and free

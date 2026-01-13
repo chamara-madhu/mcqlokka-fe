@@ -5,6 +5,7 @@ export const USER_ROLES = {
 };
 
 export const SUBJECTS = {
+  // Commerce / Technology / Science (A/L)
   ACCOUNTING: "Accounting",
   BUSINESS_STUDIES: "Business Studies",
   ECONOMICS: "Economics",
@@ -24,7 +25,21 @@ export const SUBJECTS = {
 
   BST: "Biosystems Technology",
   ET: "Engineering Technology",
-  SFT: "Science for Technology"
+  SFT: "Science for Technology",
+
+  // O/L Subjects (Sinhala)
+  SCIENCE_OL: "Science",
+  BUDDHISM: "Buddhism",
+  SINHALA_LANGUAGE_LITERATURE: "Sinhala Language & Literature",
+  HISTORY: "History",
+  BUSINESS_ACCOUNTING_OL: "Business & Accounting Studies",
+  HEALTH_PHYSICAL_EDUCATION: "Health & Physical Education",
+  CIVIC_EDUCATION: "Civic Education",
+  // ORIENTAL_MUSIC: "Oriental Music",
+  // ORIENTAL_DANCING: "Oriental Dancing",
+  // DRAMA_THEATRE: "Drama & Theatre",
+  HOME_ECONOMICS: "Home Economics",
+  AGRICULTURE_FOOD_TECH: "Agriculture & Food Technology",
 };
 
 export const EXAMS = {
@@ -76,7 +91,7 @@ export const MEDALS = {
 // is Approved
 export const IS_APPROVED_TYPES = {
   YES: "Yes",
-  NO: "No"
+  NO: "No",
 };
 
 // paper modes

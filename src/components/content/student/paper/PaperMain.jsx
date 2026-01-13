@@ -43,7 +43,7 @@ const PaperMain = () => {
       setQuestions(res?.data?.questions || []);
       setActiveQuestion(res?.data?.questions?.[0] || {});
       setAnswers(new Array(res?.data?.questions?.length).fill([])); // Initialize answers array
-      setTimeLeft(res?.data?.questions?.length * 144);
+      setTimeLeft(res?.data?.paper?.time * 60 * 60);
       setPreLoading(false);
     };
 
