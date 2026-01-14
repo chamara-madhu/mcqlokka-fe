@@ -4,8 +4,8 @@ export const USER_ROLES = {
   STUDENT: 1,
 };
 
-export const SUBJECTS = {
-  // Commerce / Technology / Science (A/L)
+// Commerce / Technology / Science (A/L)
+export const AL_SUBJECTS = {
   ACCOUNTING: "Accounting",
   BUSINESS_STUDIES: "Business Studies",
   ECONOMICS: "Economics",
@@ -26,8 +26,10 @@ export const SUBJECTS = {
   BST: "Biosystems Technology",
   ET: "Engineering Technology",
   SFT: "Science for Technology",
+};
 
-  // O/L Subjects (Sinhala)
+// O/L Subjects (Sinhala)
+export const OL_SUBJECTS = {
   SCIENCE_OL: "Science",
   BUDDHISM: "Buddhism",
   SINHALA_LANGUAGE_LITERATURE: "Sinhala Language & Literature",
@@ -105,10 +107,17 @@ export const PRICE_PER_PAPER = 200;
 export const PROMOTION_RATE = 0.5;
 export const CURRENCY = "LKR";
 
-export const SUBJECT_OPTIONS = Object.keys(SUBJECTS).map((key) => {
+export const AL_SUBJECT_OPTIONS = Object.keys(AL_SUBJECTS).map((key) => {
   return {
-    value: SUBJECTS[key],
-    label: SUBJECTS[key],
+    value: AL_SUBJECTS[key],
+    label: AL_SUBJECTS[key],
+  };
+});
+
+export const OL_SUBJECT_OPTIONS = Object.keys(OL_SUBJECTS).map((key) => {
+  return {
+    value: OL_SUBJECTS[key],
+    label: OL_SUBJECTS[key],
   };
 });
 

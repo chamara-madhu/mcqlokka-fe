@@ -5,7 +5,9 @@ import UnCheckedIcon from "../../../assets/icons/un-check.svg";
 import {
   EXAM_OPTIONS,
   MEDIUM_OPTIONS,
-  SUBJECT_OPTIONS,
+  AL_SUBJECT_OPTIONS,
+  OL_SUBJECT_OPTIONS,
+  EXAMS,
 } from "../../../constants/base";
 import SubjectCard from "../../shared/cards/SubjectCard";
 import PageLoader from "../../shared/loading/PageLoader";
@@ -97,6 +99,15 @@ const AllSubjectsMain = () => {
       matchesSearch
     );
   });
+
+  console.log("filters", filters)
+
+  const allSubjects =
+    filters?.exam?.length === 0 || filters?.exam?.length === 2
+      ? AL_SUBJECT_OPTIONS.concat(OL_SUBJECT_OPTIONS)
+      : filters?.exam?.includes(EXAMS.AL)
+      ? AL_SUBJECT_OPTIONS
+      : OL_SUBJECT_OPTIONS;
 
   // Filter Section Component
   const FilterSection = ({ isMobile = false }) => (
@@ -193,7 +204,7 @@ const AllSubjectsMain = () => {
       <div>
         <p className="mb-2 text-sm font-semibold">Subjects</p>
         <div className="flex flex-col overflow-hidden rounded-md">
-          {SUBJECT_OPTIONS.map((subject) => (
+          {allSubjects.map((subject) => (
             <label
               key={subject.value}
               className="flex items-center h-10 gap-3 px-3 cursor-pointer bg-purple-50 hover:bg-purple-100 transition-colors"
