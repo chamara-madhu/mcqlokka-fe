@@ -8,7 +8,7 @@ import paperService from "../../../../services/paper.service";
 import {
   MEDIUMS,
   PAPER_MODES,
-  QUESTION_DIFFICULTY_TYPES,
+  // QUESTION_DIFFICULTY_TYPES,
   USER_ROLES,
 } from "../../../../constants/base";
 import { MCQ_EXAM_RESULTS_PATH } from "../../../../constants/routes";

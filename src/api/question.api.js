@@ -60,6 +60,10 @@ const lessonStatsByPaper = async (paperId) => {
   return await axios.get(`/questions/lesson/stats/${paperId}`);
 };
 
+const getLessonsWiseQuestions = async (subjectId) => {
+  return await axios.get(`/questions/lessons-wise/${subjectId}`);
+};
+
 export default {
   getAllQuestions,
   createQuestion,
@@ -73,4 +77,5 @@ export default {
   scanQuestion,
   generateModelPaper,
   lessonStatsByPaper,
+  getLessonsWiseQuestions
 };

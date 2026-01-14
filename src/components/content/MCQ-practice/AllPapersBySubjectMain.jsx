@@ -30,6 +30,7 @@ import {
 import SyllabusContent from "./SyllabusContent";
 import BackButton from "../../shared/buttons/BackButton";
 import HelmetComp from "../../shared/seo/HelmetComp";
+import LessonWiseQuestions from "./LessonWiseQuestions";
 
 ChartJS.register(
   CategoryScale,
@@ -54,7 +55,7 @@ const tabs = [
   { id: "papers", label: "Past Papers" },
   { id: "syllabus", label: "Syllabus" },
   { id: "statistics", label: "Statistics" },
-  { id: "syllabus_wise_questions", label: "Syllabus wise Questions" },
+  { id: "lesson_wise_questions", label: "Lesson-wise Questions" },
 ];
 
 function AllPapersBySubjectMain() {
@@ -363,10 +364,8 @@ function AllPapersBySubjectMain() {
           </div>
         </div>
 
-        {activeTab === "syllabus_wise_questions" && (
-          <p className="mt-4 text-lg text-purple-700 font-medium">
-            Coming Very Soon
-          </p>
+        {activeTab === "lesson_wise_questions" && (
+          <LessonWiseQuestions />
         )}
 
         {activeTab === "syllabus" && (
@@ -377,7 +376,7 @@ function AllPapersBySubjectMain() {
         )}
 
         {activeTab === "papers" && (
-          <div>
+          <div className="px-6">
             <h2 className="text-2xl mt-8 font-bold text-purple-900">
               {subject?.type} Papers
             </h2>
@@ -421,9 +420,9 @@ function AllPapersBySubjectMain() {
         )}
 
         {activeTab === "statistics" && (
-          <div>
+          <div className="px-6">
             {allStats?.length > 0 ? (
-              <div className="mt-10">
+              <div>
                 <h2 className="text-2xl mt-8 font-bold text-purple-900">
                   Statistics
                 </h2>

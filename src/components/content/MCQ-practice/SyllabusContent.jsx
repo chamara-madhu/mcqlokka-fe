@@ -26,10 +26,10 @@ const SyllabusContent = ({ subjectId, syllabusPdfUrl }) => {
   }
 
   return (
-    <div className="">
-      <h1 className="text-2xl mt-8 font-bold text-purple-900">
+    <div className="px-6">
+      <h2 className="text-2xl mt-8 font-bold text-purple-900">
         Main Lessons
-      </h1>
+      </h2>
       <p className="mb-5 text-sm text-gray-600">
         Total: <strong className="text-purple-700">{lessons.length}</strong>{" "}
         lessons
