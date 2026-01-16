@@ -100,8 +100,6 @@ const AllSubjectsMain = () => {
     );
   });
 
-  console.log("filters", filters)
-
   const allSubjects =
     filters?.exam?.length === 0 || filters?.exam?.length === 2
       ? AL_SUBJECT_OPTIONS.concat(OL_SUBJECT_OPTIONS)
@@ -354,6 +352,23 @@ const AllSubjectsMain = () => {
             )}
           </div>
         )}
+
+        <div className="flex flex-col lg:flex-row gap-4 mt-8">
+          {["CR3vvDkR9rE", "62EnWduVIJk"].map((id) => (
+            <div className="w-full lg:w-1/2">
+              <div className="relative aspect-video overflow-hidden rounded-xl shadow-lg">
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src={`https://www.youtube.com/embed/${id}`}
+                  title="YouTube video player"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

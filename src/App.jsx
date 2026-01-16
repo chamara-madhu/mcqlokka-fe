@@ -43,6 +43,7 @@ import {
   MCQ_LEARNING_MODE_PATH,
   ADMIN_BULK_LESSON_CREATE_PATH,
   PAPER_DETAILS_PATH,
+  VIDEO_TUTORIALS_PATH,
 } from "./constants/routes";
 import Paper from "./pages/students/Paper";
 import CreatePaper from "./pages/admin/paper/CreatePaper";
@@ -81,6 +82,7 @@ import Contact from "./pages/Contact";
 import PaperLearning from "./pages/students/PaperLearning";
 import CreateBulkLesson from "./pages/admin/lesson/CreateBulkLesson";
 import PaperDetails from "./pages/PaperDetails";
+import VideoGuides from "./pages/VideoGuides";
 
 function App() {
   // Create a private route for passengers
@@ -132,6 +134,7 @@ function App() {
 
         <Route path={ABOUT_PATH} exact element={<About />} />
         <Route path={CONTACT_PATH} exact element={<Contact />} />
+        <Route path={VIDEO_TUTORIALS_PATH} exact element={<VideoGuides />} />
         <Route path={HOME_PATH} exact element={<AllSubjects />} />
         <Route
           path={SUBJECT_PAPERS_PATH}

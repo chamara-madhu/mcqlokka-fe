@@ -6,12 +6,12 @@ import {
   LOGIN_PATH,
   REGISTER_PATH,
   ADMIN_DASHBOARD_PATH,
-  MY_RESULTS_PATH,
   PRICING_PATH,
   CART_PATH,
   ABOUT_PATH,
   CONTACT_PATH,
   MY_SUBJECTS_PATH,
+  VIDEO_TUTORIALS_PATH,
 } from "../../../constants/routes";
 import Cta from "../../shared/buttons/Cta";
 import Logo from "../../../assets/images/logo.png";
@@ -24,6 +24,7 @@ const navLinks = [
   { href: ABOUT_PATH, label: "About" },
   { href: PRICING_PATH, label: "Pricing" },
   { href: CONTACT_PATH, label: "Contact" },
+  { href: VIDEO_TUTORIALS_PATH, label: "Video Tutorials" },
 ];
 
 const Navbar = () => {
