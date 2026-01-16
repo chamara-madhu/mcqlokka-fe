@@ -13,6 +13,7 @@ import {
   PRICING_PATH,
   REGISTER_PATH,
   LOGIN_PATH,
+  VIDEO_TUTORIALS_PATH,
 } from "../../constants/routes";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
@@ -55,6 +56,7 @@ function Footer() {
     { href: HOME_PATH, text: "Home", delay: 0 },
     // { href: MCQ_ALL_PATH, text: "Features", delay: 0.2 },
     { href: PRICING_PATH, text: "Pricing", delay: 0.4 },
+    { href: VIDEO_TUTORIALS_PATH, text: "Video Tutorials", delay: 0.4 },
   ];
 
   const contactLinks = [

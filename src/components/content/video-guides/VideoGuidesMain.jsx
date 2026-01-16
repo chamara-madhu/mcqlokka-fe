@@ -6,7 +6,7 @@ const VideoGuidesMain = () => {
     {
       id: 1,
       title: "1. මොකක්ද මේ MCQ ලොක්කා කියන්නේ?",
-      url: "https://www.youtube.com/embed/62EnWduVIJk",
+      url: "https://www.youtube.com/embed/CR3vvDkR9rE",
       description: `මේ video එකෙන් ඔයාලට MCQ ලොක්කා කියන්නේ මොකක්ද කියලා පැහැදිලි අවබෝධයක් ලබාගන්න පුළුවන්.
 
 ✅ MCQ ලොක්කා කියන්නේ මොකක්ද?
