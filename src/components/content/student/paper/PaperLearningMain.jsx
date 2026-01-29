@@ -94,7 +94,7 @@ const PaperLearningMain = () => {
     setIsChecked(true);
     setAnswerClarification(
       questions[currentIndex]?.answerClarification ||
-        "No explanation available."
+        "No explanation available.",
     );
 
     setError("");
@@ -120,7 +120,7 @@ const PaperLearningMain = () => {
     setAnswerClarification(
       checkedQuestions.has(nextNo)
         ? questions[nextNo - 1]?.answerClarification || ""
-        : ""
+        : "",
     );
     setError("");
   };
@@ -138,7 +138,7 @@ const PaperLearningMain = () => {
     setAnswerClarification(
       checkedQuestions.has(prevNo)
         ? questions[prevNo - 1]?.answerClarification || ""
-        : ""
+        : "",
     );
     setError("");
   };
@@ -151,7 +151,7 @@ const PaperLearningMain = () => {
         paperId,
         answers.map((ans) => [ans]),
         timeSpent,
-        PAPER_MODES.LEARNING
+        PAPER_MODES.LEARNING,
       );
 
       if (res?.data?.id) {
@@ -211,7 +211,7 @@ const PaperLearningMain = () => {
                       : "bg-gray-200",
                     activeQuestion?.no === i + 1
                       ? "border-2 border-purple-700"
-                      : ""
+                      : "",
                   )}
                   key={i}
                 >
@@ -251,7 +251,7 @@ const PaperLearningMain = () => {
                   "px-4 py-2 rounded-full font-semibold",
                   isCorrect
                     ? "bg-green-100 text-green-700"
-                    : "bg-red-100 text-red-700"
+                    : "bg-red-100 text-red-700",
                 )}
               >
                 {isCorrect ? "Correct!" : "Incorrect"}
@@ -302,19 +302,27 @@ const PaperLearningMain = () => {
                   key={idx}
                   onClick={() => handleSelectAnswer(idx)}
                   className={classNames(
-                    "p-3 rounded-lg border cursor-pointer transition",
+                    "flex p-3 rounded-lg border cursor-pointer transition",
                     isChecked
                       ? right
                         ? "bg-green-100 border-green-500"
                         : selected
-                        ? "bg-red-100 border-red-500"
-                        : "bg-gray-50 border-gray-300 opacity-70"
+                          ? "bg-red-100 border-red-500"
+                          : "bg-gray-50 border-gray-300 opacity-70"
                       : selected
-                      ? "bg-purple-100 border-purple-500"
-                      : "border-purple-200 hover:bg-purple-50 hover:border-purple-500"
+                        ? "bg-purple-100 border-purple-500"
+                        : "border-purple-200 hover:bg-purple-50 hover:border-purple-500",
                   )}
                 >
-                  ({number}) &nbsp; {opt}
+                  ({number}) &nbsp;{" "}
+                  <span>
+                    <ReactMarkdown
+                      remarkPlugins={[remarkMath]}
+                      rehypePlugins={[rehypeKatex]}
+                    >
+                      {opt}
+                    </ReactMarkdown>
+                  </span>
                 </div>
               );
             })}
@@ -351,7 +359,7 @@ const PaperLearningMain = () => {
         <div
           className={classNames(
             "flex",
-            activeQuestion?.no === 1 ? "justify-end" : "justify-between"
+            activeQuestion?.no === 1 ? "justify-end" : "justify-between",
           )}
         >
           {activeQuestion?.no !== 1 && (

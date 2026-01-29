@@ -15,6 +15,10 @@ import markService from "../../../../services/mark.service";
 import PageLoader from "../../../shared/loading/PageLoader";
 import { formatTimeSpent } from "../../../../utils/general";
 import HelmetComp from "../../../shared/seo/HelmetComp";
+import ReactMarkdown from "react-markdown";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import config from "../../../../config/aws";
 
 const MarkMain = () => {
   const [marks, setMarks] = useState(null);
@@ -34,7 +38,7 @@ const MarkMain = () => {
         // Replace with your actual API calls
         const res = await getMarksByMarkId(markId);
         const result = await getAllQuestionsAndAnswersByPaperId(
-          res.data.paper._id
+          res.data.paper._id,
         );
         setQuestions(result?.data?.questions || []);
         setMarks(res?.data || null);
@@ -321,8 +325,8 @@ const MarkMain = () => {
               userAnswers.length === 0
                 ? "bg-gray-100"
                 : isCorrect
-                ? "bg-green-100"
-                : "bg-red-100"
+                  ? "bg-green-100"
+                  : "bg-red-100"
             }`}
                 onClick={() => {
                   // OPTIONAL: scroll to specific question
@@ -375,8 +379,8 @@ const MarkMain = () => {
                         userAnswers?.length === 0
                           ? "bg-gray-100"
                           : isCorrect
-                          ? "bg-green-100"
-                          : "bg-red-100"
+                            ? "bg-green-100"
+                            : "bg-red-100"
                       }`}
                     >
                       {userAnswers?.length === 0 ? (
@@ -398,8 +402,8 @@ const MarkMain = () => {
                               question.difficulty === "Easy"
                                 ? "bg-green-100 text-green-700"
                                 : question.difficulty === "Medium"
-                                ? "bg-amber-100 text-amber-700"
-                                : "bg-red-100 text-red-700"
+                                  ? "bg-amber-100 text-amber-700"
+                                  : "bg-red-100 text-red-700"
                             }`}
                           >
                             {question.difficulty}
@@ -407,19 +411,29 @@ const MarkMain = () => {
                         )}
                       </div>
                       <p className="text-gray-900 text-sm leading-relaxed whitespace-pre-wrap">
-                        {question.question}
+                        <ReactMarkdown
+                          remarkPlugins={[remarkMath]}
+                          rehypePlugins={[rehypeKatex]}
+                        >
+                          {question.question}
+                        </ReactMarkdown>
                       </p>
                       {question.image && (
                         <img
-                          src={question.image}
+                          src={`${config.S3_PUBLIC_URL}/${question.image}`}
                           alt={`Question ${question.no}`}
-                          className="mt-4 max-w-full rounded-lg border border-gray-200"
+                          className="mt-4 max-w-3xl"
                           loading="lazy"
                         />
                       )}
                       {question.restOfQuestion && (
                         <p className="mt-4 text-gray-900 whitespace-pre-wrap">
-                          {question.restOfQuestion}
+                          <ReactMarkdown
+                            remarkPlugins={[remarkMath]}
+                            rehypePlugins={[rehypeKatex]}
+                          >
+                            {question.restOfQuestion}
+                          </ReactMarkdown>
                         </p>
                       )}
                     </div>
@@ -441,12 +455,19 @@ const MarkMain = () => {
                               isCorrectOption
                                 ? "border-green-400 bg-green-50 text-green-900"
                                 : isUserOption
-                                ? "border-red-400 bg-red-50 text-red-900"
-                                : "border-purple-200"
+                                  ? "border-red-400 bg-red-50 text-red-900"
+                                  : "border-purple-200"
                             }`}
                           >
                             <div>({optionNumber})</div>
-                            <span>{option}</span>
+                            <span>
+                              <ReactMarkdown
+                                remarkPlugins={[remarkMath]}
+                                rehypePlugins={[rehypeKatex]}
+                              >
+                                {option}
+                              </ReactMarkdown>
+                            </span>
                           </div>
                         );
                       })}
@@ -464,8 +485,13 @@ const MarkMain = () => {
                           <h4 className="text-sm font-semibold text-blue-900 mb-2">
                             Explanation
                           </h4>
-                          <p className="text-sm text-blue-800 leading-relaxed">
-                            {question.answerClarification}
+                          <p className="text-sm text-blue-800 leading-relaxed whitespace-pre-wrap">
+                            <ReactMarkdown
+                              remarkPlugins={[remarkMath]}
+                              rehypePlugins={[rehypeKatex]}
+                            >
+                              {question.answerClarification}
+                            </ReactMarkdown>
                           </p>
                         </div>
                       </div>
