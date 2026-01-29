@@ -22,6 +22,12 @@ const VideoGuidesMain = () => {
 
 "Smart විදිහට ඉගෙන ගන්න" එක් වරක් ගෙවා ජීවිත කාලයටම Unlimited Access ලබාගන්න. Learning & Exam Modes, සවිස්තරාත්මක විවරණ, සහ ඔබේ ප්‍රගතිය මැනිය හැකි Smart Analytics සමඟ ඕනෑම Device එකකින් ඕනෑම තැනක සිට practice කරන්න.`,
     },
+    {
+      id: 3,
+      title: "3. විනාඩියෙන් MCQ ලොක්කා එකේ Free Account එකක් හදාගන්නේ කොහොමද?",
+      url: "https://www.youtube.com/embed/kdxO5kAy9TU",
+      description: `විභාගය ජයගන්න Smart විදිහට සූදානම් වෙන්න කැමති ඔයාට, MCQ ලොක්කා platform එකට ඉතාම ලෙහෙසියෙන් ලියාපදිංචි වෙන්න පුළුවන් ආකාරය මේ වීඩියෝ එකෙන් අපි පෙන්වනවා. කිසිම ගාස්තුවක් නැතුව Free Account එකක් හදලා අදම ඔයාගේ වැඩ පටන් ගන්න!`,
+    },
   ];
 
   return (
