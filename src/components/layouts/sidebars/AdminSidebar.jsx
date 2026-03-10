@@ -27,6 +27,7 @@ import {
   ADMIN_SUBJECT_CREATE_PATH,
   ADMIN_SUBJECT_MANAGE_PATH,
   ADMIN_BULK_LESSON_CREATE_PATH,
+  ADMIN_PAPER_BULK_CREATE_PATH,
 } from "../../../constants/routes";
 
 // Define menu items dynamically
@@ -72,6 +73,12 @@ const menuItems = [
     isParent: false,
   },
   {
+    path: ADMIN_PAPER_BULK_CREATE_PATH,
+    label: "Create bulk papers",
+    icon: Edit2,
+    isParent: false,
+  },
+  {
     label: "Lessons",
     icon: BookOpen,
     isParent: true,
@@ -84,7 +91,7 @@ const menuItems = [
   },
   {
     path: ADMIN_BULK_LESSON_CREATE_PATH,
-    label: "Create bulk lesson",
+    label: "Create bulk lessons",
     icon: Plus,
     isParent: false,
   },

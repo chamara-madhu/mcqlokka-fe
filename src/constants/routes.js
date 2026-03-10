@@ -33,6 +33,7 @@ export const ADMIN_SUBJECT_MANAGE_PATH = "/admin/subjects/manage";
 export const ADMIN_PAPER_CREATE_PATH = "/admin/papers/create";
 export const ADMIN_PAPER_EDIT_PATH = "/admin/papers/create/:id";
 export const ADMIN_PAPER_MANAGE_PATH = "/admin/papers/manage";
+export const ADMIN_PAPER_BULK_CREATE_PATH = "/admin/papers/bulk-create";
 export const ADMIN_LESSON_CREATE_PATH = "/admin/lessons/create";
 export const ADMIN_BULK_LESSON_CREATE_PATH = "/admin/lessons/bulk/create";
 export const ADMIN_LESSON_EDIT_PATH = "/admin/lessons/create/:id";

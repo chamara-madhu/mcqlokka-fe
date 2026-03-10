@@ -44,6 +44,7 @@ import {
   ADMIN_BULK_LESSON_CREATE_PATH,
   PAPER_DETAILS_PATH,
   VIDEO_TUTORIALS_PATH,
+  ADMIN_PAPER_BULK_CREATE_PATH,
 } from "./constants/routes";
 import Paper from "./pages/students/Paper";
 import CreatePaper from "./pages/admin/paper/CreatePaper";
@@ -83,6 +84,7 @@ import PaperLearning from "./pages/students/PaperLearning";
 import CreateBulkLesson from "./pages/admin/lesson/CreateBulkLesson";
 import PaperDetails from "./pages/PaperDetails";
 import VideoGuides from "./pages/VideoGuides";
+import CreateBulkPaper from "./pages/admin/paper/CreateBulkPaper";
 
 function App() {
   // Create a private route for passengers
@@ -97,7 +99,11 @@ function App() {
 
   // Create a private route for admins
   const BothRoute = () => {
-    return auth_token() && (isAdmin() || isStudent())? <Outlet /> : <Navigate to="/login" />;
+    return auth_token() && (isAdmin() || isStudent()) ? (
+      <Outlet />
+    ) : (
+      <Navigate to="/login" />
+    );
   };
 
   const handleLogout = () => {
@@ -155,7 +161,11 @@ function App() {
         </Route>
 
         <Route exact path={MCQ_LEARNING_MODE_PATH} element={<StudentRoute />}>
-          <Route path={MCQ_LEARNING_MODE_PATH} exact element={<PaperLearning />} />
+          <Route
+            path={MCQ_LEARNING_MODE_PATH}
+            exact
+            element={<PaperLearning />}
+          />
         </Route>
 
         <Route exact path={MCQ_EXAM_RESULTS_PATH} element={<StudentRoute />}>
@@ -198,6 +208,18 @@ function App() {
           />
         </Route>
 
+        <Route
+          exact
+          path={ADMIN_PAPER_BULK_CREATE_PATH}
+          element={<AdminRoute />}
+        >
+          <Route
+            path={ADMIN_PAPER_BULK_CREATE_PATH}
+            exact
+            element={<CreateBulkPaper />}
+          />
+        </Route>
+
         <Route exact path={ADMIN_PAPER_EDIT_PATH} element={<AdminRoute />}>
           <Route path={ADMIN_PAPER_EDIT_PATH} exact element={<CreatePaper />} />
         </Route>
@@ -218,7 +240,11 @@ function App() {
           />
         </Route>
 
-        <Route exact path={ADMIN_BULK_LESSON_CREATE_PATH} element={<AdminRoute />}>
+        <Route
+          exact
+          path={ADMIN_BULK_LESSON_CREATE_PATH}
+          element={<AdminRoute />}
+        >
           <Route
             path={ADMIN_BULK_LESSON_CREATE_PATH}
             exact

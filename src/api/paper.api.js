@@ -8,6 +8,10 @@ const createPaper = async (data) => {
   });
 };
 
+const createBulkPaper = async (data) => {
+  return await axios.post("/papers/bulk", data);
+};
+
 const getAllPapers = async (params = {}) => {
   return await axios.get("/papers", { params });
 };
@@ -42,6 +46,7 @@ const checkEligibility = async (id) => {
 
 export default {
   createPaper,
+  createBulkPaper,
   getAllPapers,
   getPaperById,
   updatePaper,

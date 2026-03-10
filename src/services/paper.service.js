@@ -2,6 +2,7 @@ import ApiIndex from "../api";
 
 const paperService = () => ({
   createPaper: (data) => ApiIndex.PaperApi.createPaper(data),
+  createBulkPaper: (data) => ApiIndex.PaperApi.createBulkPaper(data),
   getAllPapers: (query) => ApiIndex.PaperApi.getAllPapers(query),
   getPaperById: (id) => ApiIndex.PaperApi.getPaperById(id),
   updatePaper: (id, data) => ApiIndex.PaperApi.updatePaper(id, data),
