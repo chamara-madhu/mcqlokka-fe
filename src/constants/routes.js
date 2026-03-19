@@ -40,6 +40,7 @@ export const ADMIN_LESSON_EDIT_PATH = "/admin/lessons/create/:id";
 export const ADMIN_LESSON_MANAGE_PATH = "/admin/lessons/manage";
 export const ADMIN_QUESTION_CREATE_PATH = "/admin/questions/create";
 export const ADMIN_EXTRACT_QUESTION_PATH = "/admin/questions/ai-extract";
+export const ADMIN_AI_ANSWERED_PATH = "/admin/questions/ai-answered";
 export const ADMIN_GENERATE_MODEL_QUESTION_PATH = "/admin/questions/ai-model-paper-generation";
 export const ADMIN_QUESTION_EDIT_PATH = "/admin/questions/create/:id";
 export const ADMIN_QUESTION_MANAGE_PATH = "/admin/questions/manage";

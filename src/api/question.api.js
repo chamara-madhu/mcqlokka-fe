@@ -52,6 +52,10 @@ const scanQuestion = async (formData) => {
   });
 };
 
+const aiUpdateQuestion = async (data) => {
+  return await axios.put("/questions/ai/update", data);
+};
+
 const generateModelPaper = async (data) => {
   return await axios.post("/questions/model/paper", data);
 };
@@ -75,6 +79,7 @@ export default {
   removeAllByPaperId,
   updateApprovalStatus,
   scanQuestion,
+  aiUpdateQuestion,
   generateModelPaper,
   lessonStatsByPaper,
   getLessonsWiseQuestions

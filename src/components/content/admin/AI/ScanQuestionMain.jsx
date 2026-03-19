@@ -1,19 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import FeatherIcon from "feather-icons-react";
-import {
-  QUESTION_TYPES_OPTIONS,
-  QUESTION_DIFFICULTY_TYPES_OPTIONS,
-} from "../../../../constants/base";
-import FormTextarea from "../../../shared/fields/FormTextarea";
-import FormInput from "../../../shared/fields/FormInput";
 import questionService from "../../../../services/question.service";
 import paperService from "../../../../services/paper.service";
-import lessonService from "../../../../services/lesson.service";
 import TypeOrSelect from "../../../shared/fields/TypeOrSelect";
 import Button from "../../../shared/buttons/Button";
-import { ADMIN_QUESTION_MANAGE_PATH } from "../../../../constants/routes";
 import PageHeader from "../../../shared/headers/PageHeader";
 
 const initialState = {
@@ -27,10 +18,6 @@ const ScanQuestionMain = () => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isDragging, setIsDragging] = useState(false); // For drag-and-drop hover effect
-
-  const navigate = useNavigate();
-
-  console.log("file", file);
 
   const { getAllPapers } = paperService();
   const { scanQuestion } = questionService();
@@ -100,26 +87,6 @@ const ScanQuestionMain = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // useEffect(() => {
-  //   const fetchLessons = async () => {
-  //     try {
-  //       if (!form.paperId) return;
-
-  //       const res = await getAllLessonsByPaperId(form.paperId);
-  //       const mappedLessons = res?.data?.map((lesson) => ({
-  //         value: lesson._id,
-  //         label: `${lesson.no}. ${lesson.lesson}`,
-  //       }));
-  //       // setLessons(mappedLessons);
-  //     } catch (error) {
-  //       console.error("Error fetching lessons:", error);
-  //     }
-  //   };
-
-  //   fetchLessons();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [form.paperId]);
-
   const isValid = () => {
     let paperId = "";
     let fileErr = "";
@@ -154,12 +121,6 @@ const ScanQuestionMain = () => {
       const formData = new FormData();
       formData.append("paperId", form.paperId);
       formData.append("file", file);
-
-      //   const formData = new FormData();
-      // formData.append('file', file);
-
-      // try {
-      // 	const result = await businessCardScan(formData);
 
       await scanQuestion(formData);
       toast.success("Question successfully created");

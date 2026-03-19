@@ -45,6 +45,7 @@ import {
   PAPER_DETAILS_PATH,
   VIDEO_TUTORIALS_PATH,
   ADMIN_PAPER_BULK_CREATE_PATH,
+  ADMIN_AI_ANSWERED_PATH,
 } from "./constants/routes";
 import Paper from "./pages/students/Paper";
 import CreatePaper from "./pages/admin/paper/CreatePaper";
@@ -85,6 +86,7 @@ import CreateBulkLesson from "./pages/admin/lesson/CreateBulkLesson";
 import PaperDetails from "./pages/PaperDetails";
 import VideoGuides from "./pages/VideoGuides";
 import CreateBulkPaper from "./pages/admin/paper/CreateBulkPaper";
+import AiUpdateQuestion from "./pages/admin/AI/AiUpdateQuestion";
 
 function App() {
   // Create a private route for passengers
@@ -285,6 +287,18 @@ function App() {
             path={ADMIN_EXTRACT_QUESTION_PATH}
             exact
             element={<ScanQuestion />}
+          />
+        </Route>
+
+        <Route
+          exact
+          path={ADMIN_AI_ANSWERED_PATH}
+          element={<AdminRoute />}
+        >
+          <Route
+            path={ADMIN_AI_ANSWERED_PATH}
+            exact
+            element={<AiUpdateQuestion />}
           />
         </Route>
 

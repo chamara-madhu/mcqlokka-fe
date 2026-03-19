@@ -28,6 +28,7 @@ import {
   ADMIN_SUBJECT_MANAGE_PATH,
   ADMIN_BULK_LESSON_CREATE_PATH,
   ADMIN_PAPER_BULK_CREATE_PATH,
+  ADMIN_AI_ANSWERED_PATH,
 } from "../../../constants/routes";
 
 // Define menu items dynamically
@@ -126,6 +127,12 @@ const menuItems = [
   {
     path: ADMIN_EXTRACT_QUESTION_PATH,
     label: "Extract questions",
+    icon: Plus,
+    isParent: false,
+  },
+  {
+    path: ADMIN_AI_ANSWERED_PATH,
+    label: "AI Update questions",
     icon: Plus,
     isParent: false,
   },

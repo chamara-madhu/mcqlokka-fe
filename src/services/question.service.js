@@ -13,6 +13,7 @@ const questionService = () => ({
   removeAllByPaperId: (paperId) => ApiIndex.QuestionApi.removeAllByPaperId(paperId),
   updateApprovalStatus: (id, status) => ApiIndex.QuestionApi.updateApprovalStatus(id, status),
   scanQuestion: (formData) => ApiIndex.QuestionApi.scanQuestion(formData),
+  aiUpdateQuestion: (data) => ApiIndex.QuestionApi.aiUpdateQuestion(data),
   generateModelPaper: (data) => ApiIndex.QuestionApi.generateModelPaper(data),
   lessonStatsByPaper: (paperId) => ApiIndex.QuestionApi.lessonStatsByPaper(paperId),
   getLessonsWiseQuestions: (subjectId) => ApiIndex.QuestionApi.getLessonsWiseQuestions(subjectId),
