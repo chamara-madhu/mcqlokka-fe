@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -18,8 +18,14 @@
     <!-- Open Graph defaults -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="MCQ Lokka" />
-    <meta property="og:title" content="MCQ Lokka | O/L & A/L MCQ Practice Platform Sri Lanka" />
-    <meta property="og:description" content="MCQ Lokka is Sri Lanka's online MCQ practice platform for O/L & A/L students with past papers, lesson-wise questions, and explanations." />
+    <meta
+      property="og:title"
+      content="MCQ Lokka | O/L & A/L MCQ Practice Platform Sri Lanka"
+    />
+    <meta
+      property="og:description"
+      content="MCQ Lokka is Sri Lanka's online MCQ practice platform for O/L & A/L students with past papers, lesson-wise questions, and explanations."
+    />
     <meta property="og:url" content="https://mcqlokka.com" />
 
     <!-- Google tag (gtag.js) -->
@@ -36,8 +42,46 @@
 
       gtag("config", "G-69N1HDSZ5E");
     </script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js",
+      );
+      fbq("init", "3950216291942398");
+      fbq("track", "PageView");
+    </script>
+    <!-- End Meta Pixel Code -->
   </head>
   <body>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=3950216291942398&ev=PageView&noscript=1"
+    /></noscript>
+    
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

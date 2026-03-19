@@ -99,18 +99,18 @@ function Footer() {
       alt: "Facebook",
       delay: 1.1,
     },
-    {
-      href: "https://www.instagram.com/mcqlokka/",
-      src: InstagramIcon,
-      alt: "Instagram",
-      delay: 1.3,
-    },
-    {
-      href: "https://www.tiktok.com/@mcqlokka",
-      src: TiktokIcon,
-      alt: "Tiktok",
-      delay: 1.3,
-    },
+    // {
+    //   href: "https://www.instagram.com/mcqlokka/",
+    //   src: InstagramIcon,
+    //   alt: "Instagram",
+    //   delay: 1.3,
+    // },
+    // {
+    //   href: "https://www.tiktok.com/@mcqlokka",
+    //   src: TiktokIcon,
+    //   alt: "Tiktok",
+    //   delay: 1.3,
+    // },
     {
       href: "https://wa.me/94710193314",
       src: WhatsappIcon,
