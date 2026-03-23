@@ -40,7 +40,7 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 const gradeColors = {
@@ -131,7 +131,7 @@ function AllPapersBySubjectMain() {
         passRate: Math.round(
           ((allStats[0].a + allStats[0].b + allStats[0].c + allStats[0].s) /
             allStats[0].noOfStuds) *
-            100
+            100,
         ),
         aPassRate: Math.round((allStats[0].a / allStats[0].noOfStuds) * 100),
         year: allStats[0].year,
@@ -142,17 +142,17 @@ function AllPapersBySubjectMain() {
   const avgStats = allStats?.[0]?.year
     ? {
         totalStudents: Math.round(
-          allStats.reduce((sum, s) => sum + s.noOfStuds, 0) / allStats.length
+          allStats.reduce((sum, s) => sum + s.noOfStuds, 0) / allStats.length,
         ),
         passRate: Math.round(
           (allStats.reduce((sum, s) => sum + s.a + s.b + s.c + s.s, 0) /
             allStats.reduce((sum, s) => sum + s.noOfStuds, 0)) *
-            100
+            100,
         ),
         aPassRate: Math.round(
           (allStats.reduce((sum, s) => sum + s.a, 0) /
             allStats.reduce((sum, s) => sum + s.noOfStuds, 0)) *
-            100
+            100,
         ),
         year: `${allStats[allStats.length - 1].year}-${allStats[0].year}`,
       }
@@ -186,8 +186,8 @@ function AllPapersBySubjectMain() {
                     ? "G.C.E - Advanced Level"
                     : "අ.පො.ස. උසස් පෙළ"
                   : subject?.medium === MEDIUMS.ENGLISH
-                  ? "G.C.E - Ordinary Level"
-                  : "අ.පො.ස. සාමාන්‍ය පෙළ"}
+                    ? "G.C.E - Ordinary Level"
+                    : "අ.පො.ස. සාමාන්‍ය පෙළ"}
               </p>
               <div className="flex flex-wrap gap-3">
                 <span className="px-4 py-2 bg-purple-200 backdrop-blur-md rounded-lg text-black text-sm font-medium">
@@ -345,6 +345,7 @@ function AllPapersBySubjectMain() {
             </div>
           </div>
         ) : null}
+
         {/* Tabs Navigation */}
         <div className="bg-white border p-2 my-8 rounded-lg">
           <div className="flex gap-2 overflow-x-auto scrollbar-hide">
@@ -364,9 +365,7 @@ function AllPapersBySubjectMain() {
           </div>
         </div>
 
-        {activeTab === "lesson_wise_questions" && (
-          <LessonWiseQuestions />
-        )}
+        {activeTab === "lesson_wise_questions" && <LessonWiseQuestions />}
 
         {activeTab === "syllabus" && (
           <SyllabusContent
@@ -376,7 +375,7 @@ function AllPapersBySubjectMain() {
         )}
 
         {activeTab === "papers" && (
-          <div className="px-6">
+          <div className="sm:px-6">
             <h2 className="text-2xl mt-8 font-bold text-purple-900">
               {subject?.type} Papers
             </h2>
@@ -408,13 +407,19 @@ function AllPapersBySubjectMain() {
             {/* Papers Grid */}
             <div className="grid w-full grid-cols-1 gap-4 mt-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
               {papers?.length > 0 &&
-                papers?.map((paper, index) => (
-                  <PaperCard
-                    key={index}
-                    {...paper}
-                    hasPurchased={hasPurchased}
-                  />
-                ))}
+                papers.map((paper, index) => {
+                  // Check if this is the last item in the array
+                  const isLastItem = index === papers.length - 1;
+
+                  return (
+                    <div
+                      key={index}
+                      className={isLastItem ? "order-first sm:order-none" : ""}
+                    >
+                      <PaperCard {...paper} hasPurchased={hasPurchased} />
+                    </div>
+                  );
+                })}
             </div>
           </div>
         )}
@@ -601,7 +606,7 @@ function AllPapersBySubjectMain() {
                               title={`Grade ${
                                 grades[idx]
                               }: ${count.toLocaleString()} (${percentage.toFixed(
-                                1
+                                1,
                               )}%)`}
                             >
                               {percentage > 8 && `${percentage.toFixed(0)}%`}

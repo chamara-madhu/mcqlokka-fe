@@ -13,6 +13,8 @@ import SubjectCard from "../../shared/cards/SubjectCard";
 import PageLoader from "../../shared/loading/PageLoader";
 import { Filter, X, Search } from "feather-icons-react";
 import HelmetComp from "../../shared/seo/HelmetComp";
+import { REGISTER_PATH } from "../../../constants/routes";
+import { Link } from "react-router-dom";
 
 const initialFilters = {
   subject: [],
@@ -104,8 +106,8 @@ const AllSubjectsMain = () => {
     filters?.exam?.length === 0 || filters?.exam?.length === 2
       ? AL_SUBJECT_OPTIONS.concat(OL_SUBJECT_OPTIONS)
       : filters?.exam?.includes(EXAMS.AL)
-      ? AL_SUBJECT_OPTIONS
-      : OL_SUBJECT_OPTIONS;
+        ? AL_SUBJECT_OPTIONS
+        : OL_SUBJECT_OPTIONS;
 
   // Filter Section Component
   const FilterSection = ({ isMobile = false }) => (
@@ -240,6 +242,25 @@ const AllSubjectsMain = () => {
         description="Explore all O/L & A/L subjects on MCQ Lokka. Search, filter, and practice lesson-wise MCQs, past papers, and exam questions with detailed explanations anytime, anywhere."
       />
 
+      {/* Mobile Only Banner - Hidden on desktop (lg:hidden) */}
+      <div className="lg:hidden w-full mb-4">
+        <div className="bg-gradient-to-r from-purple-600 to-purple-900 rounded-xl p-4 shadow-md flex items-center justify-between">
+          <div className="flex flex-col">
+            <h3 className="text-white font-bold text-sm">Unlock Full Access</h3>
+            <p className="text-purple-100 text-xs">
+             Track your progress and master your exams.
+            </p>
+          </div>
+          <Link to={REGISTER_PATH}>
+            <button
+              className="bg-white text-purple-600 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap active:scale-95 transition-transform"
+            >
+              Sign Up Free
+            </button>
+          </Link>
+        </div>
+      </div>
+
       {/* Desktop Filters Sidebar */}
       <div className="hidden lg:block">
         <FilterSection />
@@ -249,7 +270,7 @@ const AllSubjectsMain = () => {
       <div className="lg:hidden">
         <button
           onClick={() => setShowMobileFilters(true)}
-          className="flex items-center gap-2 px-4 py-2 mb-4 text-sm font-medium text-purple-600 bg-purple-100 rounded-lg hover:bg-purple-200 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-purple-600 bg-purple-100 rounded-lg hover:bg-purple-200 transition-colors"
         >
           <Filter className="w-4 h-4" />
           Filters
