@@ -74,9 +74,9 @@ const AllSubjectsMain = () => {
     fetch();
   }, []);
 
-  if (preLoading) {
-    return <PageLoader />;
-  }
+  // if (preLoading) {
+  //   return <PageLoader />;
+  // }
 
   // Apply filters
   const filteredPapers = subjects.filter((subject) => {
@@ -248,13 +248,11 @@ const AllSubjectsMain = () => {
           <div className="flex flex-col">
             <h3 className="text-white font-bold text-sm">Unlock Full Access</h3>
             <p className="text-purple-100 text-xs">
-             Track your progress and master your exams.
+              Track your progress and master your exams.
             </p>
           </div>
           <Link to={REGISTER_PATH}>
-            <button
-              className="bg-white text-purple-600 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap active:scale-95 transition-transform"
-            >
+            <button className="bg-white text-purple-600 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap active:scale-95 transition-transform">
               Sign Up Free
             </button>
           </Link>
@@ -312,84 +310,90 @@ const AllSubjectsMain = () => {
 
       {/* Main Content */}
       <div className="flex flex-col flex-1 w-full lg:w-auto">
-        {/* Search and Results Count */}
-        <div className="flex flex-col gap-3 mb-5 sm:flex-row sm:items-end sm:justify-between">
-          <h1 className="text-sm text-purple-500 font-medium">
-            {filteredPapers?.length || 0} Subject
-            {filteredPapers?.length !== 1 ? "s" : ""}
-          </h1>
-
-          {/* Search Bar */}
-          <div className="relative w-full sm:w-auto">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search subjects..."
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              className="w-full sm:w-[300px] md:w-[400px] pl-11 pr-5 py-2.5 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
-            />
-            {searchText && (
-              <button
-                onClick={() => setSearchText("")}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-100"
-              >
-                <X className="w-4 h-4 text-gray-400" />
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Subject Cards Grid */}
-        {filteredPapers?.length > 0 ? (
-          <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-            {filteredPapers.map((subject, index) => (
-              <SubjectCard key={index} subject={subject} />
-            ))}
-          </div>
+        {preLoading ? (
+          <PageLoader />
         ) : (
-          <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="w-20 h-20 mb-4 bg-purple-100 rounded-full flex items-center justify-center">
-              <Search className="w-10 h-10 text-purple-400" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              No subjects found
-            </h3>
-            <p className="text-gray-600 mb-4 max-w-md">
-              {searchText
-                ? `No subjects match "${searchText}". Try adjusting your search or filters.`
-                : "No subjects match your current filters. Try adjusting your selection."}
-            </p>
-            {(searchText || getActiveFilterCount() > 0) && (
-              <button
-                onClick={() => {
-                  setSearchText("");
-                  handleResetFilter();
-                }}
-                className="px-6 py-2 text-purple-600 bg-purple-100 rounded-lg hover:bg-purple-200 transition-colors font-medium"
-              >
-                Clear all filters
-              </button>
-            )}
-          </div>
-        )}
+          <>
+            {/* Search and Results Count */}
+            <div className="flex flex-col gap-3 mb-5 sm:flex-row sm:items-end sm:justify-between">
+              <h1 className="text-sm text-purple-500 font-medium">
+                {filteredPapers?.length || 0} Subject
+                {filteredPapers?.length !== 1 ? "s" : ""}
+              </h1>
 
-        <div className="flex flex-col lg:flex-row gap-4 mt-8">
-          {["CR3vvDkR9rE", "62EnWduVIJk"].map((id) => (
-            <div className="w-full lg:w-1/2">
-              <div className="relative aspect-video overflow-hidden rounded-xl shadow-lg">
-                <iframe
-                  className="absolute inset-0 w-full h-full"
-                  src={`https://www.youtube.com/embed/${id}`}
-                  title="YouTube video player"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
+              {/* Search Bar */}
+              <div className="relative w-full sm:w-auto">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search subjects..."
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                  className="w-full sm:w-[300px] md:w-[400px] pl-11 pr-5 py-2.5 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
                 />
+                {searchText && (
+                  <button
+                    onClick={() => setSearchText("")}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-100"
+                  >
+                    <X className="w-4 h-4 text-gray-400" />
+                  </button>
+                )}
               </div>
             </div>
-          ))}
-        </div>
+
+            {/* Subject Cards Grid */}
+            {filteredPapers?.length > 0 ? (
+              <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                {filteredPapers.map((subject, index) => (
+                  <SubjectCard key={index} subject={subject} />
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-20 text-center">
+                <div className="w-20 h-20 mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+                  <Search className="w-10 h-10 text-purple-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  No subjects found
+                </h3>
+                <p className="text-gray-600 mb-4 max-w-md">
+                  {searchText
+                    ? `No subjects match "${searchText}". Try adjusting your search or filters.`
+                    : "No subjects match your current filters. Try adjusting your selection."}
+                </p>
+                {(searchText || getActiveFilterCount() > 0) && (
+                  <button
+                    onClick={() => {
+                      setSearchText("");
+                      handleResetFilter();
+                    }}
+                    className="px-6 py-2 text-purple-600 bg-purple-100 rounded-lg hover:bg-purple-200 transition-colors font-medium"
+                  >
+                    Clear all filters
+                  </button>
+                )}
+              </div>
+            )}
+
+            <div className="flex flex-col lg:flex-row gap-4 mt-8">
+              {["CR3vvDkR9rE", "62EnWduVIJk"].map((id) => (
+                <div className="w-full lg:w-1/2">
+                  <div className="relative aspect-video overflow-hidden rounded-xl shadow-lg">
+                    <iframe
+                      className="absolute inset-0 w-full h-full"
+                      src={`https://www.youtube.com/embed/${id}`}
+                      title="YouTube video player"
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
