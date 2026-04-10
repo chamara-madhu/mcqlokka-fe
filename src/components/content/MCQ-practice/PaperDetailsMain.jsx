@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import paperService from "../../../services/paper.service";
 import { EXAMS, MEDIUMS } from "../../../constants/base";
 import { Bar } from "react-chartjs-2";
-import markService from "../../../services/mark.service";
 import {
   ShoppingCart,
   CheckCircle,
@@ -12,7 +11,6 @@ import {
   TrendingUp,
   TrendingDown,
   Award,
-  FileText,
   Download,
 } from "lucide-react";
 import {
@@ -47,12 +45,8 @@ const PaperDetailsMain = () => {
   const [addedToCart, setAddedToCart] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const user = JSON.parse(localStorage.getItem("user_data") || "{}");
-
   const { paperId } = useParams();
 
-  const { getHighestMarkStudentsByPaperId } = markService();
   const { getPaperById, checkEligibility } = paperService();
 
   useEffect(() => {
@@ -71,16 +65,6 @@ const PaperDetailsMain = () => {
       setEligibility(res.data);
     };
     fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await getHighestMarkStudentsByPaperId(paperId);
-      setHighestMarkStudents(res?.data || []);
-    };
-    if (paperId) {
-      fetchData();
-    }
   }, []);
 
   const handleAddToCart = (subject) => {
