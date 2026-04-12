@@ -259,7 +259,6 @@ const SignUpLoginMain = ({ isSignUp }) => {
                   value={form.name}
                   onChange={handleChange}
                   error={form.nameErr}
-                  // info="* This name will apply your certificate."
                 />
               )}
               <FormInput
