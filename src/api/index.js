@@ -7,6 +7,7 @@ import paymentApi from "./payment.api";
 import userApi from "./user.api";
 import dashboardApi from "./dashboard.api";
 import subjectApi from "./subject.api";
+import lessonWiseQuestionApi from "./lessonWiseQuestion.api";
 
 export default {
   AuthApi: authApi,
@@ -18,4 +19,5 @@ export default {
   PaymentApi: paymentApi,
   UserApi: userApi,
   DashboardApi: dashboardApi,
+  LessonWiseQuestionApi: lessonWiseQuestionApi,
 };

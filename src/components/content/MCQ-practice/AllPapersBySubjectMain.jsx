@@ -55,7 +55,7 @@ const tabs = [
   { id: "papers", label: "Past Papers" },
   { id: "syllabus", label: "Syllabus" },
   { id: "statistics", label: "Statistics" },
-  { id: "lesson_wise_questions", label: "Lesson-wise Questions" },
+  { id: "lesson_wise_questions", label: "Lesson-wise Questions (Beta)" },
 ];
 
 function AllPapersBySubjectMain() {
